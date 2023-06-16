@@ -1,21 +1,21 @@
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { MouseEvent, useEffect, useState } from "react";
-import Loading from "../../../components/AnimtaionLoading";
-import Button from "../../../components/Button";
-import CartTemp from "../../../components/CartTemp";
-import HeaderBasic from "../../../components/HeaderBasic";
-import Seo from "../../../components/Seo";
-import SkeletonProduct from "../../../components/SkeletonProduct";
-import { db } from "../../../fb";
-import useGetUserData from "../../../hooks/useGetUserData";
-import useIsAdmin from "../../../hooks/useIsAdmin";
-import useLineBreaker from "../../../hooks/useLineBreaker";
-import useProduct from "../../../hooks/useProduct";
-import categoryData from "../../../public/json/categoryData.json";
-import { CategoryDataType, ProductType } from "../../../types";
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { MouseEvent, useEffect, useState } from 'react';
+import Loading from '../../../components/AnimtaionLoading';
+import Button from '../../../components/Button';
+import CartTemp from '../../../components/CartTemp';
+import HeaderBasic from '../../../components/HeaderBasic';
+import Seo from '../../../components/Seo';
+import SkeletonProduct from '../../../components/SkeletonProduct';
+import { db } from '../../../fb';
+import useGetUserData from '../../../hooks/useGetUserData';
+import useIsAdmin from '../../../hooks/useIsAdmin';
+import useLineBreaker from '../../../hooks/useLineBreaker';
+import useProduct from '../../../hooks/useProduct';
+import categoryData from '../../../public/json/categoryData.json';
+import { CategoryDataType, ProductType } from '../../../types';
 
 interface serverSideProductType extends ProductType {
   isError?: boolean;
@@ -29,7 +29,7 @@ const Product = (productData: serverSideProductType) => {
     reload,
     isFallback,
   } = useRouter();
-  const [uploadDate, setUploadDate] = useState<string>("");
+  const [uploadDate, setUploadDate] = useState<string>('');
   const isAdmin = useIsAdmin(userData);
   const {
     deleteProduct: { mutateAsync: deleteProduct, isLoading: deleting },
@@ -39,20 +39,20 @@ const Product = (productData: serverSideProductType) => {
     e.preventDefault();
 
     if (!userData && !isAdmin) {
-      window.alert("권한이 없습니다.");
+      window.alert('권한이 없습니다.');
       return;
     }
 
-    window.confirm("제품을 삭제하시겠습니까?") &&
+    window.confirm('제품을 삭제하시겠습니까?') &&
       deleteProduct(id as string)
         .catch((error) => {
           console.error(error);
           window.alert(
-            "제품 삭제 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+            '제품 삭제 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요.'
           );
         })
         .then(() => {
-          window.alert("제품이 삭제되었습니다.");
+          window.alert('제품이 삭제되었습니다.');
           reload();
         });
   };
@@ -70,9 +70,9 @@ const Product = (productData: serverSideProductType) => {
     const date = new Date(productData.date);
     const parseDate =
       date.getFullYear() +
-      " / " +
+      ' / ' +
       (date.getMonth() + 1) +
-      " / " +
+      ' / ' +
       date.getDate();
 
     setUploadDate(parseDate);
@@ -83,12 +83,12 @@ const Product = (productData: serverSideProductType) => {
       <Seo
         title={productData?.name}
         description={
-          (productData?.description ? productData?.description + " " : "") +
+          (productData?.description ? productData?.description + ' ' : '') +
           `지금 RAEBEF에서 ${productData?.name}을 확인해보세요.`
         }
         url={
           process.env.NEXT_PUBLIC_ABSOLUTE_URL +
-          "/products/product/" +
+          '/products/product/' +
           productData?.id
         }
         img={productData?.thumbnail?.src}
@@ -98,8 +98,8 @@ const Product = (productData: serverSideProductType) => {
           text: productData.name
             ? productData.name
             : isFallback
-            ? "불러오는 중..."
-            : "존재하지 않는 제품입니다.",
+            ? '불러오는 중...'
+            : '존재하지 않는 제품입니다.',
         }}
       />
 
@@ -153,14 +153,14 @@ const Product = (productData: serverSideProductType) => {
                           productData.category
                         ].subCategories?.find(
                           (cur) => cur.path === productData.subCategory
-                        )?.name || ""}
+                        )?.name || ''}
                       </Link>
                     </li>
                   </ol>
                 </nav>
 
                 <h2 className="text-xl font-semibold">
-                  {productData.price.toLocaleString("ko-KR")} ₩
+                  {productData.price.toLocaleString('ko-KR')} ₩
                 </h2>
 
                 <h3 className="text-sm text-zinc-500">{uploadDate}</h3>
@@ -228,7 +228,7 @@ export async function getStaticProps({ params }: any) {
 
   if (!id) return { props: { isError: true } };
 
-  const docRef = doc(db, "products", id);
+  const docRef = doc(db, 'products', id);
   const docSnap = await getDoc(docRef).catch((error) => {
     console.error(error);
   });
@@ -239,7 +239,7 @@ export async function getStaticProps({ params }: any) {
 }
 
 export async function getStaticPaths() {
-  const querySnapshot = await getDocs(collection(db, "products"));
+  const querySnapshot = await getDocs(collection(db, 'products'));
   const paths: Array<{ params: { id: string } }> = [];
 
   querySnapshot.forEach((doc) => {

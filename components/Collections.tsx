@@ -1,9 +1,9 @@
-import CollectionSectionSlide from "./CollectionSectionSlide";
-import CollectionSectionThumbnail from "./CollectionSectionThumbnail";
-import HeaderHomeSection from "./HeaderHomeSection";
-import useGetCollections from "../hooks/useGetCollections";
-import Loading from "./AnimtaionLoading";
-import { CollectionType } from "../types";
+import CollectionSectionSlide from './CollectionSectionSlide';
+import CollectionSectionThumbnail from './CollectionSectionThumbnail';
+import HeaderHomeSection from './HeaderHomeSection';
+import useGetCollections from '../hooks/useGetCollections';
+import Loading from './AnimtaionLoading';
+import { CollectionType } from '../types';
 
 const Collections = () => {
   const { data: collections, isError, isFetching } = useGetCollections();

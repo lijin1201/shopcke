@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-export type TempCartType = { [key in SizeType]?: number | "" };
+export type TempCartType = { [key in SizeType]?: number | '' };
 
 export interface ConfirmPaymentData {
   amount: number;
@@ -14,15 +14,15 @@ export interface DashboardDataType {
 }
 
 export type OrderStatusType =
-  | "Payment in progress"
-  | "Payment failed"
-  | "Payment cancelled"
-  | "Payment completed"
-  | "Preparing product"
-  | "Shipping in progress"
-  | "Refund completed"
-  | "Order Cancelled"
-  | "Complete";
+  | 'Payment in progress'
+  | 'Payment failed'
+  | 'Payment cancelled'
+  | 'Payment completed'
+  | 'Preparing product'
+  | 'Shipping in progress'
+  | 'Refund completed'
+  | 'Order Cancelled'
+  | 'Complete';
 
 export interface OrderData {
   amount: number;
@@ -131,50 +131,50 @@ export interface ProductListType {
 export interface FilterType {
   category: string;
   subCategory: string;
-  gender: GenderType | "";
+  gender: GenderType | '';
   size: Array<SizeType>;
-  color: ColorType | "";
+  color: ColorType | '';
   orderby: OrderType;
   keywords?: string;
 }
 
-export type OrderOrderbyType = "updated" | "createdAt" | "createdAtAcs";
+export type OrderOrderbyType = 'updated' | 'createdAt' | 'createdAtAcs';
 
 export interface OrderFilterType {
   orderby: OrderOrderbyType;
-  status: OrderStatusType | "all";
+  status: OrderStatusType | 'all';
   orderId: string;
   uid: string;
 }
 
-export type FilterNameType = "gender" | "size" | "color";
+export type FilterNameType = 'gender' | 'size' | 'color';
 
 export interface StockType {
-  xs?: number | "";
-  s?: number | "";
-  m?: number | "";
-  l?: number | "";
-  xl?: number | "";
-  xxl?: number | "";
-  xxxl?: number | "";
-  other?: number | "";
+  xs?: number | '';
+  s?: number | '';
+  m?: number | '';
+  l?: number | '';
+  xl?: number | '';
+  xxl?: number | '';
+  xxxl?: number | '';
+  other?: number | '';
 }
 
-export type GenderType = "male" | "female" | "all";
-export type SizeType = "xs" | "s" | "m" | "l" | "xl" | "xxl" | "xxxl" | "other";
+export type GenderType = 'male' | 'female' | 'all';
+export type SizeType = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' | 'other';
 export type ColorType =
-  | "black"
-  | "white"
-  | "gray"
-  | "red"
-  | "orange"
-  | "brown"
-  | "beige"
-  | "blue"
-  | "skyblue"
-  | "green";
+  | 'black'
+  | 'white'
+  | 'gray'
+  | 'red'
+  | 'orange'
+  | 'brown'
+  | 'beige'
+  | 'blue'
+  | 'skyblue'
+  | 'green';
 
-export type OrderType = "popularity" | "date" | "priceAsc" | "priceDes";
+export type OrderType = 'popularity' | 'date' | 'priceAsc' | 'priceDes';
 
 export interface FilterCheckbox {
   value: GenderType & ColorType & SizeType;
@@ -201,12 +201,13 @@ export interface CategoryDataType {
 }
 
 export type CategoryName =
-  | "all"
-  | "clothes"
-  | "accessory"
-  | "shoes"
-  | "bag"
-  | "jewel";
+  | 'all'
+  | 'clothes'
+  | 'headphone'
+  | 'accessory'
+  | 'shoes'
+  | 'bag'
+  | 'jewel';
 
 export interface ImageType {
   src: string;

@@ -1,40 +1,40 @@
-import Image from "next/image";
-import Link from "next/link";
-import logo from "../public/logos/logo512.svg";
-import logo2 from "../public/logos/logo2.svg";
-import { Category } from "../types";
-import categoryData from "../public/json/categoryData.json";
-import cartIcon from "../public/icons/cart-nav.svg";
-import profileIcon from "../public/icons/profile-nav.svg";
-import loginIcon from "../public/icons/login-nav.svg";
-import searchIcon from "../public/icons/search-nav.svg";
-import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import useInput from "../hooks/useInput";
-import { useRouter } from "next/router";
-import useGetUserData from "../hooks/useGetUserData";
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '../public/logos/HanaE-logo.png';
+import logo2 from '../public/logos/HaneE-logo2.png';
+import { Category } from '../types';
+import categoryData from '../public/json/categoryData.json';
+import cartIcon from '../public/icons/cart-nav.svg';
+import profileIcon from '../public/icons/profile-nav.svg';
+import loginIcon from '../public/icons/login-nav.svg';
+import searchIcon from '../public/icons/search-nav.svg';
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import useInput from '../hooks/useInput';
+import { useRouter } from 'next/router';
+import useGetUserData from '../hooks/useGetUserData';
 
 const LayoutNav = () => {
   const {
     value: keywords,
     setValue: setKeywords,
     onChange: onKeywordsChange,
-  } = useInput("");
+  } = useInput('');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
   const { push, query } = useRouter();
   const { data: userData } = useGetUserData();
 
   const categoryNavGenerator = (category: Category, i: number) => {
-    if (category.path === "all") return null;
+    if (category.path === 'all') return null;
 
     return (
       <li key={i}>
         <Link
           href={{
             pathname: `/products/categories/${category.path}${
-              category.path !== "all" ? "/all" : ""
+              category.path !== 'all' ? '/all' : ''
             }`,
-            query: { orderby: "popularity" },
+            query: { orderby: 'popularity' },
           }}
         >
           <h3 className="mb-3 xs:text-base">{category.name}</h3>
@@ -45,7 +45,7 @@ const LayoutNav = () => {
               <Link
                 href={{
                   pathname: `/products/categories/${category.path}/${subCategory.path}`,
-                  query: { orderby: "popularity" },
+                  query: { orderby: 'popularity' },
                 }}
               >
                 {subCategory.name}
@@ -71,8 +71,8 @@ const LayoutNav = () => {
     if (!keywords || keywords.trim().length === 0) return;
 
     push({
-      pathname: "/products/search",
-      query: { keywords, orderby: "popularity" },
+      pathname: '/products/search',
+      query: { keywords, orderby: 'popularity' },
     });
 
     setShowSearchInput(false);
@@ -83,17 +83,17 @@ const LayoutNav = () => {
     const windowClickHandler = (e: Event) => {
       const target = e.target as HTMLElement;
 
-      !target.classList.contains("search") && setShowSearchInput(false);
+      !target.classList.contains('search') && setShowSearchInput(false);
     };
 
     if (showSearchInput) {
-      window.addEventListener("click", windowClickHandler);
+      window.addEventListener('click', windowClickHandler);
     } else {
-      window.removeEventListener("click", windowClickHandler);
+      window.removeEventListener('click', windowClickHandler);
     }
 
     return () => {
-      window.removeEventListener("click", windowClickHandler);
+      window.removeEventListener('click', windowClickHandler);
     };
   }, [showSearchInput]);
 
@@ -101,17 +101,23 @@ const LayoutNav = () => {
     if (query.keywords) {
       setKeywords(query.keywords as string);
     } else {
-      setKeywords("");
+      setKeywords('');
     }
   }, [query.keywords, setKeywords]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold text-zinc-800">
+    //<nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold text-blue-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold">
       <ol className="mx-auto flex h-full max-w-[1700px] items-center justify-evenly gap-5 xs:gap-2">
         <div className="flex grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
-          <li className="mx-4 w-24 xs:mx-0 xs:ml-2 xs:w-12">
+          <li className="mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12">
             <Link href="/">
-              <Image src={logo} alt="로고" className="xs:hidden" priority />
+              <Image
+                src={logo}
+                alt="로고"
+                className="xs:hidden h-6 w-auto"
+                priority
+              />
               <Image
                 src={logo2}
                 alt="로고"
@@ -152,16 +158,16 @@ const LayoutNav = () => {
                 ref={searchInputRef}
                 placeholder="제품 검색"
                 className={`search z-40 transition-all duration-500 md:absolute md:top-full md:right-0 md:w-screen md:bg-white md:p-4 md:text-xl ${
-                  showSearchInput ? "max-w-full" : "max-w-0 md:px-0"
+                  showSearchInput ? 'max-w-full' : 'max-w-0 md:px-0'
                 }`}
-                style={{ borderBottom: "1px solid #e5e7eb" }}
+                style={{ borderBottom: '1px solid #e5e7eb' }}
                 value={keywords}
                 onChange={onKeywordsChange}
               />
               <button
                 onClick={showSearchInput ? onSearch : onSearchToggle}
                 className={`search flex items-center justify-center gap-1 whitespace-nowrap rounded-md px-1 py-1 transition-all hover:bg-zinc-200 ${
-                  showSearchInput && false && "pointer-events-none opacity-0"
+                  showSearchInput && false && 'pointer-events-none opacity-0'
                 }`}
               >
                 <Image src={searchIcon} alt="Search" className="search w-6" />
@@ -170,12 +176,12 @@ const LayoutNav = () => {
           </li>
           <li>
             <Link
-              href={userData ? "/account?tab=profile" : "/login"}
+              href={userData ? '/account?tab=profile' : '/login'}
               className="flex items-center justify-center gap-1 whitespace-nowrap rounded-md px-1 py-1 transition-all hover:bg-zinc-200"
             >
               <Image
                 src={userData ? profileIcon : loginIcon}
-                alt={userData ? "Account" : "Login"}
+                alt={userData ? 'Account' : 'Login'}
                 className="w-6"
               />
             </Link>
@@ -189,7 +195,7 @@ const LayoutNav = () => {
                 <Image src={cartIcon} alt="Profile" className="w-6" />
                 <span className="absolute top-[-20%] right-[-30%] flex aspect-square h-5 w-5 items-center justify-center rounded-full bg-red-700 text-xs text-white">
                   {Object.keys(userData.cart || {}).length >= 10
-                    ? "9+"
+                    ? '9+'
                     : Object.keys(userData.cart || {}).length}
                 </span>
               </Link>
@@ -197,7 +203,7 @@ const LayoutNav = () => {
           )}
         </div>
       </ol>
-      <style jsx>{`
+      {/* <style jsx>{`
         @media (hover: hover) {
           .btn--category:hover {
             .category__dropdown {
@@ -207,7 +213,7 @@ const LayoutNav = () => {
             }
           }
         }
-      `}</style>
+      `}</style> */}
     </nav>
   );
 };

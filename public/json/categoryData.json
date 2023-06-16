@@ -14,6 +14,14 @@
       { "name": "치마", "path": "skirt" }
     ]
   },
+  "headphone": {
+    "name": "헤드폰",
+    "path": "headphone",
+    "subCategories": [
+      { "name": "헤드폰", "path": "headphone" },
+      { "name": "이어폰", "path": "earphone" }
+    ]
+  },
   "accessory": {
     "name": "악세서리",
     "path": "accessory",

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import categoryData from "../public/json/categoryData.json";
+import Link from 'next/link';
+import categoryData from '../public/json/categoryData.json';
 
 const LayoutFooter = () => {
   return (
@@ -18,7 +18,7 @@ const LayoutFooter = () => {
               >
                 <Link
                   href={`/products/categories/${category.path}${
-                    category.path !== "all" && "/all"
+                    category.path !== 'all' && '/all'
                   }`}
                 >
                   {category.name}
@@ -55,15 +55,12 @@ const LayoutFooter = () => {
           <h3 className="mb-5 font-bold">문의</h3>
           <ul className="flex flex-col gap-2">
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="mailto:drrobot409@gmail.com?subject=[Raebef 문의] - ">
+              <Link href="mailto:lijin1201@gmail.com?subject=[HanaElectron] - ">
                 메일
               </Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="https://rarebeef.co.kr">개발자 홈페이지</Link>
-            </li>
-            <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="https://velog.io/@drrobot409">개발자 블로그</Link>
+              <Link href="https://lijin.vercel.app">개발자 블로그</Link>
             </li>
           </ul>
         </li>
@@ -86,40 +83,40 @@ const LayoutFooter = () => {
       </ul>
 
       <section className="w-full max-w-[1700px] p-5 pb-0 pr-24 text-xs">
-        <h3 className="mb-2 text-xs font-bold">RAEBEF</h3>
+        <h3 className="mb-2 text-xs font-bold">HanaElectron</h3>
         <p className="max-w-[600px]">
-          회사명: Raebef / 대표자: 송의영 / 주소: 대한민국 / 이메일:{" "}
+          회사명: 하니일렉트론 / 대표자: 장재승 / 주소: 대한민국 / 이메일:{' '}
           <Link
-            href="mailto:drrobot409@gmail.com?subject=[Raebef 문의] - "
+            href="mailto:lijin1201@gmail.com?subject=[하나일렉트론 문의] - "
             className="underline transition-all hover:text-zinc-800"
           >
-            drrobot409@gmail.com
+            lijin1201@gmail.com
           </Link>
-          {" / "}
-          홈페이지:{" "}
+          {' / '}
+          홈페이지:{' '}
           <Link
             href="/privacy-policy"
             className="underline transition-all hover:text-zinc-800"
           >
-            rarebeef.co.kr
+            www.hanaelectron.co.kr
           </Link>
-          {" / "}
+          {' / '}
           <Link
             href="/legal-notice"
             className="underline transition-all hover:text-zinc-800"
           >
             이용 약관
           </Link>
-          {" / "}
+          {' / '}
           <Link
             href="/privacy-policy"
             className="underline transition-all hover:text-zinc-800"
           >
             개인정보 처리 방침
           </Link>
-          {" / "}본 웹사이트는 실제가 아닌 개인 학습용으로 제작된 웹사이트이며
-          등록된 제품은 실제 판매되는 제품이 아닙니다. / &copy;{" "}
-          {new Date().getFullYear()}. RAREBEEF All Rights Reserved.
+          {' / '}본 웹사이트는 실제가 아닌 개인 학습용으로 제작된 웹사이트이며
+          등록된 제품은 실제 판매되는 제품이 아닙니다. / &copy;{' '}
+          {new Date().getFullYear()}. HanaElectron All Rights Reserved.
         </p>
       </section>
     </footer>

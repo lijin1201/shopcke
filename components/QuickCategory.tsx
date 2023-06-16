@@ -1,11 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-import clothIcon from "../public/icons/cloth.svg";
-import hatIcon from "../public/icons/hat.svg";
-import shoesIcon from "../public/icons/shoes.svg";
-import bagIcon from "../public/icons/bag.svg";
-import jewelIcon from "../public/icons/jewel.svg";
-import HeaderHomeSection from "./HeaderHomeSection";
+import Image from 'next/image';
+import Link from 'next/link';
+import clothIcon from '../public/icons/cloth.svg';
+import hatIcon from '../public/icons/hat.svg';
+import shoesIcon from '../public/icons/shoes.svg';
+import bagIcon from '../public/icons/bag.svg';
+import jewelIcon from '../public/icons/jewel.svg';
+import headphoneIcon from '../public/icons/headphone.svg';
+import HeaderHomeSection from './HeaderHomeSection';
 
 const QuickCategory = () => {
   return (
@@ -15,8 +16,8 @@ const QuickCategory = () => {
         <li className="group m-auto max-w-[100px] basis-[20%] text-center">
           <Link
             href={{
-              pathname: "/products/categories/clothes/all",
-              query: { orderby: "popularity" },
+              pathname: '/products/categories/clothes/all',
+              query: { orderby: 'popularity' },
             }}
           >
             <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
@@ -33,8 +34,26 @@ const QuickCategory = () => {
         <li className="group m-auto max-w-[100px] basis-[20%] text-center">
           <Link
             href={{
-              pathname: "/products/categories/accessory/all",
-              query: { orderby: "popularity" },
+              pathname: '/products/categories/headphone/all',
+              query: { orderby: 'popularity' },
+            }}
+          >
+            <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
+              <Image
+                src={headphoneIcon}
+                alt="headphone"
+                className="trainsiton-transform w-[70%] duration-500 group-hover:scale-105"
+                priority
+              />
+            </div>
+            <h4>헤드폰</h4>
+          </Link>
+        </li>
+        <li className="group m-auto max-w-[100px] basis-[20%] text-center">
+          <Link
+            href={{
+              pathname: '/products/categories/accessory/all',
+              query: { orderby: 'popularity' },
             }}
           >
             <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
@@ -51,8 +70,8 @@ const QuickCategory = () => {
         <li className="group m-auto max-w-[100px] basis-[20%] text-center">
           <Link
             href={{
-              pathname: "/products/categories/shoes/all",
-              query: { orderby: "popularity" },
+              pathname: '/products/categories/shoes/all',
+              query: { orderby: 'popularity' },
             }}
           >
             <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
@@ -69,8 +88,8 @@ const QuickCategory = () => {
         <li className="group m-auto max-w-[100px] basis-[20%] text-center">
           <Link
             href={{
-              pathname: "/products/categories/bag/all",
-              query: { orderby: "popularity" },
+              pathname: '/products/categories/bag/all',
+              query: { orderby: 'popularity' },
             }}
           >
             <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
@@ -87,8 +106,8 @@ const QuickCategory = () => {
         <li className="group m-auto max-w-[100px] basis-[20%] text-center">
           <Link
             href={{
-              pathname: "/products/categories/jewel/all",
-              query: { orderby: "popularity" },
+              pathname: '/products/categories/jewel/all',
+              query: { orderby: 'popularity' },
             }}
           >
             <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border border-4 border-zinc-200">
@@ -107,7 +126,7 @@ const QuickCategory = () => {
       <style jsx>{`
         .icon {
           &::before {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
