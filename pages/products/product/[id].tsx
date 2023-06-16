@@ -84,7 +84,7 @@ const Product = (productData: serverSideProductType) => {
         title={productData?.name}
         description={
           (productData?.description ? productData?.description + ' ' : '') +
-          `지금 RAEBEF에서 ${productData?.name}을 확인해보세요.`
+          `지금 Shopcke에서 ${productData?.name}을 확인해보세요.`
         }
         url={
           process.env.NEXT_PUBLIC_ABSOLUTE_URL +

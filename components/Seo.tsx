@@ -10,7 +10,7 @@ interface Props {
 const Seo: React.FC<Props> = ({ title, description, url, img }) => {
   return (
     <Head>
-      <title>{title ? `RAEBEF │ ${title}` : "RAEBEF"}</title>
+      <title>{title ? `Shopckt │ ${title}` : "Shopckt"}</title>
       {/* 기본 meta 데이터 */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="author" content="RAREBEEF" />
@@ -18,7 +18,7 @@ const Seo: React.FC<Props> = ({ title, description, url, img }) => {
         name="description"
         content={
           description ||
-          "RAEBEF는 학습 및 포트폴리오 목적으로 제작된 가상의 의류 쇼핑몰 웹사이트입니다."
+          "지금 Shoopcke는 테스트 쇼핑몰 웹사이트입니다."
         }
       />
       {/* 오픈그래프 */}
@@ -29,7 +29,7 @@ const Seo: React.FC<Props> = ({ title, description, url, img }) => {
       />
       <meta
         property="og:title"
-        content={title ? `RAEBEF │ ${title}` : "RAEBEF"}
+        content={title ? `Shopcke │ ${title}` : "Shopcke"}
       />
       <meta
         property="og:image"
@@ -42,7 +42,7 @@ const Seo: React.FC<Props> = ({ title, description, url, img }) => {
         property="og:description"
         content={
           description ||
-          "RAEBEF는 학습 및 포트폴리오 목적으로 제작된 가상의 의류 쇼핑몰 웹사이트입니다."
+          "Shopcke 학습 및 포트폴리오 목적으로 제작된 가상의 의류 쇼핑몰 웹사이트입니다."
         }
       />
       <meta property="og:site_name" content="RAEBEF" />
@@ -51,13 +51,13 @@ const Seo: React.FC<Props> = ({ title, description, url, img }) => {
       <meta name="twitter:card" content="summary" />
       <meta
         name="twitter:title"
-        content={title ? `RAEBEF │ ${title}` : "RAEBEF"}
+        content={title ? `Shopcke │ ${title}` : "Shopcke"}
       />
       <meta
         name="twitter:description"
         content={
           description ||
-          "RAEBEF는 학습 및 포트폴리오 목적으로 제작된 가상의 의류 쇼핑몰 웹사이트입니다."
+          "Shopcke는 테스트 웹사이트입니다."
         }
       />
       <meta
