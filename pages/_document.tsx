@@ -5,7 +5,8 @@ const Document = () => {
     <Html lang="ko-KR">
       <Head>
         {/* 파비콘 */}
-        <link rel="icon" href="/logos/favicon.ico" />
+        <link rel="icon" />
+        {/* href="/logos/favicon.ico" /> */}
         {/* 구글 폰트 */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
