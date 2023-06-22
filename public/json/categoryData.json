@@ -17,51 +17,29 @@
   "headphone": {
     "name": "헤드폰",
     "path": "headphone",
+    "iconClass": "stroke-amber-400 ",
     "subCategories": [
       { "name": "헤드폰", "path": "headphone" },
       { "name": "이어폰", "path": "earphone" }
     ]
   },
-  "accessory": {
-    "name": "악세서리",
-    "path": "accessory",
+  "battery": {
+    "name": "배터리",
+    "path": "battery",
+    "iconClass": "fill-orange-700",
     "subCategories": [
-      { "name": "모자", "path": "hat" },
-      { "name": "벨트", "path": "belt" },
-      { "name": "장갑", "path": "gloves" },
-      { "name": "넥웨어", "path": "neckwear" },
-      { "name": "지갑", "path": "wallet" }
+      { "name": "보조배터리", "path": "auxiliary" },
+      { "name": "리튬 이온", "path": "lithium ion" }
     ]
   },
-  "shoes": {
-    "name": "신발",
-    "path": "shoes",
+  "health food": {
+    "name": "건강식품",
+    "path": "health food",
+    "iconClass": "fill-green-700",
     "subCategories": [
-      { "name": "운동화", "path": "sport" },
-      { "name": "구두", "path": "dress" },
-      { "name": "하이힐", "path": "highheel" },
-      { "name": "샌들", "path": "sandal" },
-      { "name": "부츠", "path": "boots" }
-    ]
-  },
-  "bag": {
-    "name": "가방",
-    "path": "bag",
-    "subCategories": [
-      { "name": "핸드백", "path": "handbag" },
-      { "name": "백팩", "path": "backpack" },
-      { "name": "클러치", "path": "clutch" },
-      { "name": "캐리어", "path": "luggage" }
-    ]
-  },
-  "jewel": {
-    "name": "주얼리",
-    "path": "jewel",
-    "subCategories": [
-      { "name": "귀걸이", "path": "earring" },
-      { "name": "목걸이", "path": "necklace" },
-      { "name": "반지", "path": "ring" },
-      { "name": "시계 및 팔찌", "path": "bracelet" }
+      { "name": "찻잎", "path": "tea leaves" },
+      { "name": "음료수", "path": "drink" },
+      { "name": "기능식품", "path": "functional food" }
     ]
   }
 }

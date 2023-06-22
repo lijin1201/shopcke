@@ -204,10 +204,8 @@ export type CategoryName =
   | 'all'
   | 'clothes'
   | 'headphone'
-  | 'accessory'
-  | 'shoes'
-  | 'bag'
-  | 'jewel';
+  | 'battery'
+  | 'health food';
 
 export interface ImageType {
   src: string;
