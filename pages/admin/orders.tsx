@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import Loading from "../../components/AnimtaionLoading";
-import HeaderBasic from "../../components/HeaderBasic";
-import OrderList from "../../components/OrderList";
-import Seo from "../../components/Seo";
-import useGetUserData from "../../hooks/useGetUserData";
-import useIsAdmin from "../../hooks/useIsAdmin";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Loading from '../../components/AnimtaionLoading';
+import HeaderBasic from '../../components/HeaderBasic';
+import OrderList from '../../components/OrderList';
+import Seo from '../../components/Seo';
+import useGetUserData from '../../hooks/useGetUserData';
+import useIsAdmin from '../../hooks/useIsAdmin';
 
 const Orders = () => {
   const { replace } = useRouter();
@@ -14,8 +14,8 @@ const Orders = () => {
 
   useEffect(() => {
     if (userData && !isAdmin) {
-      window.alert("권한이 없습니다.");
-      replace("/", undefined, { shallow: true });
+      window.alert('권한이 없습니다.');
+      replace('/', undefined, { shallow: true });
     }
   }, [isAdmin, replace, userData]);
 
@@ -23,9 +23,9 @@ const Orders = () => {
     if (isFetched && !userData) {
       replace(
         {
-          pathname: "/login",
+          pathname: '/login',
           query: {
-            from: "/admin",
+            from: '/admin',
           },
         },
         undefined,
@@ -37,7 +37,7 @@ const Orders = () => {
   return (
     <main className="page-container flex flex-col">
       <Seo title="ORDERS" />
-      <HeaderBasic title={{ text: "주문 관리" }} />
+      <HeaderBasic title={{ text: '주문 관리' }} />
       {isAdmin ? (
         <section className="px-12 pb-24 xs:px-5">
           <OrderList userData={userData || null} />

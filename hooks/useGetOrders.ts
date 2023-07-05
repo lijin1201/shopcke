@@ -114,8 +114,18 @@ const getOrders = async (
 
   const snapshot = await getDocs(q);
 
-  snapshot.forEach((doc) => {
+  snapshot.forEach(async (doc) => {
     result.orders.push(doc.data() as OrderData);
+    //original
+    //const docRef = doc(db, 'users', _doc.data().uid);
+    // If want to get users's UserData info here, read:
+    //https://stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop
+    // const docSnap = await getDoc(docRef);
+    // const { addressData: _, ...userSnap } = docSnap.data() as UserData;
+    // result.orders.push({
+    //   ...(_doc.data() as OrderData),
+    //   ...userSnap,
+    // } as OrderData & UserData);
   });
 
   result.lastVisible = snapshot.docs[snapshot.docs.length - 1];

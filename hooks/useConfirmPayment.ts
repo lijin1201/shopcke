@@ -28,10 +28,9 @@ const fetchConfirmPayment = async (data: ConfirmPaymentData | null) => {
 
   const Authorization =
     "Basic " +
-    Buffer.from(
-      process.env.NEXT_PUBLIC_TOSS_SECRET_KEY as string,
-      "utf8"
-    ).toString("base64");
+    Buffer.from(`${process.env.NEXT_PUBLIC_TOSS_TEST_SECRET_KEY}:`).toString(
+      "base64"
+    );
 
   const options = {
     method: "POST",
