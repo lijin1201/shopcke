@@ -187,9 +187,11 @@ const editProfileFn = async ({
   await updateProfile(user, { displayName: name });
 
   // 주소, 전화번호 수정
+  //also update displayName in DB here
   await updateDoc(docRef, {
     addressData,
     phoneNumber,
+    displayname: name,
   }).catch((error) => {
     switch (error.code) {
       // 필드가 없을 경우 새로 추가
@@ -197,6 +199,7 @@ const editProfileFn = async ({
         setDoc(docRef, {
           addressData,
           phoneNumber,
+          displayname: name,
         });
         break;
       default:

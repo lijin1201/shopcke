@@ -55,7 +55,7 @@ const HeaderBasic: React.FC<Props> = ({ title, toHome }) => {
         )}
       </nav>
       {title && (
-        <h1 className="flex items-center gap-3">
+        <h1 className="flex items-center gap-3 text-amber-900">
           {title.href ? (
             <Link href={title.href}>{title.text}</Link>
           ) : (

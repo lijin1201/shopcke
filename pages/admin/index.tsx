@@ -92,6 +92,20 @@ const Index = () => {
                 </li>
               </ul>
             </li>
+            <li>
+              <h3 className="text-2xl font-bold text-zinc-800">사용자 관리</h3>
+              <ul className="mt-5 flex flex-wrap gap-5 pl-5 text-xl font-semibold text-zinc-500">
+                <li>
+                  <Link
+                    href={{
+                      pathname: `/admin/users`,
+                    }}
+                  >
+                    사용자 목록
+                  </Link>
+                </li>
+              </ul>
+            </li>
           </ul>
         </section>
       ) : (

@@ -86,6 +86,9 @@ const getOrders = async (
     queries.push(where("uid", "==", uid));
   }
 
+  //displayName
+  //first we need to get uids for the displayName
+
   // orderID
   if (filter.orderId) {
     queries.push(where("orderId", "==", filter.orderId));

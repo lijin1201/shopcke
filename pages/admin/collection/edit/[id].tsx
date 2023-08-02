@@ -49,7 +49,9 @@ const Edit = () => {
         <section className="px-12 pb-24 xs:px-5">
           <FormCollection
             prevData={
-              collectionData && (collectionData as Array<CollectionType>)[0]
+              Array.isArray(collectionData)
+                ? (collectionData as Array<CollectionType>)[0]
+                : collectionData
             }
           />
         </section>
