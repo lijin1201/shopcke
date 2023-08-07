@@ -14,6 +14,10 @@ import useInput from "../hooks/useInput";
 import useCheckCartStock from "../hooks/useCheckCartStock";
 import SkeletonCart from "./SkeletonCart";
 import useOrderData from "../hooks/useOrderData";
+// import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 interface Props {
   userData: UserData;
@@ -30,6 +34,10 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
   const [tossPayments, setTossPayments] = useState<TossPaymentsInstance | null>(
     null
   );
+  const router = useRouter();
+  // const [orderPlaced, setOrderPlaced] = useState<boolean>(false);
+  // const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
   const { value: ordererName, onChange: onOrdererNameChange } = useInput(
     userData.user?.displayName || ""
   );
@@ -43,6 +51,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
     update: { mutateAsync: updateOrderData },
   } = useOrderData("");
   const cartSummary = useCartSummary(userData, cart, productsData || null);
+  // cartSummary && (cartSummary.totalPrice = 2.2);
 
   const onSameAsOrdererChange = () => {
     setSameAsOrderer((prev) => !prev);
@@ -122,6 +131,179 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
     }
   };
 
+  const onPlaceOrder = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!addressData) {
+      window.alert("주소를 입력해주세요.");
+      return;
+    } else if (!ordererName) {
+      window.alert("주문자 성명을 입력해주세요.");
+      return;
+    } else if (!productsData || !cartSummary || !userData?.user?.uid) {
+      window.alert("잘못된 주문 요청입니다.");
+      return;
+    }
+
+    let orderName = `${productsData[Object.keys(productsData)[0]]?.name}${
+      Object.keys(productsData).length >= 2
+        ? " 외 " + (Object.keys(productsData).length - 1) + "건"
+        : ""
+    }`;
+
+    const orderData: OrderData = {
+      amount: cartSummary.totalPrice,
+      orderId: uuidv4(),
+      uid: userData.user.uid,
+      orderName,
+      recipientName: sameAsOrderer
+        ? (userData.user.displayName as string)
+        : recipientName,
+      addressData,
+      customerName: userData.user.displayName as string,
+      status: "Payment in progress",
+      products: cart,
+      shippingRequest,
+      updatedAt: Date.now(),
+      createdAt: Date.now(),
+    };
+
+    console.log(orderData);
+    addOrderData({ orderId: orderData.orderId, orderData }).catch((error) => {
+      console.error(error);
+      return;
+    });
+    // setOrderPlaced(true);
+  };
+
+  // const onPaypalPurchase = async (e: FormEvent) => {};
+  const createPayPalOrder = (orderData: any, actions: any) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: (cartSummary?.totalPrice as number) / 1000 },
+          },
+        ],
+      })
+      .then((orderID: any) => {
+        return orderID;
+      });
+  };
+
+  const paypalCreateOrder2 = async () => {
+    if (!addressData) {
+      window.alert("주소를 입력해주세요.");
+      return;
+    } else if (!ordererName) {
+      window.alert("주문자 성명을 입력해주세요.");
+      return;
+    } else if (!productsData || !cartSummary || !userData?.user?.uid) {
+      window.alert("잘못된 주문 요청입니다.");
+      return;
+    }
+
+    let orderName = `${productsData[Object.keys(productsData)[0]]?.name}${
+      Object.keys(productsData).length >= 2
+        ? " 외 " + (Object.keys(productsData).length - 1) + "건"
+        : ""
+    }`;
+
+    try {
+      let response = await axios.post("/api/paypal/createorder3", {
+        order_price: (cartSummary?.totalPrice as number) / 1000,
+      });
+      console.log(response);
+      // console.log("order_id: " + response.data.data.order_id);
+      console.log("order_id: " + response.data.id);
+      if (response.data.id) {
+        const orderData: OrderData = {
+          amount: cartSummary.totalPrice,
+          orderId: response.data.id,
+          uid: userData.user.uid,
+          orderName,
+          recipientName: sameAsOrderer
+            ? (userData.user.displayName as string)
+            : recipientName,
+          addressData,
+          customerName: userData.user.displayName as string,
+          status: "Payment in progress",
+          products: cart,
+          shippingRequest,
+          updatedAt: Date.now(),
+          createdAt: Date.now(),
+        };
+        console.log(orderData);
+        addOrderData({ orderId: orderData.orderId, orderData });
+      }
+
+      return response.data.id;
+    } catch (err) {
+      // Your custom code to show an error like showing a toast:
+      console.log(err);
+      return null;
+    }
+  };
+
+  function onPayPalApprove(data: any, actions: any) {
+    return actions.order.capture().then(async function (details: any) {
+      try {
+        // dispatch({ type: "PAY_REQUEST" });
+        addOrderData({
+          orderId: uuidv4(),
+          orderData: {
+            status: "Payment completed",
+            amount: (cartSummary?.totalPrice as number) / 1000,
+          },
+        });
+        //        dispatch({ type: "PAY_SUCCESS", payload: data });
+        console.log("Order is paid successfully");
+      } catch (err) {
+        //  dispatch({ type: "PAY_FAIL", payload: getError(err) });
+        console.log(err);
+      }
+    });
+  }
+
+  const paypalCaptureOrder2 = async (orderID: any) => {
+    try {
+      let response = await axios.post("/api/paypal/captureorder3", {
+        orderID,
+      });
+      console.log(response.data);
+      if (response.data.success) {
+        // Order is successful
+        // Your custom code
+        // Like showing a success toast:
+        // toast.success('Amount Added to Wallet')
+        // And/Or Adding Balance to Redux Wallet
+
+        updateOrderData({
+          orderId: orderID,
+          orderData: {
+            status: "Payment completed",
+          },
+        });
+        router.push(
+          `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/purchase/success2?target=${target}` +
+            `&orderId=${orderID}&amount=${cartSummary?.totalPrice}`
+        );
+        // return true;
+      }
+    } catch (err) {
+      // Order is not successful
+      // Your custom code
+      // Like showing an error toast
+      // toast.error('Some Error Occured')
+      console.log(err);
+      router.push(`${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/purchase/fail`);
+    }
+  };
+
+  function onError(err: unknown) {
+    console.log(err);
+  }
+
   useEffect(() => {
     if (!userData?.user?.uid) return;
 
@@ -130,12 +312,25 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
         setTossPayments(tossPayments);
       })
       .catch((error) => console.log(error));
+
+    // const loadPaypalScript = async () => {
+    //   paypalDispatch({
+    //     type: "resetOptions",
+    //     value: {
+    //       "client-id":
+    //         "AXJlzM0_4M0XiEZPFGemF1xBtGkmZUbAiDZ9fJYtobWONWmnJ9FvBfQsB5Xus8AkD7KjXpvCxDdaURn7",
+    //       currency: "USD",
+    //     },
+    //   });
+    //   paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+    // };
+    // loadPaypalScript();
   }, [userData]);
 
   return (
-    <form
-      className="flex flex-col gap-5 text-base text-zinc-800"
-      onSubmit={onPurchase}
+    <div
+      className="flex flex-col  gap-5 text-base text-zinc-800"
+      // onSubmit={onPlaceOrder}
     >
       {productsData && cartSummary ? (
         <CartItemList
@@ -205,6 +400,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
         <label className="w-fit">
           <h3 className="text-xl font-semibold">배송 요청 사항</h3>
           <input
+            // disabled={orderPlaced}
             type="text"
             placeholder={""}
             value={shippingRequest}
@@ -216,8 +412,23 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
           />
         </label>
       </section>
-      <div className="mt-12 text-center">
-        <Button
+      <div className="flex flex-col mt-12  text-center ">
+        <span className="text-2xl block ">
+          금액: {cartSummary?.totalPrice.toLocaleString("ko-KR") || "-"}원{" "}
+        </span>
+        {/* <span>주소: {addressData?.address} </span> */}
+        {/* <Link
+          scroll={false}
+          href={{
+            query: {
+              ...query,
+              order: query.order === orderData.orderId ? "" : orderData.orderId,
+            },
+          }}
+        >
+          Edit Order
+        </Link> */}
+        {/* <Button
           disabled={!userData || !cartSummary || cartSummary.invalidProduct}
           theme="black"
           tailwindStyles="px-8"
@@ -228,9 +439,44 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
           토스 페이먼츠 api를 이용한 테스트 결제입니다.
           <br />
           실제 결제되지 않으며 빈 계좌를 이용하여도 결제 테스트가 가능합니다.
-        </p>
+          <br />
+        </p> */}
+        {/* </div> */}
+
+        <PayPalScriptProvider
+          options={{
+            clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
+            currency: "USD",
+            intent: "capture",
+          }}
+        >
+          <PayPalButtons
+            //className="h-fit  break-keep rounded-md px-4 py-2 text-center text-base font-semibold transition-all"
+            className="flex flex-col w-full self-center mt-4 max-w-md"
+            // https://stackoverflow.com/questions/69069357/paypal-button-cannot-read-new-react-state-how-to-work-with-dynamic-values-and-p
+            forceReRender={[
+              addressData,
+              ordererName,
+              recipientName,
+              shippingRequest,
+            ]}
+            createOrder={async (data, actions) => {
+              let order_id = await paypalCreateOrder2();
+              return order_id + "";
+            }}
+            onApprove={async (data, actions) => {
+              console.log("data: " + JSON.stringify(data));
+              // let response: any =
+              await paypalCaptureOrder2(data.orderID);
+              // if (response) return true;
+            }}
+            //   createOrder={createPayPalOrder}
+            //   onApprove={onPayPalApprove}
+            onError={onError}
+          ></PayPalButtons>
+        </PayPalScriptProvider>
       </div>
-    </form>
+    </div>
   );
 };
 

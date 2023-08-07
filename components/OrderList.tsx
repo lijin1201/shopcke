@@ -1,5 +1,5 @@
-import { DocumentData } from 'firebase/firestore';
-import { useRouter } from 'next/router';
+import { DocumentData } from "firebase/firestore";
+import { useRouter } from "next/router";
 import {
   ChangeEvent,
   FormEvent,
@@ -7,21 +7,21 @@ import {
   ReactNode,
   useEffect,
   useState,
-} from 'react';
-import useGetOrders from '../hooks/useGetOrders';
-import useInput from '../hooks/useInput';
-import useIsAdmin from '../hooks/useIsAdmin';
+} from "react";
+import useGetOrders from "../hooks/useGetOrders";
+import useInput from "../hooks/useInput";
+import useIsAdmin from "../hooks/useIsAdmin";
 import {
   OrderData,
   OrderFilterType,
   OrderOrderbyType,
   OrderStatusType,
   UserData,
-} from '../types';
-import Button from './Button';
-import OrderListItem from './OrderListItem';
-import { statusDict } from './OrderListItemDetail';
-import SkeletonOrderListItem from './SkeletonOrderListItem';
+} from "../types";
+import Button from "./Button";
+import OrderListItem from "./OrderListItem";
+import { statusDict } from "./OrderListItemDetail";
+import SkeletonOrderListItem from "./SkeletonOrderListItem";
 
 interface Props {
   userData: UserData | null;
@@ -32,22 +32,22 @@ const OrderList: React.FC<Props> = ({ userData }) => {
   const { pathname, query, push } = useRouter();
   const isAdmin = useIsAdmin(userData);
   const [filter, setFilter] = useState<OrderFilterType>({
-    orderby: 'updated',
-    status: 'all',
-    orderId: '',
-    uid: '',
+    orderby: "updated",
+    status: "all",
+    orderId: "",
+    uid: "",
   });
   const {
     data: { data: ordersData, isFetching, fetchNextPage },
     count: { data: totalCountData },
-  } = useGetOrders({ uid: userData?.user?.uid || '', filter, isAdmin });
+  } = useGetOrders({ uid: userData?.user?.uid || "", filter, isAdmin });
   const [orders, setOrders] = useState<Array<OrderData>>([]);
-  const { value: uid, setValue: setUid, onChange: onUidChange } = useInput('');
+  const { value: uid, setValue: setUid, onChange: onUidChange } = useInput("");
   const {
     value: orderId,
     setValue: setOrderId,
     onChange: onOrderIdChange,
-  } = useInput('');
+  } = useInput("");
 
   // 더 보기 버튼
   const onLoadMore = (e: MouseEvent<HTMLButtonElement>) => {
@@ -67,13 +67,13 @@ const OrderList: React.FC<Props> = ({ userData }) => {
   // 정렬
   const onOrderbyChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    push({ query: { ...query, orderby: value, detail: '' } });
+    push({ query: { ...query, orderby: value, detail: "" } });
   };
 
   // 주문 상태
   const onStatusChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    push({ query: { ...query, status: value, detail: '' } });
+    push({ query: { ...query, status: value, detail: "" } });
   };
 
   // 검색 id
@@ -94,25 +94,25 @@ const OrderList: React.FC<Props> = ({ userData }) => {
     }
 
     push({
-      query: { ...newQueries, detail: '' },
+      query: { ...newQueries, detail: "" },
     });
   };
 
   const onReset = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     push({ query: {} });
-    setUid('');
-    setOrderId('');
+    setUid("");
+    setOrderId("");
   };
 
   // 쿼리에 맞춰 필터 업데이트
   useEffect(() => {
     const { orderby, status, orderId, uid } = query;
     const newFilter: OrderFilterType = {
-      orderby: (orderby as OrderOrderbyType) || 'updated',
-      status: (status as OrderStatusType) || 'all',
-      orderId: (orderId as string) || '',
-      uid: (uid as string) || '',
+      orderby: (orderby as OrderOrderbyType) || "updated",
+      status: (status as OrderStatusType) || "all",
+      orderId: (orderId as string) || "",
+      uid: (uid as string) || "",
     };
 
     setFilter((prev) => ({ ...prev, ...newFilter }));
@@ -122,13 +122,13 @@ const OrderList: React.FC<Props> = ({ userData }) => {
 
   // 스크롤 복원용 주문내역 개수 저장
   useEffect(() => {
-    sessionStorage.setItem('ordersListLength', orders.length.toString());
+    sessionStorage.setItem("ordersListLength", orders.length.toString());
   }, [orders]);
 
   // 스켈레톤 로더의 개수를 구한다.
   useEffect(() => {
     if (!orders) {
-      const item = sessionStorage.getItem('orderssListLength');
+      const item = sessionStorage.getItem("orderssListLength");
       if (item) {
         setSkeletonCount(parseInt(item));
       }
@@ -172,11 +172,11 @@ const OrderList: React.FC<Props> = ({ userData }) => {
               return isAdmin ||
                 (!isAdmin &&
                   [
-                    'Payment completed',
-                    'Preparing product',
-                    'Shipping in progress',
-                    'Refund completed',
-                    'Complete',
+                    "Payment completed",
+                    "Preparing product",
+                    "Shipping in progress",
+                    "Refund completed",
+                    "Complete",
                   ].includes(status[0])) ? (
                 <option key={i} value={status[0]}>
                   {status[1]}
@@ -204,8 +204,8 @@ const OrderList: React.FC<Props> = ({ userData }) => {
             onSubmit={onSearchId}
             className={`gap-2 ${
               isAdmin
-                ? 'grid grid-flow-col grid-rows-2'
-                : 'flex h-full items-center justify-center'
+                ? "grid grid-flow-col grid-rows-2"
+                : "flex h-full items-center justify-center"
             }`}
           >
             <input
@@ -214,7 +214,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
               placeholder="주문 ID"
               className="h-full pl-2"
               style={{
-                borderBottom: '1.5px solid rgb(228 228 231)',
+                borderBottom: "1.5px solid rgb(228 228 231)",
               }}
             />
             {isAdmin && (
@@ -224,7 +224,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
                 placeholder="사용자 ID"
                 className="pl-2"
                 style={{
-                  borderBottom: '1.5px solid rgb(228 228 231)',
+                  borderBottom: "1.5px solid rgb(228 228 231)",
                 }}
               />
             )}
@@ -251,7 +251,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
                 key={i}
                 orderData={order}
                 userData={userData}
-                isAdmin={isAdmin && pathname.includes('admin')}
+                isAdmin={isAdmin && pathname.includes("admin")}
               />
             );
           })}

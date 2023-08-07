@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { auth } from "../fb";
 import { getUserData } from "../hooks/useGetUserData";
 import Script from "next/script";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 export default function App({ Component, pageProps }: AppProps) {
   function kakaoInit() {
@@ -38,6 +39,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
+        {/* <PayPalScriptProvider
+          deferLoading={true}
+          options={{
+            "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+            currency: "USD",
+            intent: "capture",
+          }}
+        > */}
         <Layout>
           <Component {...pageProps} />
           <Script
@@ -47,6 +56,7 @@ export default function App({ Component, pageProps }: AppProps) {
             onLoad={kakaoInit}
           ></Script>
         </Layout>
+        {/* </PayPalScriptProvider> */}
       </Hydrate>
     </QueryClientProvider>
   );
