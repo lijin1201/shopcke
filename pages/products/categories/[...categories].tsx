@@ -146,7 +146,8 @@ const Categories = () => {
             (filter.category || filter.keywords?.length !== 0) &&
             totalCountData === 0 ? (
               <p className="flex w-full grow items-center justify-center break-keep text-center text-lg font-semibold text-zinc-600">
-                해당하는 제품이 존재하지 않습니다.
+                {/* 해당하는 제품이 존재하지 않습니다. */}
+                Matched shopping item does not exist.
               </p>
             ) : (
               <ProductList products={products} isFetching={isFetching} />
@@ -167,14 +168,14 @@ const Categories = () => {
                     tailwindStyles="w-[150px] mt-10"
                     onClick={onLoadMoreClick}
                   >
-                    더 보기
+                    More{/* 더 보기 */}
                   </Button>
                 )}
               </div>
             ) : (
               <div className="text-center">
                 <p className="mt-16 mb-5 w-full text-sm font-medium text-zinc-600">
-                  {totalCountData} 제품.
+                  {totalCountData} item(s).
                 </p>
                 <Button
                   tailwindStyles="text-sm py-"
@@ -182,16 +183,18 @@ const Categories = () => {
                     window.scrollTo({ top: 0, behavior: "smooth" })
                   }
                 >
-                  맨 위로
+                  To top{/* 맨 위로 */}
                 </Button>
               </div>
             )}
           </React.Fragment>
         ) : (
           <p className="flex w-full grow items-center justify-center break-keep text-center text-lg font-semibold text-zinc-600">
-            제품 목록을 가져오는 과정에서 문제가 발생하였습니다.
+            {/* 제품 목록을 가져오는 과정에서 문제가 발생하였습니다. */}
+            Error occured when bringing the category list.
             <br />
-            잠시 후 다시 시도해 주세요.
+            {/* 잠시 후 다시 시도해 주세요. */}
+            Try again later.
           </p>
         )}
       </section>

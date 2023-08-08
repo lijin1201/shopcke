@@ -57,7 +57,8 @@ const CartPage: React.FC<Props> = ({ userData }) => {
       <div className="px-5 text-end xs:px-2">
         {(cartSummary?.outOfStock || cartSummary?.invalidProduct) && (
           <p className="mb-2 break-keep text-sm font-semibold text-red-500">
-            품절되었거나 이용할 수 없는 제품이 포함되어 있습니다.
+            Out of stock or not available.
+            {/* 품절되었거나 이용할 수 없는 제품이 포함되어 있습니다. */}
           </p>
         )}
         <Button
@@ -70,10 +71,14 @@ const CartPage: React.FC<Props> = ({ userData }) => {
           }
           href={{ pathname: "/purchase", query: { target: "cart" } }}
         >
-          결제하기
+          Order
         </Button>
       </div>
-      <Alert show={showAlert} text="제품이 카트에서 제거되었습니다." />
+      <Alert
+        show={showAlert}
+        text="Product removed from cart."
+        // "제품이 카트에서 제거되었습니다."
+      />
     </div>
   );
 };

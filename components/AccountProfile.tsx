@@ -59,23 +59,28 @@ const AccountProfile: React.FC<Props> = ({ userData }) => {
         ) : (
           <div className="flex flex-col gap-10 text-base text-zinc-800">
             <div>
-              <h3 className="text-xl font-semibold">이름</h3>
+              <h3 className="text-xl font-semibold">Name{/* 이름 */}</h3>
               <div className="mt-2 h-8 px-2 pt-1 pb-1">
                 {userData?.user?.displayName}
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-semibold">전화번호</h3>
+              <h3 className="text-xl font-semibold">
+                Phone number{/* 전화번호 */}
+              </h3>
               <div
                 className={`mt-2 h-8 px-2 pt-1 pb-1 ${
                   !userData?.phoneNumber && "text-zinc-500"
                 }`}
               >
-                {userData?.phoneNumber || "등록된 전화번호 없음"}
+                {userData?.phoneNumber ||
+                  /* "등록된 전화번호 없음" */ "No register phone"}
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-semibold">기본 배송 주소</h3>
+              <h3 className="text-xl font-semibold">
+                {/* 기본 배송 주소 */}Default shipping address
+              </h3>
               <div
                 className={`mt-2 h-8 px-2 pt-1 pb-1 ${
                   !userData?.addressData && "text-zinc-500"
@@ -90,7 +95,8 @@ const AccountProfile: React.FC<Props> = ({ userData }) => {
                     <div>({userData.addressData.additional})</div>
                   </div>
                 ) : (
-                  "등록된 주소 없음"
+                  /* "등록된 주소 없음" */
+                  "No registered shipping address"
                 )}
               </div>
             </div>
@@ -100,15 +106,17 @@ const AccountProfile: React.FC<Props> = ({ userData }) => {
                 theme="black"
                 href={{ query: { ...query, edit: "true" } }}
               >
-                정보 수정
+                {/* 정보 수정 */} Modify records
               </Button>
             </div>
           </div>
         )}
         <div className="mt-16 flex justify-end gap-5">
-          <Button onClick={onResetPw}>비밀번호 재설정</Button>
+          <Button onClick={onResetPw}>
+            {/* 비밀번호 재설정 */}Change password
+          </Button>
           <Button onClick={onDeleteAccount} theme="red">
-            계정 탈퇴
+            {/* 계정 탈퇴 */}Withdraw account
           </Button>
         </div>
       </div>

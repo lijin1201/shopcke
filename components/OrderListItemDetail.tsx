@@ -17,15 +17,15 @@ interface Props {
 }
 
 export const statusDict = {
-  "Payment in progress": "결제 진행 중",
-  "Payment completed": "결제 완료",
-  "Preparing product": "제품 준비 중",
-  "Payment failed": "결제 실패",
-  "Payment cancelled": "결제 취소",
-  "Shipping in progress": "배송 중",
-  "Order Cancelled": "주문 취소",
-  "Refund completed": "환불 완료",
-  Complete: "배송 완료",
+  "Payment in progress": "Payment in progress",
+  "Payment completed": "Payment completed",
+  "Preparing product": "Preparing product",
+  "Payment failed": "Payment failed",
+  "Payment cancelled": "Payment cancelled",
+  "Shipping in progress": "Shipping in progress",
+  "Order Cancelled": "Order Cancelled",
+  "Refund completed": "Refund completed",
+  Complete: "Complete",
 };
 
 const OrderListItemDetail: React.FC<Props> = ({
@@ -43,7 +43,7 @@ const OrderListItemDetail: React.FC<Props> = ({
     isError: cancelDataError,
   } = useCancelPayment({
     paymentKey,
-    cancelReason: "고객이 취소를 원함",
+    cancelReason: /* "고객이 취소를 원함" */ "Customer wants to cancel",
   });
   const {
     update: { mutateAsync: updateOrderData, isSuccess: updateOrderDataSuccess },
@@ -81,7 +81,9 @@ const OrderListItemDetail: React.FC<Props> = ({
   const onCancelOrder = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (window.confirm("주문을 취소하시겠습니까?")) {
+    if (
+      window.confirm(/* "주문을 취소하시겠습니까?" */ "Would you cancel order?")
+    ) {
       handleOrderData()
         .then(() => {
           setPaymentKey(orderData.payment.paymentKey);
@@ -102,7 +104,8 @@ const OrderListItemDetail: React.FC<Props> = ({
             updateStock({ cart: orderData.products, amount: orderData.amount });
 
           window.alert(
-            "주문을 취소하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+            // "주문을 취소하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+            "Problem happened in canceling order.\nPlease try again later."
           );
         });
     }
@@ -121,7 +124,8 @@ const OrderListItemDetail: React.FC<Props> = ({
       ].includes(status)
     ) {
       const ok = window.confirm(
-        "결제 금액이 지불되지 않은 상태로 변경하고자 합니다.\n해당 기능은 결제의 상태만 변경하며 실제 결제의 취소는 이루어지지 않습니다.\n결제의 취소를 원하시는 경우 별도로 나타나는 버튼을 이용해 주세요.\n(결제 취소가 가능한 경우 버튼이 나타납니다.)\n상태를 변경하시겠습니까?"
+        // "결제 금액이 지불되지 않은 상태로 변경하고자 합니다.\n해당 기능은 결제의 상태만 변경하며 실제 결제의 취소는 이루어지지 않습니다.\n결제의 취소를 원하시는 경우 별도로 나타나는 버튼을 이용해 주세요.\n(결제 취소가 가능한 경우 버튼이 나타납니다.)\n상태를 변경하시겠습니까?"
+        "I want to change the payment status to unpaid.\nThis function only changes the payment status and does not cancel the actual payment.\nIf you want to cancel the payment, please use the button that appears separately.\n( If payment can be canceled, a button will appear)\nDo you want to change status?"
       );
 
       if (!ok) return;
@@ -132,12 +136,15 @@ const OrderListItemDetail: React.FC<Props> = ({
       orderData: { status },
     })
       .then(() => {
-        window.alert("주문 상태가 변경되었습니다.");
+        window.alert(
+          /* "주문 상태가 변경되었습니다." */ "The order status has changed."
+        );
       })
       .catch((error) => {
         console.error(error);
         window.alert(
-          "상태를 변경하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+          // "상태를 변경하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+          "There was a problem changing the status.\nPlease try again later."
         );
       });
   };
@@ -156,7 +163,7 @@ const OrderListItemDetail: React.FC<Props> = ({
         orderId: orderData.orderId,
         orderData: { payment: { ...cancelData } },
       });
-      window.alert("주문이 취소되었습니다.");
+      window.alert(/* "주문이 취소되었습니다." */ "Order has been cancelled.");
 
       // 결제 취소에 실패한 경우
     } else if (cancelDataError) {
@@ -172,7 +179,8 @@ const OrderListItemDetail: React.FC<Props> = ({
         updateStock({ cart: orderData.products, amount: orderData.amount });
 
       window.alert(
-        "주문을 취소하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+        // "주문을 취소하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+        "There was a problem canceling the order.\nPlease try again later."
       );
     }
   }, [
@@ -207,18 +215,19 @@ const OrderListItemDetail: React.FC<Props> = ({
           <div className="flex flex-col items-end gap-2">
             {isAdmin && (
               <h3 className="text-lg font-semibold text-zinc-800">
-                결제 취소하기
+                {/* 결제 취소하기 */}Cancel payment
               </h3>
             )}
             <Button onClick={onCancelOrder} theme="red">
-              {isAdmin ? "결제" : "주문"} 취소
+              {isAdmin ? /*  "결제" : "주문" */ "Payment" : "Order"}{" "}
+              {/* 취소 */}Cancellation
             </Button>
           </div>
         )}
         {isAdmin && (
           <label className="flex flex-col items-end gap-2">
             <h3 className="text-lg font-semibold text-zinc-800">
-              주문 상태 변경
+              {/* 주문 상태 변경 */}Change order status
             </h3>
             <select
               style={{
@@ -235,7 +244,7 @@ const OrderListItemDetail: React.FC<Props> = ({
               ))}
             </select>
             <Button onClick={onUpdateStatus} theme="black">
-              변경하기
+              {/* 변경하기 */}Change
             </Button>
           </label>
         )}

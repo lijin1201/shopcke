@@ -68,7 +68,8 @@ const OrderListItem: React.FC<Props> = ({
                 tailwindStyles="text-xs px-1 py-[2px]"
                 onClick={(e) => onCopyOrderId(e, orderData.orderId)}
               >
-                복사<span className="sm:hidden">하기</span>
+                {/* 복사<span className="sm:hidden">하기</span> */}
+                Copy
               </Button>
             </h4>
             {isAdmin && (
@@ -79,7 +80,8 @@ const OrderListItem: React.FC<Props> = ({
                   tailwindStyles="text-xs px-1 py-[2px]"
                   onClick={(e) => onCopyUid(e, orderData.uid)}
                 >
-                  복사<span className="sm:hidden">하기</span>
+                  {/* 복사<span className="sm:hidden">하기</span> */}
+                  Copy
                 </Button>
               </h4>
             )}
@@ -92,7 +94,8 @@ const OrderListItem: React.FC<Props> = ({
                   tailwindStyles="text-xs px-1 py-[2px]"
                   onClick={(e) => onCopyUid(e, orderData.customerName)}
                 >
-                  복사<span className="sm:hidden">하기</span>
+                  {/* 복사<span className="sm:hidden">하기</span> */}
+                  Copy
                 </Button>
               </h4>
             )}
@@ -124,12 +127,12 @@ const OrderListItem: React.FC<Props> = ({
             )}
           </div>
           <div className="w-full text-end text-sm text-zinc-500">
-            <div>{`추가된 날짜 : ${new Date(orderData.createdAt).toLocaleString(
+            <div>{`Created at : ${new Date(orderData.createdAt).toLocaleString(
               "ko-KR"
             )}`}</div>
-            <div>{`마지막 업데이트 : ${new Date(
-              orderData.updatedAt
-            ).toLocaleString("ko-KR")}`}</div>
+            <div>{`Last update : ${new Date(orderData.updatedAt).toLocaleString(
+              "ko-KR"
+            )}`}</div>
           </div>
         </li>
       </Link>

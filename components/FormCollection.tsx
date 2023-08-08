@@ -118,12 +118,15 @@ const FormCollection: React.FC<Props> = ({ prevData }) => {
         isEdit: !!prevData,
       })
         .then(() => {
-          window.alert("컬렉션 등록이 완료되었습니다.");
+          window.alert(
+            /* "컬렉션 등록이 완료되었습니다." */ "Completed collection registration."
+          );
           prevData ? push(`/collections/${prevData.id}`) : reset();
         })
         .catch(() => {
           window.alert(
-            "컬렉션 등록 과정에서 오류가 발생하였습니다.\n잠시 후 다시 시도해주세요."
+            /* "컬렉션 등록 과정에서 오류가 발생하였습니다.\n잠시 후 다시 시도해주세요." */
+            "Error happened in collection registration process.\nTry again later."
           );
         });
   };
@@ -142,35 +145,37 @@ const FormCollection: React.FC<Props> = ({ prevData }) => {
               type="text"
               value={title}
               onChange={onTitleChange}
-              placeholder="컬렉션 제목"
+              placeholder=/* "컬렉션 제목" */ "Collection title"
               style={{
                 borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
             />
           </label>
-          <label>
+          {/* <label>
             <h3 className="mb-2 text-2xl font-semibold">영문 제목</h3>
             <input
               required
               type="text"
               value={enTitle}
               onChange={onEnTitleChange}
-              placeholder="컬렉션 영문 제목"
+              placeholder= "컬렉션 영문 제목" //  "Collection title (duplicate)"
               style={{
                 borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
             />
-          </label>
+          </label> */}
           <label>
-            <h3 className="mb-2 text-2xl font-semibold">부제목</h3>
+            <h3 className="mb-2 text-2xl font-semibold">
+              {/* 부제목 */}Subtitle
+            </h3>
             <input
               required
               type="text"
               value={subTitle}
               onChange={onSubTitleChange}
-              placeholder="컬렉션 부제목"
+              placeholder=/* "컬렉션 부제목" */ "Collection subtitle"
               style={{
                 borderBottom: "1px solid #1f2937",
               }}

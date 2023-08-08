@@ -91,7 +91,8 @@ const CartItemList: React.FC<Props> = ({
               </div>
             ) : (
               <div className="whitespace-normal break-keep text-lg">
-                삭제되었거나 존재하지 않는 제품입니다.
+                Shopping item does not exist.
+                {/* 삭제되었거나 존재하지 않는 제품입니다. */}
               </div>
             )}
             {product && (
@@ -107,9 +108,13 @@ const CartItemList: React.FC<Props> = ({
                       key={i}
                       className={`${isOutOfStock && "text-red-500"}`}
                     >
-                      {size.toUpperCase()} : {orderCount}개{" "}
+                      {size.toUpperCase()} : {orderCount} piece(s){" "}
                       {isOutOfStock &&
-                        (product.stock[size] === 0 ? "(품절)" : "(재고 초과)")}
+                        (product.stock[size] === 0
+                          ? "(Sold out)"
+                          : "(Over stock)")
+                        // "(품절)" : "(재고 초과)"
+                      }
                     </div>
                   );
                 })}
@@ -145,12 +150,14 @@ const CartItemList: React.FC<Props> = ({
   return (
     <div>
       <div className="text-left text-base font-semibold text-zinc-500">
-        {cartSummary?.orderCount || 0}개 품목
+        {cartSummary?.orderCount || 0} item(s)
+        {/* 개 품목 */}
       </div>
       <ul className="flex flex-col py-5">
         {!productsData || Object.keys(productsData).length === 0 ? (
           <p className="flex grow flex-col items-center justify-center break-keep border-y py-16 text-center text-lg font-semibold text-zinc-600">
-            카트가 비어있습니다.
+            {/* 카트가 비어있습니다. */}
+            Cart is empty.
           </p>
         ) : (
           cartItemGenerator(productsData)
@@ -160,7 +167,8 @@ const CartItemList: React.FC<Props> = ({
       <div className="mt-5 px-5 text-end xs:px-2">
         <div className="mb-5 font-semibold">
           <div className="text-base text-zinc-500">
-            {cartSummary?.totalCount || 0}개 제품
+            {cartSummary?.totalCount || 0} piece(s)
+            {/* 개 제품 */}
           </div>
           <div className="text-3xl text-zinc-800">
             {cartSummary?.totalPrice?.toLocaleString("ko-KR") || 0} ₩

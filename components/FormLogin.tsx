@@ -50,12 +50,12 @@ const FormLogin = () => {
         onSubmit={onLogin}
         className="min-w-[150px] max-w-[450px] grow text-sm text-zinc-800 md:max-w-full"
       >
-        <h3 className="pb-5 text-xl font-semibold">로그인</h3>
+        <h3 className="pb-5 text-xl font-semibold">{/* 로그인 */}Login</h3>
         <section className="flex flex-col gap-5">
           <input
             type="email"
             value={email}
-            placeholder="이메일 *"
+            placeholder=/* "이메일 *" */ "Email"
             onChange={onEmailChange}
             required
             style={{
@@ -73,7 +73,7 @@ const FormLogin = () => {
           <input
             type="password"
             value={password}
-            placeholder="비밀번호 *"
+            placeholder=/* "비밀번호 *" */ "Password *"
             onChange={onPasswordChange}
             required
             style={{

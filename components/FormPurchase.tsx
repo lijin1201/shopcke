@@ -5,6 +5,7 @@ import {
 } from "@tosspayments/payment-sdk";
 import { FormEvent, useEffect, useState } from "react";
 import FormAddress from "./FormAddress";
+import FormAddressFill from "./FormAddressFill";
 import { AddressType, CartType, OrderData, UserData } from "../types";
 import { v4 as uuidv4 } from "uuid";
 import CartItemList from "./CartItemList";
@@ -348,7 +349,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
       )}
       <section className="flex flex-col gap-10">
         <label className="w-fit">
-          <h3 className="text-xl font-semibold">* 주문자</h3>
+          <h3 className="text-xl font-semibold">* {/* 주문자 */}Orderer</h3>
           <input
             type="text"
             placeholder={userData.user?.displayName || "주문자 성명"}
@@ -363,7 +364,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
         </label>
         <label className="w-fit">
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-xl font-semibold">수령인</h3>
+            <h3 className="text-xl font-semibold">{/* 수령인 */}Recipient</h3>
             <label>
               <input
                 type="checkbox"
@@ -377,7 +378,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
 
           <input
             type="text"
-            placeholder={"수령인 성명"}
+            placeholder={/* "수령인 성명" */ "Receipient name"}
             value={sameAsOrderer ? ordererName : recipientName}
             onChange={(e) => {
               setSameAsOrderer(false);
@@ -391,14 +392,18 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
           />
         </label>
         <div>
-          <h3 className="mb-3 text-xl font-semibold">* 배송 주소</h3>
-          <FormAddress
+          <h3 className="mb-3 text-xl font-semibold">
+            * {/* 배송 주소 */}Shipping address
+          </h3>
+          <FormAddressFill
             addressData={addressData}
             setAddressData={setAddressData}
           />
         </div>
         <label className="w-fit">
-          <h3 className="text-xl font-semibold">배송 요청 사항</h3>
+          <h3 className="text-xl font-semibold">
+            {/* 배송 요청 사항 */}Shipping Requests
+          </h3>
           <input
             // disabled={orderPlaced}
             type="text"
@@ -414,7 +419,9 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
       </section>
       <div className="flex flex-col mt-12  text-center ">
         <span className="text-2xl block ">
-          금액: {cartSummary?.totalPrice.toLocaleString("ko-KR") || "-"}원{" "}
+          {/* 금액 */}Price:{" "}
+          {cartSummary?.totalPrice.toLocaleString("ko-KR") || "-"}
+          {/* 원 */}USD{" "}
         </span>
         {/* <span>주소: {addressData?.address} </span> */}
         {/* <Link

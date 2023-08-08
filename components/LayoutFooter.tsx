@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import categoryData from '../public/json/categoryData.json';
+import Link from "next/link";
+import categoryData from "../public/json/categoryData.json";
 
 const LayoutFooter = () => {
   return (
     <footer className="relative mx-auto flex h-fit min-w-[360px] flex-col items-center justify-center gap-y-5 bg-zinc-50 py-12 text-zinc-500">
       <ul className="flex w-full max-w-[1700px] flex-wrap justify-start gap-12 p-5 pt-0">
         <li>
-          <h3 className="mb-5 font-bold">제품 둘러보기</h3>
+          <h3 className="mb-5 font-bold">Product Tour</h3>
           <ul className="flex flex-col gap-2">
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/collections">컬렉션</Link>
+              <Link href="/collections">Featured</Link>
             </li>
             {Object.values(categoryData).map((category, i) => (
               <li
@@ -18,7 +18,7 @@ const LayoutFooter = () => {
               >
                 <Link
                   href={`/products/categories/${category.path}${
-                    category.path !== 'all' && '/all'
+                    category.path !== "all" && "/all"
                   }`}
                 >
                   {category.name}
@@ -28,56 +28,53 @@ const LayoutFooter = () => {
           </ul>
         </li>
         <li>
-          <h3 className="mb-5 font-bold">계정</h3>
+          <h3 className="mb-5 font-bold">Account</h3>
           <ul className="flex flex-col gap-2">
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/account?tab=profile">내 정보</Link>
+              <Link href="/account?tab=profile">My Profile</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/account?tab=bookmark">북마크</Link>
+              <Link href="/account?tab=bookmark">Bookmark</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/account?tab=orders">주문 내역</Link>
+              <Link href="/account?tab=orders">Order History</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/cart">카트</Link>
+              <Link href="/cart">Cart</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/login">로그인</Link>
+              <Link href="/login">Login</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/register">회원가입</Link>
+              <Link href="/register">Sign Up</Link>
             </li>
           </ul>
         </li>
 
         <li>
-          <h3 className="mb-5 font-bold">문의</h3>
+          <h3 className="mb-5 font-bold">Contact</h3>
           <ul className="flex flex-col gap-2">
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="mailto:lijin1201@gmail.com?subject=[HanaElectron] - ">
-                메일
+              <Link href="mailto:cke@hanaelectron.com?subject=[HanaElectron] - ">
+                Email
               </Link>
-            </li>
-            <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="https://lijin.vercel.app">개발자 블로그</Link>
             </li>
           </ul>
         </li>
         <li>
-          <h3 className="mb-5 font-bold">법적 고지 및 이용약관</h3>
+          <h3 className="mb-5 font-bold">Legal Terms</h3>
           <ul className="flex flex-col gap-2">
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/legal-notice">이용 약관</Link>
+              <Link href="/legal-notice">Terms and Conditions</Link>
             </li>
             <li className="transition-all hover:font-semibold hover:text-zinc-800">
-              <Link href="/privacy-policy">개인정보 처리 방침</Link>
+              <Link href="/privacy-policy">Privacy Policy</Link>
             </li>
           </ul>
         </li>
         <li>
           <h3 className="font-bold transition-all hover:text-zinc-800">
-            <Link href="/sitemap">사이트맵</Link>
+            <Link href="/sitemap">Site Map</Link>
           </h3>
         </li>
       </ul>
@@ -85,38 +82,38 @@ const LayoutFooter = () => {
       <section className="w-full max-w-[1700px] p-5 pb-0 pr-24 text-xs">
         <h3 className="mb-2 text-xs font-bold">HanaElectron</h3>
         <p className="max-w-[600px]">
-          회사명: 하니일렉트론 / 대표자: 장재승 / 주소: 대한민국 / 이메일:{' '}
+          Business Name : Hana Electron / CEO (Name): JAE SUNG JANG / Business
+          Registration No. : C4185163/ Phone : 323_472_1713 / Address : 3224 W
+          OLYMPIC BLVD LOS ANGELES CA 90006 / Email:{" "}
           <Link
-            href="mailto:lijin1201@gmail.com?subject=[하나일렉트론 문의] - "
+            href="mailto:cke@hanaelectron.com?subject=[하나일렉트론 문의] - "
             className="underline transition-all hover:text-zinc-800"
           >
-            lijin1201@gmail.com
+            cke@hanaelectron.com
           </Link>
-          {' / '}
-          홈페이지:{' '}
+          {" / "}
+          Home Page:{" "}
           <Link
             href="/privacy-policy"
             className="underline transition-all hover:text-zinc-800"
           >
-            www.hanaelectron.co.kr
+            hanaelectron.com
           </Link>
-          {' / '}
+          {" / "}
           <Link
             href="/legal-notice"
             className="underline transition-all hover:text-zinc-800"
           >
-            이용 약관
+            Legal Notice
           </Link>
-          {' / '}
+          {" / "}
           <Link
             href="/privacy-policy"
             className="underline transition-all hover:text-zinc-800"
           >
-            개인정보 처리 방침
-          </Link>
-          {' / '}본 웹사이트는 실제가 아닌 개인 학습용으로 제작된 웹사이트이며
-          등록된 제품은 실제 판매되는 제품이 아닙니다. / &copy;{' '}
-          {new Date().getFullYear()}. HanaElectron All Rights Reserved.
+            Privacy Policy
+          </Link>{" "}
+          / &copy; {new Date().getFullYear()}. HanaElectron All Rights Reserved.
         </p>
       </section>
     </footer>

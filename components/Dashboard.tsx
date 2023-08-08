@@ -62,7 +62,7 @@ const Dashboard: React.FC<Props> = ({ data }) => {
           id: "amount",
           type: "line",
           fill: true,
-          label: "매출액",
+          label: /* "매출액" */ "sale amount",
           data: Object.values(data).map((cur) => cur.amount),
           backgroundColor: ["rgba(54, 162, 235, 0.2)"],
           borderColor: ["rgba(54, 162, 235, 1)"],
@@ -73,7 +73,7 @@ const Dashboard: React.FC<Props> = ({ data }) => {
           barPercentage: 0.3,
           yAxisID: "y1",
           id: "orders",
-          label: "주문수",
+          label: /* "주문수" */ "order count",
           data: Object.values(data).map((cur) => cur.orders),
           backgroundColor: ["rgba(255, 99, 132, 0.2)"],
           borderColor: ["rgba(255, 99, 132, 1)"],
@@ -101,11 +101,12 @@ const Dashboard: React.FC<Props> = ({ data }) => {
                   plugins: {
                     title: {
                       display: true,
-                      text: "GMV 추이",
+                      text: /* "GMV 추이" */ "GMV trend",
                     },
                     subtitle: {
                       display: true,
-                      text: "23년 1월 이전 데이터는 차트 테스트를 위해 추가한 가상 데이터이며 주문 내역은 존재하지 않습니다.",
+                      /* "23년 1월 이전 데이터는 차트 테스트를 위해 추가한 가상 데이터이며 주문 내역은 존재하지 않습니다." */
+                      text: "Data before 23.07 is for test",
                     },
                   },
                   scales: {

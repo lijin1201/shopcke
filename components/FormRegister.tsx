@@ -68,7 +68,7 @@ const FormRegister = () => {
           <input
             type="text"
             value={firstName}
-            placeholder="이름 *"
+            placeholder=/* "이름 *" */ "Name *"
             onChange={onFirstNameChange}
             required
             style={{
@@ -79,7 +79,7 @@ const FormRegister = () => {
           <input
             type="text"
             value={lastName}
-            placeholder="성 *"
+            placeholder=/* "성 *" */ "Gender *"
             onChange={onLastNameChange}
             required
             style={{
@@ -90,7 +90,7 @@ const FormRegister = () => {
           <input
             type="email"
             value={email}
-            placeholder="이메일 *"
+            placeholder=/* "이메일 *" */ "Email *"
             onChange={onEmailChange}
             required
             style={{
@@ -105,7 +105,7 @@ const FormRegister = () => {
           <input
             type="email"
             value={emailCheck}
-            placeholder="이메일 확인 *"
+            placeholder=/* "이메일 확인 *" */ "Confirm email *"
             onChange={onEmailCheckChange}
             required
             style={{
@@ -121,7 +121,7 @@ const FormRegister = () => {
           <input
             type="password"
             value={password}
-            placeholder="비밀번호 (6글자 이상) *"
+            placeholder=/* "비밀번호 (6글자 이상) *" */ "Password (over 6 characters)"
             onChange={onPasswordChange}
             minLength={6}
             required
@@ -137,7 +137,7 @@ const FormRegister = () => {
           <input
             type="password"
             value={passwordCheck}
-            placeholder="비밀번호 확인 *"
+            placeholder=/* "비밀번호 확인 *" */ "Confirm password *"
             onChange={onPasswordCheckChange}
             required
             style={{

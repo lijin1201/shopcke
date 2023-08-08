@@ -1,14 +1,14 @@
-import HeaderBasic from '../components/HeaderBasic';
-import Seo from '../components/Seo';
+import HeaderBasic from "../components/HeaderBasic";
+import Seo from "../components/Seo";
 
 const PrivacyPolicy = () => {
   return (
     <main className="page-container">
       <Seo title="PRIVACY POLICY" />
 
-      <HeaderBasic title={{ text: '개인정보 처리 방침' }} />
+      <HeaderBasic title={{ text: "Privacy Policy" }} />
       <section className="flex flex-col gap-12 whitespace-pre-wrap break-keep px-12 pb-24 indent-2 text-base text-zinc-800 xs:px-5">
-        <em className="indent-0">개인정보처리.</em>
+        {/* <em className="indent-0">개인정보처리.</em>
         <ol className="flex flex-col gap-12">
           <li className="flex flex-col gap-5">
             <strong className="indent-0"> </strong>
@@ -23,7 +23,7 @@ const PrivacyPolicy = () => {
             </p>
           </li>
         </ol>
-        <em className="mt-10 indent-0">2023년 6 월 16 일.</em>
+        <em className="mt-10 indent-0">2023년 6 월 16 일.</em> */}
       </section>
     </main>
   );

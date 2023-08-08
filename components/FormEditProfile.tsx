@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
-import { UseMutateFunction } from 'react-query';
-import useInput from '../hooks/useInput';
-import { AddressType, UserData } from '../types';
-import Button from './Button';
-import FormAddress from './FormAddress';
+import { useRouter } from "next/router";
+import { FormEvent, useState } from "react";
+import { UseMutateFunction } from "react-query";
+import useInput from "../hooks/useInput";
+import { AddressType, UserData } from "../types";
+import Button from "./Button";
+import FormAddress from "./FormAddress";
 
 interface Props {
   userData: UserData | null;
@@ -25,19 +25,19 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
   const [addressData, setAddressData] = useState<AddressType | null>(
     userData?.addressData || null
   );
-  const [alert, setAlert] = useState<string>('');
+  const [alert, setAlert] = useState<string>("");
   const { value: name, onChange: onNameChange } = useInput(
-    userData?.user?.displayName || ''
+    userData?.user?.displayName || ""
   );
   const { value: phoneNumber, onChange: onPhoneNumberChange } = useInput(
-    userData?.phoneNumber || ''
+    userData?.phoneNumber || ""
   );
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!name) {
-      setAlert('이름을 입력해주세요.');
+      setAlert(/* '이름을 입력해주세요.' */ "Please enter name");
       return;
     }
 
@@ -49,7 +49,7 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
 
     editProfile(newProfile);
 
-    push({ query: { tab: 'profile' } });
+    push({ query: { tab: "profile" } });
   };
 
   return (
@@ -61,12 +61,12 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
         <h3 className="text-xl font-semibold">* 이름</h3>
         <input
           type="text"
-          value={name || ''}
+          value={name || ""}
           onChange={onNameChange}
-          placeholder={userData?.user?.displayName || '이름'}
+          placeholder={userData?.user?.displayName || "이름"}
           required
           style={{
-            borderBottom: '1px solid #1f2937',
+            borderBottom: "1px solid #1f2937",
           }}
           className="mt-2 h-8 px-2 pt-1 pb-1"
         />
@@ -75,17 +75,19 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
         <h3 className="text-xl font-semibold">전화번호</h3>
         <input
           type="text"
-          value={phoneNumber || ''}
+          value={phoneNumber || ""}
           onChange={onPhoneNumberChange}
-          placeholder={userData?.phoneNumber || ''}
+          placeholder={userData?.phoneNumber || ""}
           style={{
-            borderBottom: '1px solid #1f2937',
+            borderBottom: "1px solid #1f2937",
           }}
           className="mt-2 h-8 px-2 pt-1 pb-1"
         />
       </label>
       <div>
-        <h3 className="mb-3 text-xl font-semibold">기본 배송 주소</h3>
+        <h3 className="mb-3 text-xl font-semibold">
+          {/* 기본 배송 주소 */}Default shipping address
+        </h3>
         <FormAddress
           addressData={addressData}
           setAddressData={setAddressData}
@@ -93,8 +95,8 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
       </div>
       <div className="flex flex-wrap gap-x-5 gap-y-2">
         <p className="h-6 w-full text-sm text-red-700">{alert}</p>
-        <Button theme="black">수정 완료</Button>
-        <Button href={{ query: { tab: 'profile' } }}>취소</Button>
+        <Button theme="black">{/* 수정 완료 */}Finish</Button>
+        <Button href={{ query: { tab: "profile" } }}>{/* 취소 */}Cancel</Button>
       </div>
     </form>
   );

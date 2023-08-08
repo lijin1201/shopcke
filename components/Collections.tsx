@@ -1,9 +1,9 @@
-import CollectionSectionSlide from './CollectionSectionSlide';
-import CollectionSectionThumbnail from './CollectionSectionThumbnail';
-import HeaderHomeSection from './HeaderHomeSection';
-import useGetCollections from '../hooks/useGetCollections';
-import Loading from './AnimtaionLoading';
-import { CollectionType } from '../types';
+import CollectionSectionSlide from "./CollectionSectionSlide";
+import CollectionSectionThumbnail from "./CollectionSectionThumbnail";
+import HeaderHomeSection from "./HeaderHomeSection";
+import useGetCollections from "../hooks/useGetCollections";
+import Loading from "./AnimtaionLoading";
+import { CollectionType } from "../types";
 
 const Collections = () => {
   const { data: collections, isError, isFetching } = useGetCollections();
@@ -44,9 +44,11 @@ const Collections = () => {
         })
       ) : (
         <p className="group relative aspect-video w-full break-keep text-lg font-semibold text-zinc-600">
-          컬렉션 데이터를 불러오는 과정에서 문제가 발생하였습니다.
+          {/* 컬렉션 데이터를 불러오는 과정에서 문제가 발생하였습니다. */}
+          Error happened when loading collection data.
           <br />
-          잠시 후 다시 시도해 주세요.
+          {/* 잠시 후 다시 시도해 주세요. */}
+          Try again later.
         </p>
       )}
     </section>

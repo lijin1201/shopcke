@@ -42,11 +42,11 @@ const HeaderAccountPage: React.FC<Props> = ({ tab }) => {
                 >
                   <polyline points="78.79 267.02 222.75 150 78.79 32.98" />
                 </svg>
-                뒤로가기
+                Back{/* 뒤로가기 */}
               </div>
             </button>
           </nav>
-          <h1 className="flex items-center gap-3">내 정보</h1>
+          <h1 className="flex items-center gap-3">My profile{/* 내 정보 */}</h1>
         </header>
         <div>
           <Button
@@ -54,7 +54,7 @@ const HeaderAccountPage: React.FC<Props> = ({ tab }) => {
             onClick={onLogOut}
             tailwindStyles="!py-1 !px-2 text-sm"
           >
-            로그아웃
+            Logout{/* 로그아웃 */}
           </Button>
         </div>
       </section>
@@ -65,19 +65,21 @@ const HeaderAccountPage: React.FC<Props> = ({ tab }) => {
             className={`px-1 transition-all
           ${tab === "profile" && "bg-zinc-800 font-bold text-zinc-50"}`}
           >
-            <Link href="/account?tab=profile">프로필</Link>
+            <Link href="/account?tab=profile">{/* 프로필 */}Profile</Link>
           </li>
           <li
             className={`px-1 transition-all
           ${tab === "bookmark" && "bg-zinc-800 font-bold text-zinc-50"}`}
           >
-            <Link href="/account?tab=bookmark">북마크</Link>
+            <Link href="/account?tab=bookmark">{/* 북마크 */}Favorites</Link>
           </li>
           <li
             className={`px-1 transition-all
           ${tab === "orders" && "bg-zinc-800 font-bold text-zinc-50"}`}
           >
-            <Link href="/account?tab=orders">주문 내역</Link>
+            <Link href="/account?tab=orders">
+              {/* 주문 내역 */}Order history
+            </Link>
           </li>
         </ul>
       </nav>

@@ -155,19 +155,20 @@ const OrderList: React.FC<Props> = ({ userData }) => {
   return (
     <section>
       <div className="mb-5 text-left text-base font-semibold text-zinc-500">
-        총 {totalCountData || 0}건 주문
+        {/* 총 */}Total {totalCountData || 0}
+        {/* 건 주문 */} orders
       </div>
       <ul className="mb-10 flex flex-wrap items-center justify-end gap-5 px-2 text-center font-bold text-zinc-800">
         <li>
           <h3 className="mb-1 border-b border-zinc-200 text-lg font-semibold">
-            주문 상태
+            {/* 주문 상태 */}Order status
           </h3>
           <select
             className="cursor-pointer text-center text-sm text-zinc-500"
             onChange={onStatusChange}
             value={filter.status}
           >
-            <option value="all">전체</option>
+            <option value="all">{/* 전체 */}All</option>
             {Object.entries(statusDict).map((status, i) => {
               return isAdmin ||
                 (!isAdmin &&
@@ -187,16 +188,16 @@ const OrderList: React.FC<Props> = ({ userData }) => {
         </li>
         <li>
           <h3 className="mb-1 border-b border-zinc-200 text-lg font-semibold">
-            정렬 기준
+            {/* 정렬 기준 */}Order by
           </h3>
           <select
             className="cursor-pointer text-center text-sm text-zinc-500"
             onChange={onOrderbyChange}
             value={filter.orderby}
           >
-            <option value="updated">업데이트 순</option>
-            <option value="createdAt">최신 순</option>
-            <option value="createdAtAcs">오래된 순</option>
+            <option value="updated">{/* 업데이트 순 */}Update time</option>
+            <option value="createdAt">{/* 최신 순 */}Newest first</option>
+            <option value="createdAtAcs">{/* 오래된 순 */}Oldest first</option>
           </select>
         </li>
         <li className="font-medium">
@@ -211,7 +212,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
             <input
               value={orderId}
               onChange={onOrderIdChange}
-              placeholder="주문 ID"
+              placeholder=/* "주문 ID" */ "Order ID"
               className="h-full pl-2"
               style={{
                 borderBottom: "1.5px solid rgb(228 228 231)",
@@ -221,7 +222,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
               <input
                 value={uid}
                 onChange={onUidChange}
-                placeholder="사용자 ID"
+                placeholder=/* "사용자 ID" */ "user ID"
                 className="pl-2"
                 style={{
                   borderBottom: "1.5px solid rgb(228 228 231)",
@@ -232,13 +233,13 @@ const OrderList: React.FC<Props> = ({ userData }) => {
               theme="black"
               tailwindStyles="h-full text-sm self-center row-span-2"
             >
-              검색
+              {/* 검색 */}Search
             </Button>
           </form>
         </li>
         <li>
           <Button onClick={onReset} tailwindStyles="text-sm">
-            초기화
+            {/* 초기화 */}Reset
           </Button>
         </li>
       </ul>
@@ -257,7 +258,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
           })}
         {!isFetching && totalCountData === 0 && (
           <p className="break-keep py-16 text-center text-lg font-semibold text-zinc-600">
-            주문 내역이 없습니다.
+            {/* 주문 내역이 없습니다. */}No order history.
           </p>
         )}
         {!isFetching &&
@@ -265,7 +266,7 @@ const OrderList: React.FC<Props> = ({ userData }) => {
         Object.keys(orders).length < totalCountData ? (
           <div className="mx-auto mt-5 text-center">
             <Button tailwindStyles="w-[200px]" onClick={onLoadMore}>
-              더 보기
+              {/* 더 보기 */}See more
             </Button>
           </div>
         ) : null}

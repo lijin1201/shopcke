@@ -124,7 +124,7 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         value="size"
       >
         <option value="size" disabled>
-          사이즈 선택
+          Select size
         </option>
         {sizeOptionGenerator(product)}
       </select>
@@ -140,8 +140,8 @@ const CartTemp: React.FC<Props> = ({ product }) => {
           disabled={product.totalStock <= 0}
         >
           {isInCart && Object.keys(tempCart).length !== 0
-            ? "카트 업데이트"
-            : "카트에 추가"}
+            ? "Update cart"
+            : "Add to cart"}
         </Button>
         <Button
           onClick={onToggleBookmark}
@@ -149,7 +149,7 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         >
           <Image
             src={isInBookmark ? bookmarkFillIcon : bookmarkIcon}
-            alt="찜하기"
+            alt="Add to favorite"
             className="m-auto transition-transform duration-500 group-active:scale-150 group-active:duration-100"
             width="24"
             height="24"
@@ -162,9 +162,9 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         disabled={product.totalStock <= 0}
         onClick={onPurchase}
       >
-        구매하기
+        Buy
       </Button>
-      <Alert show={showAlert} text={"카트에 추가되었습니다."} />
+      <Alert show={showAlert} text={"Added to cart."} />
     </form>
   );
 };

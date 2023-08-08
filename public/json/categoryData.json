@@ -1,11 +1,13 @@
 {
   "all": {
-    "name": "모든 제품",
+    "//name": "모든 제품",
+    "name": "All",
     "path": "all",
     "subCategories": []
   },
   "clothes": {
-    "name": "의류",
+    "//name": "의류",
+    "name": "Clothes",
     "path": "clothes",
     "subCategories": [
       { "name": "아우터", "path": "outer" },
@@ -15,7 +17,8 @@
     ]
   },
   "headphone": {
-    "name": "헤드폰",
+    "//name": "헤드폰",
+    "name": "Headphone",
     "path": "headphone",
     "iconClass": "stroke-amber-400 ",
     "subCategories": [
@@ -24,7 +27,8 @@
     ]
   },
   "battery": {
-    "name": "배터리",
+    "//name": "배터리",
+    "name": "Battery",
     "path": "battery",
     "iconClass": "fill-orange-700",
     "subCategories": [
@@ -33,7 +37,8 @@
     ]
   },
   "health food": {
-    "name": "건강식품",
+    "//name": "건강식품",
+    "name": "Health Food",
     "path": "health food",
     "iconClass": "fill-green-700",
     "subCategories": [

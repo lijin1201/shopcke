@@ -4,8 +4,8 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from 'react';
-import useInput from '../hooks/useInput';
+} from "react";
+import useInput from "../hooks/useInput";
 import {
   Category,
   CategoryName,
@@ -14,15 +14,15 @@ import {
   ProductType,
   SizeType,
   StockType,
-} from '../types';
-import categoryData from '../public/json/categoryData.json';
-import { v4 as uuidv4 } from 'uuid';
-import Button from './Button';
-import useInputImg from '../hooks/useInputImg';
-import useProduct from '../hooks/useProduct';
-import Loading from './AnimtaionLoading';
-import { useRouter } from 'next/router';
-import filterData from '../public/json/filterData.json';
+} from "../types";
+import categoryData from "../public/json/categoryData.json";
+import { v4 as uuidv4 } from "uuid";
+import Button from "./Button";
+import useInputImg from "../hooks/useInputImg";
+import useProduct from "../hooks/useProduct";
+import Loading from "./AnimtaionLoading";
+import { useRouter } from "next/router";
+import filterData from "../public/json/filterData.json";
 
 interface Props {
   prevData?: ProductType;
@@ -45,7 +45,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     value: category,
     setValue: setCategory,
     onChange: onCategoryChange,
-  } = useInput<CategoryName | ''>('');
+  } = useInput<CategoryName | "">("");
   const [subCategoryList, setSubCategoryList] = useState<Array<Category>>([]);
   const {
     value: subCategory,
@@ -56,18 +56,18 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     value: color,
     setValue: setColor,
     onChange: onColorChange,
-  } = useInput<ColorType | ''>('');
+  } = useInput<ColorType | "">("");
   const {
     value: gender,
     setValue: setGender,
     onChange: onGenderChange,
-  } = useInput<GenderType | ''>('');
+  } = useInput<GenderType | "">("");
   const {
     value: name,
     setValue: setName,
     onChange: onNameChange,
-  } = useInput<string>('');
-  const { value: price, setValue: setPrice } = useInput<number | ''>(0);
+  } = useInput<string>("");
+  const { value: price, setValue: setPrice } = useInput<number | "">(0);
   const [totalStock, setTotalStock] = useState<number>(0);
   const { value: stock, setValue: setStock } = useInput<StockType>({
     xs: 0,
@@ -83,7 +83,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     value: tags,
     setValue: setTags,
     onChange: onTagsChange,
-  } = useInput<string>('');
+  } = useInput<string>("");
   const {
     value: size,
     setValue: setSize,
@@ -93,32 +93,32 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     value: description,
     setValue: setDescription,
     onChange: onDescriptionChange,
-  } = useInput<string>('');
+  } = useInput<string>("");
   const {
     set: { mutateAsync, isLoading },
   } = useProduct();
 
   // 제품 등록 성공시 초기화
   const reset = () => {
-    setCategory('');
-    setSubCategory('');
+    setCategory("");
+    setSubCategory("");
     setSubCategoryList([]);
-    setName('');
+    setName("");
     setPrice(0);
-    setGender('');
-    setColor('');
+    setGender("");
+    setColor("");
     setStock({ xs: 0, s: 0, m: 0, l: 0, xl: 0, xxl: 0, xxxl: 0, other: 0 });
     setSize([]);
-    setTags('');
-    setDescription('');
+    setTags("");
+    setDescription("");
     setThumbnailFiles(null);
     setDetailImgsFiles(null);
     if (filesInputRefs.current?.length !== 0) {
       filesInputRefs.current.forEach((input) => {
-        input.value = '';
+        input.value = "";
       });
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // 사이즈 체크박스 생성
@@ -140,7 +140,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
 
       return (
         <label key={i}>
-          {cur.text}{' '}
+          {cur.text}{" "}
           <input
             onChange={onToggleCheckbox}
             type="checkbox"
@@ -163,7 +163,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
           (prev: StockType): StockType =>
             ({
               ...prev,
-              [size]: value === '0' ? 0 : value === '' ? '' : parseInt(value),
+              [size]: value === "0" ? 0 : value === "" ? "" : parseInt(value),
             } as StockType)
         );
       };
@@ -179,7 +179,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             min={0}
             onChange={onStockChange}
             style={{
-              borderBottom: '1px solid #1f2937',
+              borderBottom: "1px solid #1f2937",
             }}
             className="px-2 py-1"
           />
@@ -189,18 +189,18 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   };
 
   const onPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPrice(e.target.value ? parseInt(e.target.value) : '');
+    setPrice(e.target.value ? parseInt(e.target.value) : "");
   };
 
   // 업로드
   const onProductUpload = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (category === '' || subCategory === '' || gender === '' || color === '')
+    if (category === "" || subCategory === "" || gender === "" || color === "")
       return;
 
     // 기타 태그 반영 및 상품 데이터
-    const tagList: Array<string> = [...tags.split(' ')];
+    const tagList: Array<string> = [...tags.split(" ")];
 
     // 태그 중복을 방지하기 위해 수정모드에서는 defaultTags를 추가하지 않는다.
     if (!prevData) {
@@ -208,7 +208,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       const defaultTags = [
         category,
         subCategory,
-        ...name.split(' '),
+        ...name.split(" "),
         categoryData[category].name,
       ];
 
@@ -220,11 +220,11 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
 
       // 성별 관련 태그
       const genderTag =
-        gender === 'male'
-          ? ['남성', '남자']
-          : gender === 'female'
-          ? ['여성', '여자']
-          : ['남성', '남자', '여성', '여자', '남녀공용', '공용'];
+        gender === "male"
+          ? ["male", "man"] // ['남성', '남자']
+          : gender === "female"
+          ? ["female", "woman"] // ['여성', '여자']
+          : ["male", "man", "female", "woman", "unisex", "neutral"]; // ['남성', '남자', '여성', '여자', '남녀공용', '공용'];
 
       tagList.push(...genderTag);
       tagList.push(...defaultTags);
@@ -241,10 +241,10 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       category,
       color,
       date: prevData ? prevData.date : Date.now(),
-      detailImgs: prevData ? prevData.detailImgs : [{ src: '', id: '' }],
+      detailImgs: prevData ? prevData.detailImgs : [{ src: "", id: "" }],
       gender,
       id: prevData ? prevData.id : uuidv4(),
-      thumbnail: prevData ? prevData.thumbnail : { src: '', id: '' },
+      thumbnail: prevData ? prevData.thumbnail : { src: "", id: "" },
       name,
       orderCount: prevData ? prevData.orderCount : 0,
       price: price as number,
@@ -264,12 +264,12 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
         isEdit: !!prevData,
       })
         .then(() => {
-          window.alert('제품 등록이 완료되었습니다.');
+          window.alert("제품 등록이 완료되었습니다.");
           prevData ? replace(`/products/product/${prevData.id}`) : reset();
         })
         .catch(() => {
           window.alert(
-            '제품 등록 과정에서 오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.'
+            "제품 등록 과정에서 오류가 발생하였습니다.\n잠시 후 다시 시도해주세요."
           );
         });
   };
@@ -296,7 +296,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       ...prevData.stock,
     });
     setSize(prevData.size as Array<SizeType>);
-    setTags(prevData.tags.join(' '));
+    setTags(prevData.tags.join(" "));
     setDescription(prevData.description);
   }, [
     prevData,
@@ -327,7 +327,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   useEffect(() => {
     setTotalStock(
       Object.values(stock).reduce((acc, cur, i) => {
-        return typeof cur !== 'number' || cur < 1 ? acc : acc + cur;
+        return typeof cur !== "number" || cur < 1 ? acc : acc + cur;
       }, 0)
     );
   }, [stock]);
@@ -347,7 +347,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               onChange={onNameChange}
               placeholder="제품명"
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
             />
@@ -361,7 +361,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               onChange={onPriceChange}
               placeholder="가격"
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
               required
@@ -376,7 +376,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               placeholder="태그(띄어쓰기로 구분)"
               onChange={onTagsChange}
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
             />
@@ -388,7 +388,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             <select
               onChange={onCategoryChange}
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: "1px solid #1f2937",
               }}
               className="px-2 py-1"
               value={category}
@@ -399,7 +399,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               </option>
               {Object.entries(categoryData).map(
                 (category, i) =>
-                  category[0] !== 'all' && (
+                  category[0] !== "all" && (
                     <option key={i} value={category[0]}>
                       {category[1].name}
                     </option>
@@ -412,7 +412,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             <select
               onChange={onSubCategoryChange}
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: "1px solid #1f2937",
               }}
               required
               className="px-2 py-1"
@@ -434,7 +434,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               <select
                 onChange={onGenderChange}
                 style={{
-                  borderBottom: '1px solid #1f2937',
+                  borderBottom: "1px solid #1f2937",
                 }}
                 required
                 className="px-2 py-1"
@@ -443,9 +443,9 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
                 <option value="" disabled>
                   선택
                 </option>
-                <option value={'all'}>공용</option>
-                <option value={'male'}>남성</option>
-                <option value={'female'}>여성</option>
+                <option value={"all"}>공용</option>
+                <option value={"male"}>남성</option>
+                <option value={"female"}>여성</option>
               </select>
             </label>
             <label>
@@ -453,7 +453,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               <select
                 onChange={onColorChange}
                 style={{
-                  borderBottom: '1px solid #1f2937',
+                  borderBottom: "1px solid #1f2937",
                 }}
                 required
                 className="px-2 py-1"
@@ -527,13 +527,13 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             <textarea
               value={description}
               onChange={onDescriptionChange}
-              style={{ border: '1px solid #1f2937' }}
+              style={{ border: "1px solid #1f2937" }}
               className="aspect-[5/2] min-w-[300px] rounded-sm px-2 py-1 text-base"
             />
           </label>
         </div>
         <div className="flex w-full gap-3">
-          <Button theme="black">제품 {prevData ? '수정' : '등록'}</Button>
+          <Button theme="black">제품 {prevData ? "수정" : "등록"}</Button>
           <Button
             onClick={
               prevData
@@ -543,10 +543,10 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
                     reset();
                   }
             }
-            href={prevData ? `/products/product/${prevData.id}` : ''}
+            href={prevData ? `/products/product/${prevData.id}` : ""}
             tailwindStyles="bg-zinc-100 text-zinc-500 hover:bg-zinc-50 hover:text-zinc-300"
           >
-            {prevData ? '돌아가기' : '초기화'}
+            {prevData ? "돌아가기" : "초기화"}
           </Button>
         </div>
       </form>

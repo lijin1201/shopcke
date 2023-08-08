@@ -62,7 +62,10 @@ const Purchase = () => {
   return (
     <main className="page-container">
       <Seo title="PURCHASE" />
-      <HeaderBasic title={{ text: "결제하기" }} toHome={true} />
+      <HeaderBasic
+        title={{ text: /* "결제하기" */ "Make payment" }}
+        toHome={true}
+      />
       {userData && target && (
         <section className="px-12 xs:px-5">
           <FormPurchase

@@ -131,7 +131,7 @@ const LayoutNav = () => {
               href="/collections"
               className="flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 transition-all hover:bg-zinc-200 2xs:px-2"
             >
-              추천상품
+              Featured Products
             </Link>
           </li>
           <li className="btn--category">
@@ -139,7 +139,7 @@ const LayoutNav = () => {
               href="/products/categories/all"
               className="flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 transition-all hover:bg-zinc-200 2xs:px-2"
             >
-              목록
+              Categories
             </Link>
             <div className="category__dropdown absolute left-0 top-full h-0 w-full overflow-hidden border-zinc-200 bg-white transition-all duration-500">
               <ul className="relative z-50 mt-4 flex w-full justify-evenly bg-white text-lg">

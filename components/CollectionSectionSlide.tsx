@@ -305,9 +305,11 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
     </div>
   ) : (
     <p className="relative h-[100px] w-full break-keep text-center text-lg font-semibold text-zinc-600">
-      컬렉션 제품 목록을 불러오는 과정에서 문제가 발생하였습니다.
+      {/* 컬렉션 제품 목록을 불러오는 과정에서 문제가 발생하였습니다. */}
+      Error happened when loading collection data.
       <br />
-      잠시 후 다시 시도해 주세요.
+      {/* 잠시 후 다시 시도해 주세요. */}
+      Try again later.
     </p>
   );
 };

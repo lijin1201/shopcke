@@ -55,7 +55,7 @@ const CollectionSectionSlideItem: React.FC<Props> = ({
             src={
               isInBookmark ? "/icons/bookmark-fill.svg" : "/icons/bookmark.svg"
             }
-            alt="북마크"
+            alt=/* "북마크" */ "Favorite list"
             className="w-full origin-top translate-y-[-50%] transition-transform duration-500 hover:translate-y-[-40%] active:translate-y-[-20%] active:duration-100"
           />
         </button>

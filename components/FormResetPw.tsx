@@ -15,13 +15,16 @@ const FormResetPw = () => {
 
     await changePw(email)
       .then(() => {
-        window.alert("재설정 메일이 발송되었습니다.");
+        window.alert(
+          /* "재설정 메일이 발송되었습니다." */ "Mail sent for resetting password."
+        );
         push("/login");
       })
       .catch((error) => {
         console.error(error);
         window.alert(
-          "재설정 메일을 발송하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+          // "재설정 메일을 발송하는 과정에서 문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요."
+          "Problem happened in sending password reset mail.\nPlease try again later."
         );
       });
   };
@@ -36,7 +39,9 @@ const FormResetPw = () => {
         onSubmit={onSendResetEmail}
         className="min-w-[150px] max-w-[450px] grow text-sm text-zinc-800 md:max-w-full"
       >
-        <h3 className="pb-5 text-xl font-semibold">재설정 메일 보내기</h3>
+        <h3 className="pb-5 text-xl font-semibold">
+          {/* 재설정 메일 보내기 */}Send password reset mail
+        </h3>
         <section className="flex flex-col gap-5">
           <input
             type="email"
@@ -60,7 +65,7 @@ const FormResetPw = () => {
               tailwindStyles="self-end px-10"
               disabled={!isEmailValid}
             >
-              메일 발송
+              {/* 메일 발송 */}Send mail
             </Button>
           </div>
         </section>

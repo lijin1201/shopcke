@@ -29,7 +29,7 @@ const HeaderBasic: React.FC<Props> = ({ title, toHome }) => {
               >
                 <polyline points="78.79 267.02 222.75 150 78.79 32.98" />
               </svg>
-              홈으로
+              {/* 홈으로 */}To home
             </div>
           </Link>
         ) : (
@@ -49,7 +49,7 @@ const HeaderBasic: React.FC<Props> = ({ title, toHome }) => {
               >
                 <polyline points="78.79 267.02 222.75 150 78.79 32.98" />
               </svg>
-              뒤로가기
+              Back{/* 뒤로가기 */}
             </div>
           </button>
         )}
