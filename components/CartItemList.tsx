@@ -86,7 +86,11 @@ const CartItemList: React.FC<Props> = ({
                   <h3 className="break-keep">{product.name}</h3>
                 </Link>
                 <span className="text-right text-base text-zinc-400">
-                  {product.price.toLocaleString("ko-KR")} ₩
+                  {product.price.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                  {/* {product.price.toLocaleString("ko-KR")} ₩ */}
                 </span>
               </div>
             ) : (
@@ -109,10 +113,11 @@ const CartItemList: React.FC<Props> = ({
                       className={`${isOutOfStock && "text-red-500"}`}
                     >
                       {size.toUpperCase()} : {orderCount} piece(s){" "}
-                      {isOutOfStock &&
-                        (product.stock[size] === 0
-                          ? "(Sold out)"
-                          : "(Over stock)")
+                      {
+                        isOutOfStock &&
+                          (product.stock[size] === 0
+                            ? "(Sold out)"
+                            : "(Over stock)")
                         // "(품절)" : "(재고 초과)"
                       }
                     </div>
@@ -126,8 +131,10 @@ const CartItemList: React.FC<Props> = ({
                   {(
                     Object.values(cart[id]).reduce((acc, cur) => acc + cur, 0) *
                     product.price
-                  ).toLocaleString("ko-KR")}{" "}
-                  ₩
+                  ).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}{" "}
                 </span>
               )}
               {!withoutDeleteBtn && (
@@ -171,7 +178,10 @@ const CartItemList: React.FC<Props> = ({
             {/* 개 제품 */}
           </div>
           <div className="text-3xl text-zinc-800">
-            {cartSummary?.totalPrice?.toLocaleString("ko-KR") || 0} ₩
+            {cartSummary?.totalPrice?.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            }) || 0}
           </div>
         </div>
       </div>

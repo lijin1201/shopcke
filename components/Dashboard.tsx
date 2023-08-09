@@ -160,7 +160,10 @@ const Dashboard: React.FC<Props> = ({ data }) => {
                 총 매출액
               </h2>
               <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
-                {totalData.amount.toLocaleString("ko-KR") || 0} ₩
+                {totalData.amount.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }) || 0}
               </div>
             </li>
             <li className="flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-100 p-5">
@@ -169,9 +172,12 @@ const Dashboard: React.FC<Props> = ({ data }) => {
               </h2>
               <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
                 {Math.floor(totalData.amount / totalData.orders).toLocaleString(
-                  "ko-KR"
+                  "en-US",
+                  {
+                    style: "currency",
+                    currency: "USD",
+                  }
                 ) || 0}{" "}
-                ₩
               </div>
             </li>
             <li className="flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-100 p-5">
@@ -191,8 +197,10 @@ const Dashboard: React.FC<Props> = ({ data }) => {
               <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
                 {Math.floor(
                   totalData.amount / Object.keys(data).length
-                ).toLocaleString("ko-KR") || 0}{" "}
-                ₩
+                ).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }) || 0}{" "}
               </div>
             </li>
           </ul>
@@ -209,7 +217,7 @@ const Dashboard: React.FC<Props> = ({ data }) => {
               월간 주문 건수
             </h2>
             <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
-              {monthlyData.orders.toLocaleString("ko-KR") || 0}
+              {monthlyData.orders.toLocaleString("en-US") || 0}
             </div>
           </li>
           <li className="justify-evenlsy flex flex-col items-center gap-2 rounded-lg bg-zinc-100 p-5">
@@ -217,7 +225,10 @@ const Dashboard: React.FC<Props> = ({ data }) => {
               월간 매출액
             </h2>
             <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
-              {monthlyData.amount.toLocaleString("ko-KR") || 0} ₩
+              {monthlyData.amount.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              }) || 0}
             </div>
           </li>
           <li className="flex flex-col items-center justify-evenly gap-2 rounded-lg bg-zinc-100 p-5">
@@ -227,8 +238,10 @@ const Dashboard: React.FC<Props> = ({ data }) => {
             <div className="whitespace-nowrap text-center text-2xl font-semibold md:text-xl">
               {Math.floor(
                 monthlyData.amount / monthlyData.orders || 0
-              ).toLocaleString("ko-KR") || 0}{" "}
-              ₩
+              ).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              }) || 0}{" "}
             </div>
           </li>
         </ul>

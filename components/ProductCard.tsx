@@ -49,7 +49,10 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             {product.name}
           </h4>
           <span className="relative text-zinc-400 xs:text-base">
-            {product.price.toLocaleString("ko-KR")} ₩
+            {product.price.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}{" "}
           </span>
         </div>
       </Link>

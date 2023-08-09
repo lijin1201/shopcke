@@ -41,7 +41,10 @@ const CollectionSectionSlideItem: React.FC<Props> = ({
           {product.name}
         </h4>
         <span className="relative text-zinc-400">
-          {product.price.toLocaleString("ko-KR")} ₩
+          {product.price.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}
         </span>
       </Link>
       <div className="absolute right-8 top-0 z-10 flex w-[15%] flex-col items-center justify-center gap-1 overflow-hidden lg:w-[10%] md:w-[12%] sm:w-[15%] xs:w-[10%] 2xs:w-[15%]">

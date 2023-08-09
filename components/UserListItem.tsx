@@ -69,10 +69,10 @@ const UserListItem: React.FC<Props> = ({
         <div className="w-full text-end text-sm text-zinc-500">
           <div>{`추가된 날짜 : ${new Date(
             userData.user?.createdAt as string
-          ).toLocaleString("ko-KR")}`}</div>
+          ).toLocaleString("en-US")}`}</div>
           <div>{`최근 로그인 : ${new Date(
             userData.user?.lastLoginAt as string
-          ).toLocaleString("ko-KR")}`}</div>
+          ).toLocaleString("en-US")}`}</div>
         </div>
       </li>
       {/* {query.detail === orderData.orderId && (

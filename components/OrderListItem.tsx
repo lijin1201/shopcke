@@ -123,15 +123,20 @@ const OrderListItem: React.FC<Props> = ({
               {statusDict[orderData.status]}
             </div>
             {query.detail !== orderData.orderId && (
-              <span>{orderData.amount.toLocaleString("ko-KR")} ₩</span>
+              <span>
+                {orderData.amount.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}{" "}
+              </span>
             )}
           </div>
           <div className="w-full text-end text-sm text-zinc-500">
             <div>{`Created at : ${new Date(orderData.createdAt).toLocaleString(
-              "ko-KR"
+              "en-US" // "ko-KR"
             )}`}</div>
             <div>{`Last update : ${new Date(orderData.updatedAt).toLocaleString(
-              "ko-KR"
+              "en-US" // "ko-KR"
             )}`}</div>
           </div>
         </li>

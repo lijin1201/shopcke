@@ -79,11 +79,11 @@ const LayoutFooter = () => {
         </li>
       </ul>
 
-      <section className="w-full max-w-[1700px] p-5 pb-0 pr-24 text-xs">
+      <section className="w-full max-w-[1700px] p-5 pb-0 pr-24 text-sm">
         <h3 className="mb-2 text-xs font-bold">HanaElectron</h3>
         <p className="max-w-[600px]">
           Business Name : Hana Electron / CEO (Name): JAE SUNG JANG / Business
-          Registration No. : C4185163/ Phone : 323_472_1713 / Address : 3224 W
+          Registration No. : C4185163/ Phone : 323_717_0050 / Address : 3224 W
           OLYMPIC BLVD LOS ANGELES CA 90006 / Email:{" "}
           <Link
             href="mailto:cke@hanaelectron.com?subject=[하나일렉트론 문의] - "

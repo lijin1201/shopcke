@@ -139,9 +139,12 @@ const CartTempItemList: React.FC<Props> = ({
               {product?.price &&
                 tempCart[size] &&
                 (product.price * (tempCart[size] as number)).toLocaleString(
-                  "ko-KR"
+                  "en-US",
+                  {
+                    style: "currency",
+                    currency: "USD",
+                  }
                 )}{" "}
-              ₩
             </div>
             <button
               onClick={deleteItem}
@@ -182,8 +185,10 @@ const CartTempItemList: React.FC<Props> = ({
             (Object.values(tempCart).reduce((acc, cur) => {
               return typeof cur === "number" ? (acc as number) + cur : acc;
             }, 0) as number) * product.price
-          ).toLocaleString("ko-KR")}{" "}
-          ₩
+          ).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}{" "}
         </span>
       </div>
     </ul>

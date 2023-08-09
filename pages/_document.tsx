@@ -1,8 +1,8 @@
-import { Html, Main, Head, NextScript } from 'next/document';
+import { Html, Main, Head, NextScript } from "next/document";
 
 const Document = () => {
   return (
-    <Html lang="ko-KR">
+    <Html lang="en-US">
       <Head>
         {/* 파비콘 */}
         <link rel="icon" />

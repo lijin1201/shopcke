@@ -212,7 +212,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
 
     try {
       let response = await axios.post("/api/paypal/createorder3", {
-        order_price: (cartSummary?.totalPrice as number) / 1000,
+        order_price: cartSummary?.totalPrice as number, // / 1000,
       });
       console.log(response);
       // console.log("order_id: " + response.data.data.order_id);
@@ -420,7 +420,10 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
       <div className="flex flex-col mt-12  text-center ">
         <span className="text-2xl block ">
           {/* 금액 */}Price:{" "}
-          {cartSummary?.totalPrice.toLocaleString("ko-KR") || "-"}
+          {cartSummary?.totalPrice.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          }) || "-"}
           {/* 원 */}USD{" "}
         </span>
         {/* <span>주소: {addressData?.address} </span> */}

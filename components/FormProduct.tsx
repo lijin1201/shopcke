@@ -189,7 +189,8 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   };
 
   const onPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPrice(e.target.value ? parseInt(e.target.value) : "");
+    // setPrice(e.target.value ? parseInt(e.target.value) : "");
+    setPrice(e.target.value ? parseFloat(e.target.value) : "");
   };
 
   // 업로드
@@ -356,6 +357,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             <h3 className="mb-2 text-2xl font-semibold">제품 가격</h3>
             <input
               type="number"
+              step="0.01"
               value={price}
               min={1}
               onChange={onPriceChange}
@@ -366,7 +368,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               className="px-2 py-1"
               required
             />
-            <span className="ml-2 text-base font-semibold">₩</span>
+            <span className="ml-2 text-base font-semibold"> USD</span>
           </label>
           <label>
             <h3 className="mb-2 text-2xl font-semibold">태그</h3>
