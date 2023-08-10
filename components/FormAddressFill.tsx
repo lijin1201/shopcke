@@ -74,7 +74,7 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Shipping Address</h1>
+        {/* <h1 className="mb-4 text-xl">Shipping Address</h1> */}
         {/* <div className="mb-4">
           <label htmlFor="fullName">Full Name</label>
           <input
@@ -142,7 +142,7 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
           )}
         </div>
         <div className="mb-4 flex justify-between">
-          <button className="primary-button">Next</button>
+          <button className="primary-button">Set Address</button>
         </div>
       </form>
       <div className="flex flex-col gap-2">
@@ -152,11 +152,13 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
             : addressData
             ? `(${addressData.postCode})`
             : ""}{" "}
-          {addressData?.address
-            ? addressData?.address
-            : addressData
-            ? addressData.address
-            : "검색된 주소 없음"}
+          {
+            addressData?.address
+              ? addressData?.address
+              : addressData
+              ? addressData.address
+              : "No address data set" /* "검색된 주소 없음" */
+          }
         </span>
       </div>
     </div>

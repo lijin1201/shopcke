@@ -70,14 +70,14 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   const { value: price, setValue: setPrice } = useInput<number | "">(0);
   const [totalStock, setTotalStock] = useState<number>(0);
   const { value: stock, setValue: setStock } = useInput<StockType>({
-    xs: 0,
-    s: 0,
-    m: 0,
-    l: 0,
-    xl: 0,
-    xxl: 0,
-    xxxl: 0,
-    other: 0,
+    // xs: 0,
+    // s: 0,
+    // m: 0,
+    // l: 0,
+    // xl: 0,
+    // xxl: 0,
+    // xxxl: 0,
+    // other: 0,
   });
   const {
     value: tags,
@@ -107,7 +107,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     setPrice(0);
     setGender("");
     setColor("");
-    setStock({ xs: 0, s: 0, m: 0, l: 0, xl: 0, xxl: 0, xxxl: 0, other: 0 });
+    setStock({ blue: 0, pink: 0, black: 0, white: 0, other: 0 });
     setSize([]);
     setTags("");
     setDescription("");
@@ -286,14 +286,14 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     setGender(prevData.gender);
     setColor(prevData.color as ColorType);
     setStock({
-      xs: 0,
-      s: 0,
-      m: 0,
-      l: 0,
-      xl: 0,
-      xxl: 0,
-      xxxl: 0,
-      other: 0,
+      // xs: 0,
+      // s: 0,
+      // m: 0,
+      // l: 0,
+      // xl: 0,
+      // xxl: 0,
+      // xxxl: 0,
+      // other: 0,
       ...prevData.stock,
     });
     setSize(prevData.size as Array<SizeType>);

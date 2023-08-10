@@ -4,14 +4,11 @@
     { "value": "female", "text": "여성" }
   ],
   "size": [
-    { "value": "xs", "text": "XS" },
-    { "value": "s", "text": "S" },
-    { "value": "m", "text": "M" },
-    { "value": "l", "text": "L" },
-    { "value": "xl", "text": "XL" },
-    { "value": "xxl", "text": "XXL" },
-    { "value": "xxxl", "text": "XXXL" },
-    { "value": "other", "text": "기타" }
+    { "value": "blue", "text": "BLUE" },
+    { "value": "pink", "text": "PINK" },
+    { "value": "black", "text": "BLACK" },
+    { "value": "white", "text": "WHITE" },
+    { "value": "other", "text": "OTHER" }
   ],
   "color": [
     {

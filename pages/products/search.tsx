@@ -18,7 +18,7 @@ const Search = () => {
     category: "",
     subCategory: "",
     gender: "all",
-    size: ["xs", "s", "m", "l", "xl", "xxl", "xxxl"],
+    size: ["blue", "pink", "black", "white", "other"],
     color: "",
     orderby: "popularity",
     keywords: (query.keywords as string) || "",

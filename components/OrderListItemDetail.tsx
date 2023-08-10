@@ -47,6 +47,7 @@ const OrderListItemDetail: React.FC<Props> = ({
   });
   const {
     update: { mutateAsync: updateOrderData, isSuccess: updateOrderDataSuccess },
+    remove: { mutateAsync: removeOrderData, isSuccess: removeOrderDataSuccess },
   } = useOrderData(orderData.orderId || "");
   const { mutateAsync: updateStock, isSuccess: updateStockSuccess } =
     useUpdateStockAndOrderCount();

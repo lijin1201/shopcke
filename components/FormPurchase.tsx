@@ -279,12 +279,12 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
         // toast.success('Amount Added to Wallet')
         // And/Or Adding Balance to Redux Wallet
 
-        updateOrderData({
-          orderId: orderID,
-          orderData: {
-            status: "Payment completed",
-          },
-        });
+        // updateOrderData({
+        //   orderId: orderID,
+        //   orderData: {
+        //     status: "Payment completed",
+        //   },
+        // });
         router.push(
           `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/purchase/success2?target=${target}` +
             `&orderId=${orderID}&amount=${cartSummary?.totalPrice}`
@@ -372,7 +372,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
                 onChange={onSameAsOrdererChange}
                 value="sameAsOrderer"
               />{" "}
-              주문자와 동일
+              Same as orderer{/* 주문자와 동일 */}
             </label>
           </div>
 

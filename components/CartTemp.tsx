@@ -31,13 +31,13 @@ const CartTemp: React.FC<Props> = ({ product }) => {
     const optionList = Array<ReactNode>([]);
     // 사이즈 정렬 기준
     const sizeOrder = {
-      xs: 0,
-      s: 1,
-      m: 2,
-      l: 3,
-      xl: 4,
-      xxl: 5,
-      xxxl: 6,
+      blue: 0,
+      pink: 1,
+      black: 2,
+      white: 3,
+      // xl: 4,
+      // xxl: 5,
+      // xxxl: 6,
       other: 7,
     };
 
@@ -50,7 +50,8 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         const stock = product.stock[size as SizeType];
         optionList.push(
           <option value={size} key={i} disabled={!stock}>
-            {size === "other" ? "기본" : size.toUpperCase()} {!stock && "품절"}
+            {size.toUpperCase()} {!stock && "품절"}
+            {/* { {size === "other" ? "기본" : size.toUpperCase()} {!stock && "품절"} } */}
           </option>
         );
       });
@@ -124,7 +125,7 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         value="size"
       >
         <option value="size" disabled>
-          Select size
+          Select option
         </option>
         {sizeOptionGenerator(product)}
       </select>

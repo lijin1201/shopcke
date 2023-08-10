@@ -6,7 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, 'Noto Sans KR', BlinkMacSystemFont, Segoe UI,
+  font-family: -apple-system, "Noto Sans KR", BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
 }
@@ -27,4 +27,8 @@ a {
   min-height: calc(90vh - 64px);
   margin-left: auto;
   margin-right: auto;
+}
+
+.primary-button {
+  @apply rounded bg-amber-300 py-2 px-4 shadow outline-none hover:bg-amber-400 active:bg-amber-500;
 }
