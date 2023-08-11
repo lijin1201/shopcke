@@ -3,7 +3,7 @@ import {
   Dispatch,
   // MouseEvent,
   SetStateAction,
-  // useState,
+  useState,
 } from "react";
 import { useForm } from "react-hook-form";
 import { AddressType } from "../types";
@@ -64,6 +64,8 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
     // router.push("/payment");
   };
 
+  const [hideForm, setHideForm] = useState(addressData?.address ? true : false);
+
   return (
     <div
       className={`mx-2 flex flex-col flex-wrap gap-2 ${
@@ -71,6 +73,7 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
       }`}
     >
       <form
+        hidden={hideForm}
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
@@ -142,25 +145,20 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
           )}
         </div>
         <div className="mb-4 flex justify-between">
-          <button className="primary-button">Set Address</button>
+          <button className="primary-button">Set</button>
+          <button className="default-button" onClick={() => setHideForm(true)}>
+            Close
+          </button>
         </div>
       </form>
-      <div className="flex flex-col gap-2">
-        <span>
-          {addressData?.address
-            ? `(${addressData?.postCode})`
-            : addressData
-            ? `(${addressData.postCode})`
-            : ""}{" "}
-          {
-            addressData?.address
-              ? addressData?.address
-              : addressData
-              ? addressData.address
-              : "No address data set" /* "검색된 주소 없음" */
-          }
-        </span>
-      </div>
+      {hideForm && (
+        <button
+          className="default-button w-fit "
+          onClick={() => setHideForm(false)}
+        >
+          Use Another Address
+        </button>
+      )}
     </div>
   );
 };

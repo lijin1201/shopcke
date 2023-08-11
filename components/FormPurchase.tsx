@@ -395,6 +395,38 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
           <h3 className="mb-3 text-xl font-semibold">
             * {/* 배송 주소 */}Shipping address
           </h3>
+
+          <div className="flex flex-col gap-2">
+            <span>
+              {addressData?.address
+                ? `(${addressData?.postCode})`
+                : addressData
+                ? `(${addressData.postCode})`
+                : ""}{" "}
+              {
+                addressData?.address
+                  ? addressData?.address
+                  : addressData
+                  ? addressData.address
+                  : "No address data set" /* "검색된 주소 없음" */
+              }
+            </span>
+          </div>
+          {addressData === userData.addressData ? (
+            <span
+              className="bg-zinc-200 text-sm inline-block h-fit w-fit break-keep rounded-md px-2 py-1 text-center t
+             font-semibold transition-all"
+            >
+              (default)
+            </span>
+          ) : (
+            <button
+              className="primary-button"
+              onClick={() => setAddressData(userData.addressData)}
+            >
+              Switch to Default Address
+            </button>
+          )}
           <FormAddressFill
             addressData={addressData}
             setAddressData={setAddressData}

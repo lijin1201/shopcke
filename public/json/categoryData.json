@@ -22,8 +22,8 @@
     "path": "headphone",
     "iconClass": "stroke-amber-400 ",
     "subCategories": [
-      { "name": "헤드폰", "path": "headphone" },
-      { "name": "이어폰", "path": "earphone" }
+      { "name": "Headphone", "path": "headphone" },
+      { "name": "Earphone", "path": "earphone" }
     ]
   },
   "battery": {
