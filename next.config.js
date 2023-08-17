@@ -6,16 +6,16 @@ const nextConfig = {
     scrollRestoration: true,
   },
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    domains: ["firebasestorage.googleapis.com"],
   },
   async rewrites() {
     return [
       {
-        source: '/api/cancelPayment/:paymentkey',
+        source: "/api/cancelPayment/:paymentkey",
         destination: `https://api.tosspayments.com/v1/payments/:paymentkey/cancel`,
       },
       {
-        source: '/api/confirmPayment',
+        source: "/api/confirmPayment",
         destination: `https://api.tosspayments.com/v1/payments/confirm`,
       },
     ];
@@ -23,21 +23,21 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/products/categories',
-        destination: '/products/categories/all?orderby=popularity',
+        source: "/products/categories",
+        destination: "/products/categories/all?orderby=popularity",
         permanent: true,
       },
       {
-        source: '/profile',
-        destination: '/account?tab=profile',
+        source: "/profile",
+        destination: "/account?tab=profile",
         permanent: true,
       },
       ...[
-        '/products/categories/clothes',
-        '/products/categories/accessory',
-        '/products/categories/shoes',
-        '/products/categories/bag',
-        '/products/categories/jewel',
+        "/products/categories/clothes",
+        "/products/categories/accessory",
+        "/products/categories/shoes",
+        "/products/categories/bag",
+        "/products/categories/jewel",
       ].map((source) => ({
         source,
         destination: `${source}/all?orderby=popularity`,
@@ -68,7 +68,7 @@ const nextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test?.('.svg')
+      (rule) => rule.test && rule.test.test?.(".svg")
     );
 
     config.module.rules.push({
@@ -84,7 +84,11 @@ const nextConfig = {
           test: /\.svg$/i,
           issuer: /\.[jt]sx?$/,
           resourceQuery: /svgr/,
-          use: ['@svgr/webpack'],
+          use: ["@svgr/webpack"],
+        },
+        {
+          test: /\.html$/i,
+          use: "raw-loader",
         },
       ],
     });

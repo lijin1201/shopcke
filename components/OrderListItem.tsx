@@ -100,6 +100,27 @@ const OrderListItem: React.FC<Props> = ({
               </h4>
             )}
             <h3 className="relative h-full min-w-[100px] basis-[15%]">
+              {/* <div className="basis-[30%] text-center text-sm text-zinc-500 xs:basis-full xs:text-start">
+            Object.keys(orderData.products).forEach((key, i) => {
+      const size = key as SizeType;
+      const orderCount = orderData.products[size];
+
+                {sizes.map((el, i) => {
+                  const [size, orderCount] = el as [SizeType, number];
+                  const isOutOfStock =
+                    !withoutStockInfo &&
+                    (product.stock[size] as number) < orderCount;
+
+                  return (
+                    <div
+                      key={i}
+                    >
+                      {size.toUpperCase()} : {orderCount} piece(s){" "}
+                     
+                    </div>
+                  );
+                })}
+              </div> */}
               {orderData.orderName}
             </h3>
             <span className="mt-2 whitespace-pre-wrap text-sm">
