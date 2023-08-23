@@ -37,6 +37,11 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     setFiles: setThumbnailFiles,
   } = useInputImg(null);
   const {
+    files: optionsThumb,
+    onFilesChange: onOptionsThumbChange,
+    setFiles: setOptionsThumbFiles,
+  } = useInputImg(null);
+  const {
     files: detailImgs,
     onFilesChange: onDetailImgsChange,
     setFiles: setDetailImgsFiles,
@@ -96,6 +101,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   } = useInput<string>("");
   const {
     set: { mutateAsync, isLoading },
+    deleteOptionThumb: { mutateAsync: delOptionThumbAsync },
   } = useProduct();
 
   // 제품 등록 성공시 초기화
@@ -113,6 +119,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     setDescription("");
     setThumbnailFiles(null);
     setDetailImgsFiles(null);
+    setOptionsThumbFiles(null);
     if (filesInputRefs.current?.length !== 0) {
       filesInputRefs.current.forEach((input) => {
         input.value = "";
@@ -246,6 +253,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       gender,
       id: prevData ? prevData.id : uuidv4(),
       thumbnail: prevData ? prevData.thumbnail : { src: "", id: "" },
+      optionsThumb: [],
       name,
       orderCount: prevData ? prevData.orderCount : 0,
       price: price as number,
@@ -261,7 +269,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     if (product)
       mutateAsync({
         product,
-        files: { thumbnail, detailImgs },
+        files: { thumbnail, detailImgs, optionsImage: optionsThumb },
         isEdit: !!prevData,
       })
         .then(() => {
@@ -491,6 +499,33 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               required={!prevData}
               accept="image/*"
             />
+          </label>
+          <label className="w-fit">
+            <h3 className="mb-2 text-2xl font-semibold">Options Image</h3>
+            {prevData && <p className="mb-2">Existing images are kept.</p>}
+            <input
+              ref={(el) => {
+                if (el) filesInputRefs.current[2] = el;
+              }}
+              type="file"
+              onChange={onOptionsThumbChange}
+              multiple
+              required={!prevData}
+              accept="image/*"
+            />
+            <Button
+              theme="gray"
+              onClick={(e) => {
+                e.preventDefault();
+                if (prevData)
+                  delOptionThumbAsync({
+                    product: prevData,
+                    optionsThumb: prevData.optionsThumb,
+                  });
+              }}
+            >
+              Delete
+            </Button>
           </label>
           <label className="w-fit">
             <h3 className="mb-2 text-2xl font-semibold">상세 사진</h3>

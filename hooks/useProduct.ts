@@ -1,6 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
 import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 import { db, storage } from "../fb";
 import { ImageType, ProductType } from "../types";
 import axios from "axios";
@@ -33,8 +38,20 @@ const useProduct = () => {
       }),
     retry: false,
   });
-
-  return { deleteProduct, set };
+  //deleteOptionThumbFn
+  const deleteOptionThumb = useMutation(deleteOptionThumbFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [
+          "productsByFilter",
+          "productsCountByFilter",
+          "productsById",
+          "productsFromCart",
+        ],
+      }),
+    retry: false,
+  });
+  return { deleteProduct, set, deleteOptionThumb };
 };
 
 export default useProduct;
@@ -45,12 +62,17 @@ const setProduct = async ({
   isEdit = false,
 }: {
   product: ProductType;
-  files: { thumbnail: FileList | null; detailImgs: FileList | null };
+  files: {
+    thumbnail: FileList | null;
+    detailImgs: FileList | null;
+    optionsImage: FileList | null;
+  };
   isEdit?: boolean;
 }) => {
   const finalProduct = { ...product };
   let thumbnail: ImageType;
   const detailImgs: Array<ImageType> = [];
+  const optionsImage: Array<ImageType> = [];
 
   // 대표 사진이 변경된 경우
   if (files.thumbnail) {
@@ -90,6 +112,27 @@ const setProduct = async ({
     }
   }
 
+  if (files.optionsImage) {
+    for (let i in Object.keys(files.optionsImage)) {
+      const newOptionImg = { src: "", id: "" };
+
+      newOptionImg.id = files.optionsImage[i].name;
+
+      const imgStorageRef = ref(
+        storage,
+        `products/${product.id}/${newOptionImg.id}`
+      );
+
+      await uploadBytes(imgStorageRef, files.optionsImage[i]);
+
+      newOptionImg.src = await getDownloadURL(imgStorageRef);
+
+      optionsImage.push(newOptionImg);
+
+      finalProduct.optionsThumb = optionsImage;
+    }
+  }
+
   if (!isEdit) {
     // 업로드
     await setDoc(doc(db, "products", product.id), finalProduct).then(() =>
@@ -118,6 +161,31 @@ const deleteProductFn = async (productId: string) => {
           break;
       }
     });
+};
+
+const deleteOptionThumbFn = async ({
+  product,
+  optionsThumb,
+}: {
+  product: ProductType;
+  optionsThumb: Array<ImageType>; // FileList | null;
+}) => {
+  const finalProduct = { ...product };
+  if (optionsThumb?.length > 0) {
+    for (let i in Object.keys(optionsThumb)) {
+      const imgStorageRef = ref(
+        storage,
+        `products/${product.id}/${optionsThumb[i].id}`
+      );
+
+      await deleteObject(imgStorageRef);
+    }
+    //storage file was deleted with the following commented (assitned with [])
+    finalProduct.optionsThumb = [];
+    await updateDoc(doc(db, "products", product.id), finalProduct).then(() =>
+      revalidate(product.id)
+    );
+  }
 };
 
 /**

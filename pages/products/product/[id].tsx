@@ -78,6 +78,12 @@ const Product = (productData: serverSideProductType) => {
     setUploadDate(parseDate);
   }, [productData]);
 
+  const [hoveredThumbnail, setHoveredThumbnail] = useState(-1);
+
+  const handleThumbnailHover = (index: number) => {
+    setHoveredThumbnail(index);
+  };
+
   return (
     <main className="page-container">
       <Seo
@@ -108,16 +114,89 @@ const Product = (productData: serverSideProductType) => {
       ) : (
         <div className="flex flex-col gap-12 px-12 pb-24 xs:px-5">
           <div className="relative flex justify-evenly gap-5 sm:flex-col">
-            <div className="group relative aspect-square max-w-[500px] grow basis-[50%]">
-              <Image
-                src={productData.thumbnail.src}
-                alt={productData.name}
-                fill
-                sizes="(max-width: 639px) 100vw,
-                50vw"
-                className="object-contain"
-                priority
-              />
+            {/* <div className="group relative aspect-square max-w-[500px] grow basis-[50%]"> */}
+            {/* <div className="group relative aspect-square max-w-[500px] grow basis-[50%]"> */}
+            <div className=" relative  max-w-[400px]">
+              {/* <div className="relative top-0 left-0  h-1/2"> */}
+              <div className="grid grid-cols-1">
+                <div
+                  key={-1}
+                  className="row-span-full  col-start-1 self-start "
+                >
+                  <Image
+                    key={-1}
+                    src={productData.thumbnail.src}
+                    alt={productData.name}
+                    sizes="(max-width: 639px) 100vw,
+                    50vw"
+                    width={0}
+                    height={0}
+                    //className="object-contain"
+                    className={` w-full h-auto transition-opacity duration-300 ${
+                      hoveredThumbnail === -1 ? "opacity-100" : "opacity-0"
+                    }`}
+                    // priority
+                  />
+                </div>
+                {productData.optionsThumb?.map((img, i) => (
+                  <div
+                    key={i}
+                    className="row-span-full  col-start-1 self-start "
+                  >
+                    <img
+                      key={i}
+                      src={img.src}
+                      alt={`${productData.name} Options Image ${i}`}
+                      // className={`w-full h-auto absolute transition-opacity duration-300 ${
+                      //   hoveredThumbnail === i ? "opacity-100" : "opacity-0"
+                      // }`}
+                      // className="m-auto object-contain"
+                      className={`w-full h-auto transition-opacity duration-300 ${
+                        hoveredThumbnail === i ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                  </div>
+                  // <img
+                  //   key={i}
+                  //   src={img.src}
+                  //   alt={`Options Thumbnail ${i}`}
+                  //   //  className="object-contain hover:opacity-75  w-3/12 h-60"
+                  // />
+                ))}
+              </div>
+
+              <div className="grid grid-cols-5 gap-1">
+                <div
+                  key={-1}
+                  onMouseEnter={() => handleThumbnailHover(-1)}
+                  // onMouseLeave={() => handleThumbnailHover(null)}
+                >
+                  <img
+                    key={-1}
+                    src={productData.thumbnail.src}
+                    alt="Main Thumbnail"
+                    ///  className="top-12  hover:opacity-75"
+                    className="w-full h-auto object-cover hover:opacity-75"
+                  />
+                </div>
+                {productData.optionsThumb &&
+                  productData.optionsThumb.map((img, i) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <div
+                      key={i}
+                      onMouseEnter={() => handleThumbnailHover(i)}
+                      // onMouseLeave={() => handleThumbnailHover(null)}
+                    >
+                      <img
+                        key={i}
+                        src={img.src}
+                        alt={`Options Thumbnail ${i}`}
+                        ///  className="top-12  hover:opacity-75"
+                        className="w-full h-auto object-cover hover:opacity-75"
+                      />
+                    </div>
+                  ))}
+              </div>
 
               {productData.totalStock <= 0 && (
                 <h5 className="pointer-events-none absolute top-0 bottom-0 left-0 right-0 z-20 m-auto h-fit w-fit rotate-[-25deg] whitespace-nowrap bg-zinc-800 px-4 py-2 text-center text-6xl font-bold text-[white] opacity-90 transition-opacity duration-500 group-hover:opacity-20 lg:text-5xl md:text-4xl sm:text-6xl xs:text-5xl">
@@ -168,7 +247,11 @@ const Product = (productData: serverSideProductType) => {
 
                 <h3 className="text-sm text-zinc-500">{uploadDate}</h3>
               </header>
-              <CartTemp product={productData} />
+              <CartTemp
+                product={productData}
+                hoveredThumbnail={hoveredThumbnail}
+                setHoveredThumbnail={setHoveredThumbnail}
+              />
               {isAdmin && (
                 <div className="flex flex-col gap-2 rounded-lg border p-2 text-center">
                   <h4 className="basis-full text-center text-lg font-semibold">

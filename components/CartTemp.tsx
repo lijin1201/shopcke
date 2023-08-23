@@ -1,4 +1,12 @@
-import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  ReactNode,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import useToggleBookmark from "../hooks/useToggleBookmark";
 import useToggleCart from "../hooks/useToggleCart";
 import { CartType, ProductType, SizeType, TempCartType } from "../types";
@@ -15,9 +23,15 @@ import CartTempItemList from "./CartTempItemList";
 
 interface Props {
   product: ProductType;
+  hoveredThumbnail: number;
+  setHoveredThumbnail: Dispatch<SetStateAction<number>>;
 }
 
-const CartTemp: React.FC<Props> = ({ product }) => {
+const CartTemp: React.FC<Props> = ({
+  product,
+  hoveredThumbnail,
+  setHoveredThumbnail,
+}) => {
   const { push } = useRouter();
   const checkTempCartStock = useCheckTempCartStock();
   const { data: userData } = useGetUserData();
@@ -26,20 +40,20 @@ const CartTemp: React.FC<Props> = ({ product }) => {
   const { addCart, isInCart } = useToggleCart(product.id);
   const { toggleBookmark, isInBookmark } = useToggleBookmark(product.id);
 
+  // 사이즈 정렬 기준
+  const sizeOrder = {
+    blue: 0,
+    pink: 1,
+    black: 2,
+    white: 3,
+    // xl: 4,
+    // xxl: 5,
+    // xxxl: 6,
+    other: 7,
+  };
   // 사이즈 드롭다운 옵션 생성하기
   const sizeOptionGenerator = (product: ProductType) => {
     const optionList = Array<ReactNode>([]);
-    // 사이즈 정렬 기준
-    const sizeOrder = {
-      blue: 0,
-      pink: 1,
-      black: 2,
-      white: 3,
-      // xl: 4,
-      // xxl: 5,
-      // xxxl: 6,
-      other: 7,
-    };
 
     Object.keys(product.stock)
       .sort((a, b) => {
@@ -49,7 +63,12 @@ const CartTemp: React.FC<Props> = ({ product }) => {
         const size = key as SizeType;
         const stock = product.stock[size as SizeType];
         optionList.push(
-          <option value={size} key={i} disabled={!stock}>
+          <option
+            value={size}
+            key={i}
+            disabled={!stock}
+            // onMouseEnter={() => setHoveredThumbnail(-1)}
+          >
             {size.toUpperCase()} {!stock && "품절"}
             {/* { {size === "other" ? "기본" : size.toUpperCase()} {!stock && "품절"} } */}
           </option>
@@ -64,6 +83,7 @@ const CartTemp: React.FC<Props> = ({ product }) => {
     e.preventDefault();
 
     const size = e.target.value as SizeType;
+    setHoveredThumbnail(sizeOrder[size]);
 
     if (!tempCart.hasOwnProperty(size))
       setTempCart((prev) => ({ ...prev, [size]: 1 }));

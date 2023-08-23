@@ -113,6 +113,7 @@ export interface ProductType {
   category: string;
   subCategory: string;
   thumbnail: ImageType;
+  optionsThumb: Array<ImageType>;
   detailImgs: Array<ImageType>;
   date: number;
   //option: OptionType;
