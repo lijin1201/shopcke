@@ -138,31 +138,35 @@ const Product = (productData: serverSideProductType) => {
                     // priority
                   />
                 </div>
-                {productData.optionsThumb?.map((img, i) => (
-                  <div
-                    key={i}
-                    className="row-span-full  col-start-1 self-start "
-                  >
-                    <img
-                      key={i}
-                      src={img.src}
-                      alt={`${productData.name} Options Image ${i}`}
-                      // className={`w-full h-auto absolute transition-opacity duration-300 ${
-                      //   hoveredThumbnail === i ? "opacity-100" : "opacity-0"
-                      // }`}
-                      // className="m-auto object-contain"
-                      className={`w-full h-auto transition-opacity duration-300 ${
-                        hoveredThumbnail === i ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                  </div>
+                {productData.optionsThumb?.map(
+                  (img, i) =>
+                    !img.id.includes("mock") && (
+                      <div
+                        key={i}
+                        className="row-span-full  col-start-1 self-start "
+                      >
+                        <img
+                          key={i}
+                          src={img.src}
+                          //alt={`${productData.name} Options Image ${i}`}
+                          alt=""
+                          // className={`w-full h-auto absolute transition-opacity duration-300 ${
+                          //   hoveredThumbnail === i ? "opacity-100" : "opacity-0"
+                          // }`}
+                          // className="m-auto object-contain"
+                          className={`w-full h-auto transition-opacity duration-300 ${
+                            hoveredThumbnail === i ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                      </div>
+                    )
                   // <img
                   //   key={i}
                   //   src={img.src}
                   //   alt={`Options Thumbnail ${i}`}
                   //   //  className="object-contain hover:opacity-75  w-3/12 h-60"
                   // />
-                ))}
+                )}
               </div>
 
               <div className="grid grid-cols-5 gap-1">
@@ -180,22 +184,26 @@ const Product = (productData: serverSideProductType) => {
                   />
                 </div>
                 {productData.optionsThumb &&
-                  productData.optionsThumb.map((img, i) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <div
-                      key={i}
-                      onMouseEnter={() => handleThumbnailHover(i)}
-                      // onMouseLeave={() => handleThumbnailHover(null)}
-                    >
-                      <img
-                        key={i}
-                        src={img.src}
-                        alt={`Options Thumbnail ${i}`}
-                        ///  className="top-12  hover:opacity-75"
-                        className="w-full h-auto object-cover hover:opacity-75"
-                      />
-                    </div>
-                  ))}
+                  productData.optionsThumb.map(
+                    (img, i) =>
+                      // eslint-disable-next-line @next/next/no-img-element
+                      !img.id.includes("mock") && (
+                        <div
+                          key={i}
+                          onMouseEnter={() => handleThumbnailHover(i)}
+                          // onMouseLeave={() => handleThumbnailHover(null)}
+                        >
+                          <img
+                            key={i}
+                            src={img.src}
+                            //alt={`Options Thumbnail ${i}`}
+                            alt=""
+                            ///  className="top-12  hover:opacity-75"
+                            className="w-full h-auto object-cover hover:opacity-75"
+                          />
+                        </div>
+                      )
+                  )}
               </div>
 
               {productData.totalStock <= 0 && (

@@ -46,5 +46,10 @@
       { "name": "음료수", "path": "drink" },
       { "name": "기능식품", "path": "functional food" }
     ]
+  },
+  "test": {
+    "name": "Test",
+    "path": "test",
+    "subCategories": [{ "name": "basic", "path": "basic" }]
   }
 }

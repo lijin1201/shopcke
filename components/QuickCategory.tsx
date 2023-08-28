@@ -47,7 +47,7 @@ const QuickCategory = () => {
       />
       <ul className="mx-auto flex flex-wrap justify-evenly gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 md:grid md:grid-cols-2">
         {Object.values(categoryData).map((category, i) => {
-          if (category.path === "all") return null;
+          if (category.path === "all" || category.path === "test") return null;
           return (
             <li
               className="group m-auto max-w-[100px] basis-[20%] text-center"

@@ -149,6 +149,7 @@ export interface FilterType {
   color: ColorType | "";
   orderby: OrderType;
   keywords?: string;
+  catExclude?: string;
 }
 
 export type OrderOrderbyType = "updated" | "createdAt" | "createdAtAcs";

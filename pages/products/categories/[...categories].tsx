@@ -18,6 +18,7 @@ import Seo from "../../../components/Seo";
 import _ from "lodash";
 import filterData from "../../../public/json/filterData.json";
 import categoryData from "../../../public/json/categoryData.json";
+import useGetUserData from "../../../hooks/useGetUserData";
 
 const Categories = () => {
   const { query, replace } = useRouter();
@@ -25,6 +26,7 @@ const Categories = () => {
   const [startInfinityScroll, setStartInfinityScroll] =
     useState<boolean>(false);
   const [products, setProducts] = useState<Array<ProductType>>([]);
+  const { data: userData } = useGetUserData();
   const [filter, setFilter] = useState<FilterType>({
     category: "",
     subCategory: "",
@@ -76,6 +78,8 @@ const Categories = () => {
           : (color as ColorType),
       orderby: (orderby as OrderType) || "popularity",
       keywords: "",
+      catExclude:
+        userData?.user?.email === "test@test.com" ? undefined : "test",
     };
 
     setStartInfinityScroll(false);
@@ -87,7 +91,7 @@ const Categories = () => {
         return { ...prev, ...newFilter };
       }
     });
-  }, [query, replace]);
+  }, [query, replace, userData?.user?.email]);
 
   // 불러온 제품 데이터를 상태로 저장
   useEffect(() => {

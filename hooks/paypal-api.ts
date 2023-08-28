@@ -1,7 +1,10 @@
 import fetch from "node-fetch";
 
-const { CLIENT_ID, APP_SECRET } = process.env;
-const base = "https://api-m.sandbox.paypal.com";
+// const { CLIENT_ID, APP_SECRET } = process.env;
+const base =
+  process.env.PAYPAL_NODE_ENV === "production"
+    ? "https://api-m.paypal.com"
+    : "https://api-m.sandbox.paypal.com";
 
 /**
  * Create an order

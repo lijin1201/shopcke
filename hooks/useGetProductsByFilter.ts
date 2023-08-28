@@ -93,6 +93,10 @@ export const getProductsByFilter = async (
         queries.push(where("subCategory", "==", filter.subCategory));
       }
     }
+    if (filter.catExclude) {
+      queries.push(where("category", "!=", filter.catExclude));
+      queries.push(orderBy("category", "desc"));
+    }
 
     // 성별 필터
     if (filter.gender && filter.gender !== "all") {

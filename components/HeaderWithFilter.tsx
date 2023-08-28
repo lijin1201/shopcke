@@ -180,15 +180,13 @@ const HeaderWithFilter: React.FC<Props> = ({
     let [category, subCategory] = categories as [CategoryName, string];
 
     const subCategories: Array<ReactNode> = [
-      <li
-        key={-1}
-        className={`px-1 transition-all
+      <li key={-1}>
+        <Link
+          className={`px-1 transition-all
           ${
             (!subCategory || subCategory === "all") &&
-            "bg-zinc-800 font-bold text-zinc-50"
+            "bg-yellow-800 font-bold text-yellow-50"
           }`}
-      >
-        <Link
           href={{
             pathname: `/products/categories/${category}${
               category === "all" ? "" : "/all"
@@ -196,7 +194,7 @@ const HeaderWithFilter: React.FC<Props> = ({
             query: { orderby: "popularity" },
           }}
         >
-          전체
+          All
         </Link>
       </li>,
     ];
@@ -332,13 +330,14 @@ const HeaderWithFilter: React.FC<Props> = ({
                   onChange={onCategoryChange}
                   value={checkedFilter.category}
                 >
-                  <option value="all">전체</option>
-                  <option value="clothes">의류</option>
-                  <option value="headphone">헤드폰</option>
-                  <option value="accessory">악세서리</option>
+                  <option value="all">{/* 전체 */}All</option>
+                  <option value="clothes">{/* 의류 */}Clothes</option>
+                  <option value="headphone">{/* 헤드폰 */}Headphone</option>
+                  <option value="battery">Battery</option>
+                  {/* <option value="accessory">악세서리</option>
                   <option value="shoes">신발</option>
                   <option value="bag">가방</option>
-                  <option value="jewel">주얼리</option>
+                  <option value="jewel">주얼리</option> */}
                 </select>
               </div>
             ) : null}

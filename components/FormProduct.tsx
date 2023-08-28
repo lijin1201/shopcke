@@ -367,7 +367,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               type="number"
               step="0.01"
               value={price}
-              min={1}
+              min={0.01}
               onChange={onPriceChange}
               placeholder="가격"
               style={{
@@ -510,7 +510,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
               type="file"
               onChange={onOptionsThumbChange}
               multiple
-              required={!prevData}
+              // required={!prevData}
               accept="image/*"
             />
             <Button

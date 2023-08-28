@@ -19,6 +19,7 @@ import useOrderData from "../hooks/useOrderData";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import axios from "axios";
 import { useRouter } from "next/router";
+import useAccount from "../hooks/useAccount";
 
 interface Props {
   userData: UserData;
@@ -53,6 +54,10 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
   } = useOrderData("");
   const cartSummary = useCartSummary(userData, cart, productsData || null);
   // cartSummary && (cartSummary.totalPrice = 2.2);
+
+  const {
+    editProfile: { mutateAsync: editProfile, isLoading },
+  } = useAccount();
 
   const onSameAsOrdererChange = () => {
     setSameAsOrderer((prev) => !prev);
@@ -420,12 +425,28 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
               (default)
             </span>
           ) : (
-            <button
-              className="primary-button"
-              onClick={() => setAddressData(userData.addressData)}
-            >
-              Switch to Default Address
-            </button>
+            //<div className="mb-4 flex justify-between">
+            <div className="mb-4 flex justify-between">
+              <button
+                className="primary-button"
+                onClick={() => setAddressData(userData.addressData)}
+              >
+                Switch to Default Address
+              </button>
+              <button
+                className="default-button"
+                onClick={() => {
+                  editProfile({
+                    name: userData.user?.displayName as string,
+                    phoneNumber: userData.phoneNumber,
+                    addressData,
+                  });
+                  setAddressData(userData.addressData);
+                }}
+              >
+                Set to default
+              </button>
+            </div>
           )}
           <FormAddressFill
             addressData={addressData}
