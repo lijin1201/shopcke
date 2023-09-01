@@ -117,7 +117,7 @@ const FormEditProfile: React.FC<Props> = ({
             )}
           </span>
           <div className="grid grid-cols-5 gap-1">
-            {userData?.addressArr.map((addressD, i) => (
+            {userData?.addressArr?.map((addressD, i) => (
               <span
                 key={i}
                 className="group overflow-hidden rounded-lg border border-zinc-50 shadow-lg shadow-zinc-300"
