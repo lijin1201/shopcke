@@ -20,6 +20,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import axios from "axios";
 import { useRouter } from "next/router";
 import useAccount from "../hooks/useAccount";
+import { match } from "assert";
 
 interface Props {
   userData: UserData;
@@ -32,7 +33,9 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
   const [sameAsOrderer, setSameAsOrderer] = useState<boolean>(true);
   const [addressData, setAddressData] = useState<AddressType | null>(
     userData.addressData
+    //userData.addressArr.length?: userData.addressArr[0]: null
   );
+  const [matchedAddr, setMatchedAddr] = useState("");
   const [tossPayments, setTossPayments] = useState<TossPaymentsInstance | null>(
     null
   );
@@ -57,6 +60,7 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
 
   const {
     editProfile: { mutateAsync: editProfile, isLoading },
+    editAddrArr: { mutateAsync: editAddrArr, isLoading: isLoadingAddr },
   } = useAccount();
 
   const onSameAsOrdererChange = () => {
@@ -396,12 +400,16 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
             className="mt-2 h-8 px-2 pt-1 pb-1"
           />
         </label>
-        <div>
+        <div className="flex flex-col gap-2">
           <h3 className="mb-3 text-xl font-semibold">
             * {/* 배송 주소 */}Shipping address
           </h3>
-
-          <div className="flex flex-col gap-2">
+          <div
+            className="w-fit border-b-2 border-indigo-700"
+            // style={{
+            //   borderBottom: "1px solid #1f2937",
+            // }}
+          >
             <span>
               {addressData?.address
                 ? `(${addressData?.postCode})`
@@ -417,6 +425,8 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
               }
             </span>
           </div>
+          {/* check if addressData is already in the array (later to use a var "matchedAddr" to mark it)
+          userData.addressArr.find(addressData) */}
           {addressData === userData.addressData ? (
             <span
               className="bg-zinc-200 text-sm inline-block h-fit w-fit break-keep rounded-md px-2 py-1 text-center t
@@ -424,34 +434,42 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
             >
               (default)
             </span>
+          ) : matchedAddr ? (
+            <span> ({matchedAddr})</span>
           ) : (
-            //<div className="mb-4 flex justify-between">
-            <div className="mb-4 flex justify-between">
-              <button
-                className="primary-button"
-                onClick={() => setAddressData(userData.addressData)}
-              >
-                Switch to Default Address
-              </button>
-              <button
-                className="default-button"
-                onClick={() => {
-                  editProfile({
-                    name: userData.user?.displayName as string,
-                    phoneNumber: userData.phoneNumber,
-                    addressData,
-                  });
-                  setAddressData(userData.addressData);
-                }}
-              >
-                Set to default
-              </button>
-            </div>
+            <button
+              className="default-button w-fit"
+              onClick={() => {
+                editAddrArr({ addressData });
+                setMatchedAddr("Saved"); //should evaluate when isLoading finished
+              }}
+            >
+              Save to profile
+            </button>
           )}
           <FormAddressFill
             addressData={addressData}
             setAddressData={setAddressData}
           />
+          {/* <div className="mb-4 flex justify-between">
+            
+          </div> */}
+          <div className="grid grid-cols-5 gap-1">
+            {[userData.addressData, ...userData.addressArr].map(
+              (addressD, i) => (
+                <span
+                  key={i}
+                  className="overflow-hidden rounded-lg border border-zinc-50 shadow-lg shadow-zinc-300 h-12 cursor-pointer"
+                  onClick={() => {
+                    setAddressData(addressD);
+                    setMatchedAddr("Saved: " + i);
+                  }}
+                >
+                  {addressD?.postCode + " " + addressD?.address}{" "}
+                </span>
+              )
+            )}
+          </div>
         </div>
         <label className="w-fit">
           <h3 className="text-xl font-semibold">

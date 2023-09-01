@@ -68,6 +68,7 @@ const getUsers = async (
       cart: null,
       order: null,
       phoneNumber: null,
+      addressArr: [],
     }); // {...[],  user: doc });
   });
   result.lastVisible = null; //or: res2.pageToken

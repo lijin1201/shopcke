@@ -16,16 +16,28 @@ interface Props {
       name: string;
       addressData?: AddressType | null;
       phoneNumber?: string | null;
+      addressArr?: Array<AddressType>;
     },
+    unknown
+  >;
+  editAddrArr: UseMutateFunction<
+    void,
+    unknown,
+    { addressData: AddressType | null; isRemove?: boolean },
     unknown
   >;
 }
 
-const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
+const FormEditProfile: React.FC<Props> = ({
+  userData,
+  editProfile,
+  editAddrArr,
+}) => {
   const { push } = useRouter();
   const [addressData, setAddressData] = useState<AddressType | null>(
     userData?.addressData || null
   );
+  const [tempAddr, setTempAddr] = useState<AddressType | null>(null);
   const [alert, setAlert] = useState<string>("");
   const { value: name, onChange: onNameChange } = useInput(
     userData?.user?.displayName || ""
@@ -88,28 +100,61 @@ const FormEditProfile: React.FC<Props> = ({ userData, editProfile }) => {
       </label>
       <div>
         <h3 className="mb-3 text-xl font-semibold">
-          {/* 기본 배송 주소 */}Default shipping address
+          {/* 기본 배송 주소 */}Shipping addresses
         </h3>
         <div className="flex flex-col gap-2">
           <span>
-            {addressData?.address
-              ? `(${addressData?.postCode})`
-              : addressData
-              ? `(${addressData.postCode})`
-              : ""}{" "}
-            {
-              addressData?.address
-                ? addressData?.address
-                : addressData
-                ? addressData.address
-                : "No address data set" /* "검색된 주소 없음" */
-            }
+            <span
+              className="bg-zinc-200 text-sm inline-block break-keep rounded-md px-2 py-1 text-center 
+             font-semibold"
+            >
+              (default)
+            </span>
+            {addressData ? (
+              addressData.postCode + " " + addressData.address
+            ) : (
+              <span className="text-red-600">(No address data set)</span>
+            )}
           </span>
+          <div className="grid grid-cols-5 gap-1">
+            {userData?.addressArr.map((addressD, i) => (
+              <span
+                key={i}
+                className="group overflow-hidden rounded-lg border border-zinc-50 shadow-lg shadow-zinc-300"
+              >
+                {addressD?.postCode + " " + addressD?.address}
+                <button
+                  className="invisible group-hover:visible rounded bg-slate-100 text-green-600"
+                  onClick={() => setAddressData(addressD)}
+                >
+                  Set to default
+                </button>{" "}
+                <button
+                  className="invisible group-hover:visible rounded bg-slate-100 text-red-600"
+                  onClick={() =>
+                    editAddrArr({ addressData: addressD, isRemove: true })
+                  }
+                >
+                  Remove
+                </button>
+              </span>
+            ))}
+          </div>
+          <FormAddressFill
+            addressData={tempAddr}
+            setAddressData={setTempAddr}
+          />
+          {tempAddr && `(${tempAddr.postCode})` + " " + tempAddr.address}
+          <button
+            className="default-button"
+            onClick={() => {
+              editAddrArr({ addressData: tempAddr });
+            }}
+          >
+            Save to profile
+          </button>
+          {/* {addressData?.postCode + " " + addressData?.address}{" "} */}
         </div>
-        <FormAddressFill
-          addressData={addressData}
-          setAddressData={setAddressData}
-        />
       </div>
       <div className="flex flex-wrap gap-x-5 gap-y-2">
         <p className="h-6 w-full text-sm text-red-700">{alert}</p>

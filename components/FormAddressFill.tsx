@@ -11,9 +11,14 @@ import { AddressType } from "../types";
 interface Props {
   addressData: AddressType | null;
   setAddressData: Dispatch<SetStateAction<AddressType | null>>;
+  //setMatchedAddr?: Dispatch<SetStateAction<number>>;
 }
 
-const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
+const FormAddressFill: React.FC<Props> = ({
+  addressData,
+  setAddressData,
+  // setMatchedAddr,
+}) => {
   const {
     handleSubmit,
     register,
@@ -44,6 +49,7 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
       postCode: postalCode || "",
       additional: "",
     });
+    // setMatchedAddr && setMatchedAddr(-1);
     // dispatch({
     //   type: "SAVE_SHIPPING_ADDRESS",
     //   payload: { fullName, address, city, postalCode, country },
@@ -145,8 +151,13 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
           )}
         </div>
         <div className="mb-4 flex justify-between">
+          {/* <button className="primary-button">Set and save</button> */}
           <button className="primary-button">Set</button>
-          <button className="default-button" onClick={() => setHideForm(true)}>
+          <button
+            className="default-button"
+            type="button"
+            onClick={() => setHideForm(true)}
+          >
             Close
           </button>
         </div>
@@ -156,7 +167,7 @@ const FormAddressFill: React.FC<Props> = ({ addressData, setAddressData }) => {
           className="default-button w-fit "
           onClick={() => setHideForm(false)}
         >
-          Use Another Address
+          + New Address
         </button>
       )}
     </div>

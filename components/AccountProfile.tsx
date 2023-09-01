@@ -14,6 +14,7 @@ const AccountProfile: React.FC<Props> = ({ userData }) => {
   const { query } = useRouter();
   const {
     editProfile: { mutateAsync: editProfile, isLoading },
+    editAddrArr: { mutateAsync: editAddrArr, isLoading: isLoadingAddr },
     deleteAccount: { mutateAsync: deleteAccount },
     changePw,
   } = useAccount();
@@ -55,6 +56,7 @@ const AccountProfile: React.FC<Props> = ({ userData }) => {
           <FormEditProfile
             userData={userData || null}
             editProfile={editProfile}
+            editAddrArr={editAddrArr}
           />
         ) : (
           <div className="flex flex-col gap-10 text-base text-zinc-800">

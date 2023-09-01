@@ -85,6 +85,7 @@ export interface UserData {
     appName: string | null;
   } | null;
   addressData: AddressType | null;
+  addressArr: Array<AddressType>;
   bookmark: Array<string> | null;
   cart: CartType | null;
   order: Array<any> | null;

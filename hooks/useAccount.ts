@@ -6,7 +6,14 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useMutation, useQueryClient } from "react-query";
 import { auth, db } from "../fb";
@@ -21,6 +28,15 @@ const useAccount = () => {
   const { push } = useRouter();
 
   const editProfile = useMutation(editProfileFn, {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+        refetchInactive: true,
+      }),
+    retry: false,
+  });
+
+  const editAddrArr = useMutation(editAddrArrFn, {
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: ["user"],
@@ -93,6 +109,7 @@ const useAccount = () => {
     login,
     logout,
     editProfile,
+    editAddrArr,
     authErrorAlert,
     createEmailAccount,
     emailValidCheck,
@@ -169,10 +186,12 @@ const editProfileFn = async ({
   name,
   addressData = null,
   phoneNumber = null,
-}: {
+}: //addressArr = [],
+{
   name: string;
   addressData?: AddressType | null;
   phoneNumber?: string | null;
+  // addressArr?: Array<AddressType>;
 }) => {
   const user = auth.currentUser;
 
@@ -192,6 +211,7 @@ const editProfileFn = async ({
     addressData,
     phoneNumber,
     displayname: name,
+    // addressArr,
   }).catch((error) => {
     switch (error.code) {
       // 필드가 없을 경우 새로 추가
@@ -200,6 +220,7 @@ const editProfileFn = async ({
           addressData,
           phoneNumber,
           displayname: name,
+          // addressArr,
         });
         break;
       default:
@@ -207,4 +228,26 @@ const editProfileFn = async ({
         break;
     }
   });
+};
+
+const editAddrArrFn = async ({
+  addressData,
+  isRemove = false,
+}: {
+  addressData: AddressType | null;
+  isRemove?: boolean;
+}) => {
+  const user = auth.currentUser;
+
+  if (!user) return;
+  if (!addressData) return;
+  const docRef = doc(db, "users", user.uid);
+  await updateDoc(docRef, {
+    addressArr: isRemove ? arrayRemove(addressData) : arrayUnion(addressData),
+  })
+    .then(() => true)
+    .catch((error) => {
+      console.error(error);
+      return false;
+    });
 };
