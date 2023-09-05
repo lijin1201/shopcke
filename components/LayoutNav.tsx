@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../public/logos/HanaE-logo.png";
-import logo2 from "../public/logos/HaneE-logo2.png";
+import logo from "../public/logos/KS AEROSPACE-logo.png";
+//import logo2 from "../public/logos/HaneE-logo2.png";
 import { Category } from "../types";
 import categoryData from "../public/json/categoryData.json";
 import cartIcon from "../public/icons/cart-nav.svg";
@@ -115,15 +115,15 @@ const LayoutNav = () => {
               <Image
                 src={logo}
                 alt="로고"
-                className="xs:hidden h-6 w-auto"
+                className="xs:hidden h-12 w-auto"
                 priority
               />
-              <Image
+              {/* <Image
                 src={logo2}
                 alt="로고"
                 className="hidden h-12 xs:inline"
                 priority
-              />
+              /> */}
             </Link>
           </li>
           <li>

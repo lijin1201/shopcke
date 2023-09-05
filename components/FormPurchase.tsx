@@ -456,18 +456,19 @@ const FormPurchase: React.FC<Props> = ({ userData, cart, target }) => {
           </div> */}
           <div className="grid grid-cols-5 gap-1">
             {[userData.addressData, ...userData.addressArr].map(
-              (addressD, i) => (
-                <span
-                  key={i}
-                  className="overflow-hidden rounded-lg border border-zinc-50 shadow-lg shadow-zinc-300 h-12 cursor-pointer"
-                  onClick={() => {
-                    setAddressData(addressD);
-                    setMatchedAddr("Saved: " + i);
-                  }}
-                >
-                  {addressD?.postCode + " " + addressD?.address}{" "}
-                </span>
-              )
+              (addressD, i) =>
+                addressD && (
+                  <span
+                    key={i}
+                    className="overflow-hidden rounded-lg border border-zinc-50 shadow-lg shadow-zinc-300 h-12 cursor-pointer"
+                    onClick={() => {
+                      setAddressData(addressD);
+                      setMatchedAddr("Saved: " + i);
+                    }}
+                  >
+                    {addressD?.postCode + " " + addressD?.address}{" "}
+                  </span>
+                )
             )}
           </div>
         </div>

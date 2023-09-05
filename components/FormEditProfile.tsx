@@ -145,14 +145,16 @@ const FormEditProfile: React.FC<Props> = ({
             setAddressData={setTempAddr}
           />
           {tempAddr && `(${tempAddr.postCode})` + " " + tempAddr.address}
-          <button
-            className="default-button"
-            onClick={() => {
-              editAddrArr({ addressData: tempAddr });
-            }}
-          >
-            Save to profile
-          </button>
+          {tempAddr && (
+            <button
+              className="default-button"
+              onClick={() => {
+                editAddrArr({ addressData: tempAddr });
+              }}
+            >
+              Save to profile
+            </button>
+          )}
           {/* {addressData?.postCode + " " + addressData?.address}{" "} */}
         </div>
       </div>

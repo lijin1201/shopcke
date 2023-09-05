@@ -80,9 +80,9 @@ const LayoutFooter = () => {
       </ul>
 
       <section className="w-full max-w-[1700px] p-5 pb-0 pr-24 text-sm">
-        <h3 className="mb-2 text-xs font-bold">HanaElectron</h3>
+        <h3 className="mb-2 text-xs font-bold">KS AEROSPACE</h3>
         <p className="max-w-[600px]">
-          Business Name : Hana Electron / CEO (Name): JAE SUNG JANG / Business
+          Business Name : KS AEROSPACE / CEO (Name): JAE SUNG JANG / Business
           Registration No. : C4185163/ Phone : 323_717_0050 / Address : 3224 W
           OLYMPIC BLVD LOS ANGELES CA 90006 / Email:{" "}
           <Link
@@ -113,7 +113,7 @@ const LayoutFooter = () => {
           >
             Privacy Policy
           </Link>{" "}
-          / &copy; {new Date().getFullYear()}. HanaElectron All Rights Reserved.
+          / &copy; {new Date().getFullYear()}. KS AEROSPACE All Rights Reserved.
         </p>
       </section>
     </footer>
