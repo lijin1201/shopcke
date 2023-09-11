@@ -16,6 +16,7 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
   const [slidePage, setSlidePage] = useState<number>(0);
   const [slideItemWidth, setSlideItemWidth] = useState<number>(200);
   const [maxPage, setMaxPage] = useState<number>(3);
+  const [nItemSlide, setNItemSlide] = useState<number>(1);
   const {
     data: productsList,
     isError,
@@ -70,12 +71,15 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
     const { current: slide } = slideRef;
 
     const moveX =
-      maxPage === 9
-        ? -slideItemWidth * slidePage
-        : -slideItemWidth * 2 * slidePage;
+      // maxPage === 9;
+      // ? -slideItemWidth * slidePage
+      // : -slideItemWidth * 2 * slidePage;
+      nItemSlide <= 2
+        ? -nItemSlide * slideItemWidth * slidePage
+        : -(nItemSlide - 1) * slideItemWidth * slidePage;
 
     slide.style.transform = `translateX(${moveX}px)`;
-  }, [maxPage, slideItemWidth, slidePage]);
+  }, [nItemSlide, slideItemWidth, slidePage]);
 
   // 슬라이드 아이템 너비 계산
   useEffect(() => {
@@ -86,27 +90,44 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
 
       // 100vw에서 슬라이드 컨테이너의 좌우 여백인 110(55*2)px을 빼고 한 페이지에 표시할 아이템 개수로 나눈다.
       // 만약 최대 너비(1700px) 이상일 경우 100vw 대신 1700px에서 계산한다.
-      if (innerWidth >= 1700) {
-        setMaxPage(2);
-        setSlidePage(0);
-        setSlideItemWidth((1700 - 110) / 6);
-      } else if (innerWidth <= 500) {
-        setMaxPage(9);
-        setSlidePage(0);
-        setSlideItemWidth(innerWidth - 110);
-      } else if (innerWidth <= 1023) {
-        setMaxPage(4);
-        setSlidePage(0);
-        setSlideItemWidth((innerWidth - 110) / 2);
-      } else if (innerWidth <= 1300) {
-        setMaxPage(3);
-        setSlidePage(0);
-        setSlideItemWidth((innerWidth - 110) / 4);
+
+      // if (innerWidth >= 1700) {
+      //   setMaxPage(2);
+      //   setSlidePage(0);
+      //   setSlideItemWidth((1700 - 110) / 6);
+      // } else if (innerWidth <= 500) {
+      //   setMaxPage(9);
+      //   setSlidePage(0);
+      //   setSlideItemWidth(innerWidth - 110);
+      // } else if (innerWidth <= 1023) {
+      //   setMaxPage(4);
+      //   setSlidePage(0);
+      //   setSlideItemWidth((innerWidth - 110) / 2);
+      // } else if (innerWidth <= 1300) {
+      //   setMaxPage(3);
+      //   setSlidePage(0);
+      //   setSlideItemWidth((innerWidth - 110) / 4);
+      // } else {
+      //   setMaxPage(2);
+      //   setSlidePage(0);
+      //   setSlideItemWidth((innerWidth - 110) / 6);
+      // }
+      //set itemwidth and maxpage (LJ)
+      let nItemInPage = Math.trunc((innerWidth - 110) / 300);
+      nItemInPage = nItemInPage <= 0 ? 1 : nItemInPage;
+      if (nItemInPage <= 2) {
+        setMaxPage(Math.ceil(productIdList.length / nItemInPage) - 1);
       } else {
-        setMaxPage(2);
-        setSlidePage(0);
-        setSlideItemWidth((innerWidth - 110) / 6);
+        if (productIdList.length <= nItemInPage) {
+          setMaxPage(0);
+        } else {
+          setMaxPage(
+            Math.trunc((productIdList.length - 1) / (nItemInPage - 1))
+          );
+        }
       }
+      setSlideItemWidth((innerWidth - 110) / nItemInPage);
+      setNItemSlide(nItemInPage);
     };
 
     calcSlideItemWidth();
@@ -116,7 +137,7 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
     return () => {
       window.removeEventListener("resize", _.debounce(calcSlideItemWidth, 100));
     };
-  }, []);
+  }, [productIdList.length]);
 
   useEffect(() => {
     moveSlide();
@@ -128,9 +149,12 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
 
     const slide = slideRef.current;
     const slideInitX =
-      maxPage === 9
-        ? -slideItemWidth * slidePage
-        : -slideItemWidth * 2 * slidePage;
+      nItemSlide <= 2
+        ? -nItemSlide * slideItemWidth * slidePage
+        : -(nItemSlide - 1) * slideItemWidth * slidePage;
+    // maxPage === 9
+    //   ? -slideItemWidth * slidePage
+    //   : -slideItemWidth * 2 * slidePage;
     let touchStartX: number;
     let touchMoveX: number;
 
@@ -148,7 +172,9 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
       setDragging(false);
 
       if (touchMoveX) {
-        const newPage = slidePage + Math.round(touchMoveX / -slideItemWidth);
+        const newPage =
+          slidePage +
+          Math.round(touchMoveX / -((slideItemWidth * nItemSlide) / 2));
         setSlidePage(newPage <= 0 ? 0 : newPage >= maxPage ? maxPage : newPage);
         moveSlide();
       }
@@ -186,7 +212,9 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
       setDragging(false);
 
       if (touchMoveX) {
-        const newPage = slidePage + Math.round(touchMoveX / -slideItemWidth);
+        const newPage =
+          slidePage +
+          Math.round(touchMoveX / -((slideItemWidth * nItemSlide) / 2));
         setSlidePage(newPage <= 0 ? 0 : newPage >= maxPage ? maxPage : newPage);
         moveSlide();
       }
@@ -215,7 +243,7 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
       window.removeEventListener("mousemove", mouseMoveHandler);
       window.removeEventListener("mouseup", mouseUpHandler);
     };
-  }, [maxPage, moveSlide, slideItemWidth, slidePage]);
+  }, [maxPage, moveSlide, nItemSlide, slideItemWidth, slidePage]);
 
   useEffect(() => {
     const automaticSlide = setInterval(() => {

@@ -4,10 +4,12 @@ import logo from "../public/logos/KS AEROSPACE-logo.png";
 //import logo2 from "../public/logos/HaneE-logo2.png";
 import { Category } from "../types";
 import categoryData from "../public/json/categoryData.json";
-import cartIcon from "../public/icons/cart-nav.svg";
-import profileIcon from "../public/icons/profile-nav.svg";
-import loginIcon from "../public/icons/login-nav.svg";
-import searchIcon from "../public/icons/search-nav.svg";
+// import cartIcon from "../public/icons/cart-nav.svg";
+import cartIcon from "../public/icons/BsCart4.svg";
+import profileIcon from "../public/icons/FaRegUser.svg";
+import loginIcon from "../public/icons/RiLoginBoxLine.svg";
+import searchIcon from "../public/icons/BsSearch.svg";
+import HomeIcon from "../public/icons/home.svg?svgr";
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import useInput from "../hooks/useInput";
 import { useRouter } from "next/router";
@@ -107,10 +109,14 @@ const LayoutNav = () => {
 
   return (
     //<nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold text-blue-800">
-    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold">
+    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-auto w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold">
       <ol className="mx-auto flex h-full max-w-[1700px] items-center justify-evenly gap-5 xs:gap-2">
-        <div className="flex grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
-          <li className="mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12">
+        <div className="flex flex-wrap  leading-3  grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
+          <li className="flex mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12 ">
+            <HomeIcon
+              path="../public/icons/home.svg"
+              className="transiton-transform h-9 w-auto"
+            />
             <Link href="/">
               <Image
                 src={logo}
@@ -118,6 +124,8 @@ const LayoutNav = () => {
                 className="xs:hidden h-12 w-auto"
                 priority
               />
+
+              {/* <Image src={homeIcon} alt="Home" className="hidden xs:block " /> */}
               {/* <Image
                 src={logo2}
                 alt="로고"
@@ -126,14 +134,14 @@ const LayoutNav = () => {
               /> */}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               href="/collections"
               className="flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 transition-all hover:bg-zinc-200 2xs:px-2"
             >
               Featured Products
             </Link>
-          </li>
+          </li> */}
           <li className="btn--category">
             <Link
               href="/products/categories/all"
@@ -150,7 +158,7 @@ const LayoutNav = () => {
             </div>
           </li>
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex shrink-0 gap-4">
           <li className="search">
             <form onSubmit={onSearch} className="search flex justify-end gap-2">
               <input

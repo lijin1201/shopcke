@@ -12,7 +12,7 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
         <div className="relative mx-[-1px] aspect-auto max-h-[300px] overflow-hidden xl:max-h-[450px]">
           <video
             poster={collection.img.src}
-            className="h-full w-full translate-y-[-30%] transition-transform duration-500 group-hover:scale-110 lg:translate-y-0"
+            className="h-full w-full translate-y-[-40%] transition-transform duration-500 group-hover:scale-110 lg:translate-y-0"
             playsInline
             autoPlay
             loop
