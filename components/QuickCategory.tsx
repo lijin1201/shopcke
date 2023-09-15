@@ -1,10 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import clothIcon from "../public/icons/clothes.svg";
-import hatIcon from "../public/icons/hat.svg";
-import shoesIcon from "../public/icons/shoes.svg";
-import bagIcon from "../public/icons/bag.svg";
-import jewelIcon from "../public/icons/jewel.svg";
 //import HeadphoneIcon from '../public/svgr/headphone.svg?svgr';
 import HeaderHomeSection from "./HeaderHomeSection";
 import categoryData from "../public/json/categoryData.json";
@@ -45,12 +40,14 @@ const QuickCategory = () => {
         href="/products/categories/all"
         text=/* "제품 둘러보기" */ "Browse our products"
       />
-      <ul className="mx-auto flex flex-wrap justify-evenly gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 md:grid md:grid-cols-2">
+      {/* <ul className="mx-auto flex flex-wrap justify-evenly gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 md:grid md:grid-cols-2"> */}
+      <ul className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] auto-rows-auto gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 ">
         {Object.values(categoryData).map((category, i) => {
           if (category.path === "all" || category.path === "test") return null;
           return (
             <li
-              className="group m-auto max-w-[100px] basis-[20%] text-center"
+              // className="group m-auto max-w-[100px] basis-[20%] text-center"
+              className="group m-auto w-[100px] text-center"
               key={i}
             >
               <Link
@@ -59,16 +56,18 @@ const QuickCategory = () => {
                   query: { orderby: "popularity" },
                 }}
               >
-                <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden  border-4 border-zinc-200">
-                  <RenderImgByCategory
-                    path={category.path}
-                    className={
-                      "trainsiton-transform h-auto w-[70%] duration-500 group-hover:scale-105 " +
-                      ("iconClass" in category ? category.iconClass : "")
-                    }
-                  />
+                <div className="flex flex-col align-text-top">
+                  <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden  border-4 border-zinc-200">
+                    <RenderImgByCategory
+                      path={category.path}
+                      className={
+                        "trainsiton-transform h-auto w-[70%] duration-500 group-hover:scale-105 " +
+                        ("iconClass" in category ? category.iconClass : "")
+                      }
+                    />
+                  </div>
+                  <h4>{category.name}</h4>
                 </div>
-                <h4>{category.name}</h4>
               </Link>
             </li>
           );

@@ -217,7 +217,7 @@ export interface CategoryDataType {
 
 export type CategoryName =
   | "all"
-  | "clothes"
+  | "kitchenware"
   | "headphone"
   | "battery"
   | "health food";

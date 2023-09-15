@@ -264,6 +264,7 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
       <div className="relative text-zinc-800">
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 flex w-full justify-between">
           <button
+            hidden={maxPage == 0}
             onClick={onPrevClick}
             className="group pointer-events-auto relative my-auto ml-5 h-10 w-10 rounded-full bg-white p-1 pr-2 text-center shadow shadow-zinc-500"
           >
@@ -282,6 +283,7 @@ const CollectionSectionSlide: React.FC<Props> = ({ productIdList }) => {
             </svg>
           </button>
           <button
+            hidden={maxPage == 0}
             onClick={onNextClick}
             className="group pointer-events-auto relative my-auto mr-5 h-10 w-10 rounded-full bg-white p-1 pl-2 text-center shadow shadow-zinc-500"
           >

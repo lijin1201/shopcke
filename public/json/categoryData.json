@@ -5,16 +5,11 @@
     "path": "all",
     "subCategories": []
   },
-  "clothes": {
-    "//name": "의류",
-    "name": "Clothes",
-    "path": "clothes",
-    "subCategories": [
-      { "name": "아우터", "path": "outer" },
-      { "name": "상의", "path": "top" },
-      { "name": "바지", "path": "pants" },
-      { "name": "치마", "path": "skirt" }
-    ]
+  "kitchenware": {
+    "name": "Kitchenware",
+    "path": "kitchenware",
+    "iconClass": "fill-black",
+    "subCategories": [{ "name": "Cooker", "path": "cooker" }]
   },
   "headphone": {
     "//name": "헤드폰",
