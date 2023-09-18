@@ -12,6 +12,7 @@ import useIsAdmin from "../../hooks/useIsAdmin";
 import Button from "../../components/Button";
 import useCollection from "../../hooks/useCollection";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 interface serverSideCollectionType extends CollectionType {
   isError?: boolean;
@@ -82,7 +83,7 @@ const Collection = (collectionData: serverSideCollectionType) => {
       {!collectionData || collectionData.isError || isFallback ? null : (
         <section className="px-12 pb-24 xs:px-5">
           <article className="text-zinc-800 ">
-            <div className="relative mx-[-1px] aspect-auto max-h-[300px] overflow-hidden xl:max-h-[450px]">
+            {/* <div className="relative mx-[-1px] aspect-auto max-h-[300px] overflow-hidden xl:max-h-[450px]">
               <video
                 poster={collectionData.img.src}
                 className="h-full w-full translate-y-[-30%] transition-transform duration-500 group-hover:scale-110 lg:translate-y-0"
@@ -90,12 +91,20 @@ const Collection = (collectionData: serverSideCollectionType) => {
                 autoPlay
                 loop
                 muted
-              >
-                <source
-                  src={`/videos/${collectionData.id}.mov`}
-                  type="video/mp4"
-                ></source>
-              </video>
+              ></video>
+              
+            </div> */}
+            <div className=" flex flex-col justify-center items-center">
+              <Image
+                src={collectionData.img.src}
+                alt={collectionData.enTitle}
+                // className="object-contain transition-transform duration-500 group-hover:scale-105 "
+                // className="h-full max-w-[800px]  group-hover:scale-110 "
+                className="max-w-[1000px] w-full h-auto transition-transform duration-500  group-hover:scale-110 "
+                sizes="100vw"
+                width={0}
+                height={0}
+              />
             </div>
             <p className="whitespace-pre-line break-keep py-24 text-center text-base font-medium italic">
               {lineBreaker(collectionData.description as string)}

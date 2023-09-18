@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/Image";
 import { CollectionType } from "../types";
 
 interface Props {
@@ -9,20 +10,18 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
   return (
     <div className="group relative w-full overflow-hidden">
       <Link href={`/collections/${collection.id}`}>
-        <div className="relative mx-[-1px] aspect-auto max-h-[300px] overflow-hidden xl:max-h-[450px]">
-          <video
-            poster={collection.img.src}
-            className="h-full w-full translate-y-[-40%] transition-transform duration-500 group-hover:scale-110 lg:translate-y-0"
-            playsInline
-            autoPlay
-            loop
-            muted
-          >
-            <source
-              src={`/videos/${collection.id}.mov`}
-              type="video/mp4"
-            ></source>
-          </video>
+        {/* <div className="relative mx-[-1px] aspect-auto max-h-[300px] overflow-hidden xl:max-h-[450px]"> */}
+        <div className=" flex flex-col justify-center items-center">
+          <Image
+            src={collection.img.src}
+            alt={collection.enTitle}
+            // className="object-contain transition-transform duration-500 group-hover:scale-105 "
+            // className="h-full max-w-[800px]  group-hover:scale-110 "
+            className="max-w-[1000px] w-full h-auto transition-transform duration-500  group-hover:scale-110 "
+            sizes="100vw"
+            width={0}
+            height={0}
+          />
         </div>
         <hgroup
           className={`z-1 absolute break-keep transition-all duration-500 group-hover:opacity-80 group-hover:blur ${
@@ -48,6 +47,14 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
           </h2>
         </hgroup>
       </Link>
+      <Image
+        src={`/images/${collection.title}-0.jpg`}
+        alt=""
+        className="max-w-[1000px] w-full h-auto mx-auto"
+        sizes="100vw"
+        width={990}
+        height={990}
+      />
     </div>
   );
 };

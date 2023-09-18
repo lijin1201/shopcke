@@ -111,17 +111,20 @@ const LayoutNav = () => {
     //<nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-16 w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold text-blue-800">
     <nav className="fixed top-0 left-0 right-0 z-50 mx-auto h-auto w-full min-w-[360px] border-b bg-white px-7 py-4 text-lg font-semibold">
       <ol className="mx-auto flex h-full max-w-[1700px] items-center justify-evenly gap-5 xs:gap-2">
-        <div className="flex flex-wrap  leading-3  grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
-          <li className="flex mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12 ">
+        <div className="flex  grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
+          <li className="flex items-center mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12 ">
             <HomeIcon
               path="../public/icons/home.svg"
-              className="transiton-transform h-9 w-auto"
+              className="transiton-transform h-9 w-auto "
             />
             <Link href="/">
               <Image
                 src={logo}
-                alt="로고"
-                className="xs:hidden h-12 w-auto"
+                alt="Logo"
+                className="xs:hidden max-h-12 w-auto translate-y-[10%] shrink "
+                sizes="100vw"
+                width={0}
+                height={0}
                 priority
               />
 
