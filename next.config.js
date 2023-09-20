@@ -7,6 +7,7 @@ const nextConfig = {
   },
   images: {
     domains: ["firebasestorage.googleapis.com"],
+    formats: ["image/avif", "image/webp"],
   },
   async rewrites() {
     return [
@@ -33,11 +34,11 @@ const nextConfig = {
         permanent: true,
       },
       ...[
-        "/products/categories/clothes",
-        "/products/categories/accessory",
-        "/products/categories/shoes",
-        "/products/categories/bag",
-        "/products/categories/jewel",
+        "/products/categories/headphone",
+        "/products/categories/battery",
+        // "/products/categories/shoes",
+        // "/products/categories/bag",
+        // "/products/categories/jewel",
       ].map((source) => ({
         source,
         destination: `${source}/all?orderby=popularity`,

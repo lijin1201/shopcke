@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import cke_logo from "../public/logos/CKT-logo-230920.avif";
 import logo from "../public/logos/KS AEROSPACE-logo.png";
 //import logo2 from "../public/logos/HaneE-logo2.png";
 import { Category } from "../types";
@@ -113,9 +114,17 @@ const LayoutNav = () => {
       <ol className="mx-auto flex h-full max-w-[1700px] items-center justify-evenly gap-5 xs:gap-2">
         <div className="flex  grow items-center justify-start gap-10 md:gap-5 sm:gap-2">
           <li className="flex items-center mx-4 w-auto xs:mx-0 xs:ml-2 xs:w-12 ">
-            <HomeIcon
+            {/* <HomeIcon
               path="../public/icons/home.svg"
               className="transiton-transform h-9 w-auto "
+            /> */}
+            <Image
+              src="/logos/CKT-logo-230920.avif"
+              alt="CKE"
+              className="transiton-transform max-h-12 w-auto "
+              sizes="100vw"
+              width={0}
+              height={0}
             />
             <Link href="/">
               <Image
