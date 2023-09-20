@@ -586,15 +586,15 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
           >
             {prevData ? "돌아가기" : "초기화"}
           </Button>
-          <Button
-            onClick={() => {
-              if (prevData) revalidate(prevData.id);
-            }}
-          >
-            Revalidate
-          </Button>
         </div>
       </form>
+      <Button
+        onClick={() => {
+          if (prevData) revalidate(prevData.id);
+        }}
+      >
+        Revalidate
+      </Button>
       <Loading show={isLoading} fullScreen={true} />
     </React.Fragment>
   );
