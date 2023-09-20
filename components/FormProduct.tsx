@@ -23,6 +23,7 @@ import useProduct from "../hooks/useProduct";
 import Loading from "./AnimtaionLoading";
 import { useRouter } from "next/router";
 import filterData from "../public/json/filterData.json";
+import axios from "axios";
 
 interface Props {
   prevData?: ProductType;
@@ -574,7 +575,9 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
           <Button
             onClick={
               prevData
-                ? () => {}
+                ? () => {
+                    revalidate(prevData.id);
+                  }
                 : (e) => {
                     e.preventDefault();
                     reset();
@@ -590,6 +593,20 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       <Loading show={isLoading} fullScreen={true} />
     </React.Fragment>
   );
+};
+
+const revalidate = async (id: string) => {
+  await axios.request({
+    method: "POST",
+    url:
+      process.env.NEXT_PUBLIC_ABSOLUTE_URL +
+      "/api/revalidate?secret=" +
+      process.env.NEXT_PUBLIC_REVALIDATE_TOKEN,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { target: "product", id },
+  });
 };
 
 export default FormProduct;
