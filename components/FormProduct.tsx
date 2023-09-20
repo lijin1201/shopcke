@@ -575,9 +575,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
           <Button
             onClick={
               prevData
-                ? () => {
-                    revalidate(prevData.id);
-                  }
+                ? () => {}
                 : (e) => {
                     e.preventDefault();
                     reset();
@@ -587,6 +585,13 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             tailwindStyles="bg-zinc-100 text-zinc-500 hover:bg-zinc-50 hover:text-zinc-300"
           >
             {prevData ? "돌아가기" : "초기화"}
+          </Button>
+          <Button
+            onClick={() => {
+              if (prevData) revalidate(prevData.id);
+            }}
+          >
+            Revalidate
           </Button>
         </div>
       </form>
