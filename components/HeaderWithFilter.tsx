@@ -332,7 +332,7 @@ const HeaderWithFilter: React.FC<Props> = ({
                 >
                   <option value="all">{/* 전체 */}All</option>
                   {/* <option value="clothes">의류Clothes</option> */}
-                  <option value="headphone">{/* 헤드폰 */}Headphone</option>
+                  <option value="kitchenware">{/* 헤드폰 */}Kitchenware</option>
                   <option value="battery">Battery</option>
                   {/* <option value="accessory">악세서리</option>
                   <option value="shoes">신발</option>
