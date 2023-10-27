@@ -20,6 +20,7 @@ export default async function Handler(
     const captureData = await paypal.capturePayment(orderID);
     res.json({ success: true, captureData });
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 }
