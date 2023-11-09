@@ -129,8 +129,9 @@ const CartItemList: React.FC<Props> = ({
               {product && (
                 <span>
                   {(
-                    Object.values(cart[id]).reduce((acc, cur) => acc + cur, 0) *
-                    product.price
+                    Object.values(cart[id])
+                      .map((item) => Number(item))
+                      .reduce((acc, cur) => acc + cur, 0) * product.price
                   ).toLocaleString("en-US", {
                     style: "currency",
                     currency: "USD",

@@ -15,7 +15,7 @@ import useIsAdmin from "../../../hooks/useIsAdmin";
 import useLineBreaker from "../../../hooks/useLineBreaker";
 import useProduct from "../../../hooks/useProduct";
 import categoryData from "../../../public/json/categoryData.json";
-import { CategoryDataType, ProductType } from "../../../types";
+import { CategoryDataType, ProductType, ImageType } from "../../../types";
 
 interface serverSideProductType extends ProductType {
   isError?: boolean;
@@ -83,6 +83,10 @@ const Product = (productData: serverSideProductType) => {
   const handleThumbnailHover = (index: number) => {
     setHoveredThumbnail(index);
   };
+  const [hoveredMap, setHoveredMap] = useState("");
+
+  //const handleMapHover = (index:string) =>{setHoveredMap(index)}}
+  // select between optionsThumb and optionsImgMap
 
   return (
     <main className="page-container">
@@ -133,7 +137,10 @@ const Product = (productData: serverSideProductType) => {
                     height={0}
                     //className="object-contain"
                     className={` w-full h-auto transition-opacity duration-300 ${
-                      hoveredThumbnail === -1 ? "opacity-100" : "opacity-0"
+                      // hoveredThumbnail === -1 ? "opacity-100" : "opacity-0"
+                      hoveredMap === "" || hoveredMap === "all"
+                        ? "opacity-100"
+                        : "opacity-0"
                     }`}
                     // priority
                   />
@@ -155,24 +162,43 @@ const Product = (productData: serverSideProductType) => {
                           // }`}
                           // className="m-auto object-contain"
                           className={`w-full h-auto transition-opacity duration-300 ${
+                            // hoveredThumbnail === i ? "opacity-100" : "opacity-0"
                             hoveredThumbnail === i ? "opacity-100" : "opacity-0"
                           }`}
                         />
                       </div>
                     )
-                  // <img
-                  //   key={i}
-                  //   src={img.src}
-                  //   alt={`Options Thumbnail ${i}`}
-                  //   //  className="object-contain hover:opacity-75  w-3/12 h-60"
-                  // />
                 )}
+                {productData.optionsImgMap &&
+                  Object.entries(productData.optionsImgMap).map(
+                    ([key, value], i) => (
+                      // eslint-disable-next-line @next/next/no-img-element
+
+                      <div
+                        className="row-span-full  col-start-1 self-start "
+                        key={key}
+                      >
+                        <img
+                          src={(value as ImageType).src}
+                          //alt={`Options Thumbnail ${i}`}
+                          alt={key}
+                          ///  className="top-12  hover:opacity-75"
+                          className={`w-full h-auto transition-opacity duration-300 ${
+                            hoveredMap === key ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                      </div>
+                    )
+                  )}
               </div>
 
               <div className="grid grid-cols-5 gap-1">
                 <div
                   key={-1}
-                  onMouseEnter={() => handleThumbnailHover(-1)}
+                  onMouseEnter={() => {
+                    handleThumbnailHover(-1);
+                    setHoveredMap("");
+                  }}
                   // onMouseLeave={() => handleThumbnailHover(null)}
                 >
                   <img
@@ -203,6 +229,27 @@ const Product = (productData: serverSideProductType) => {
                           />
                         </div>
                       )
+                  )}
+
+                {productData.optionsImgMap &&
+                  Object.entries(productData.optionsImgMap).map(
+                    ([key, value], i) => (
+                      // eslint-disable-next-line @next/next/no-img-element
+
+                      <div
+                        className={` ${i === 0 && "col-start-1"}`}
+                        key={key}
+                        onMouseEnter={() => setHoveredMap(key)}
+                      >
+                        <img
+                          src={(value as ImageType).src}
+                          //alt={`Options Thumbnail ${i}`}
+                          alt={key}
+                          ///  className="top-12  hover:opacity-75"
+                          className="w-full h-auto object-cover hover:opacity-75"
+                        />
+                      </div>
+                    )
                   )}
               </div>
 
@@ -259,6 +306,7 @@ const Product = (productData: serverSideProductType) => {
                 product={productData}
                 hoveredThumbnail={hoveredThumbnail}
                 setHoveredThumbnail={setHoveredThumbnail}
+                setHoveredMap={setHoveredMap}
               />
               {isAdmin && (
                 <div className="flex flex-col gap-2 rounded-lg border p-2 text-center">

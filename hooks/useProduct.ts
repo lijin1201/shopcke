@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+// import { FirebaseError } from "@firebase/util";
 import {
   getDownloadURL,
   ref,
@@ -7,7 +8,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { db, storage } from "../fb";
-import { ImageType, ProductType } from "../types";
+import { ImageType, ProductType, OptionImgType } from "../types";
 import axios from "axios";
 
 const useProduct = () => {
@@ -66,6 +67,9 @@ const setProduct = async ({
     thumbnail: FileList | null;
     detailImgs: FileList | null;
     optionsImage: FileList | null;
+    optionImgMap: {
+      [key: string]: FileList | ImageType;
+    } | null;
   };
   isEdit?: boolean;
 }) => {
@@ -133,6 +137,28 @@ const setProduct = async ({
     }
   }
 
+  if (files.optionImgMap) {
+    for (const optionImg of Object.entries(files.optionImgMap)) {
+      const [option, img] = optionImg;
+      if (!option) return;
+      if (img instanceof FileList) {
+        //upload here:
+        const imgStorageRef = ref(
+          storage,
+          `products/${product.id}/${img[0].name}`
+        );
+        await uploadBytes(imgStorageRef, img[0]);
+
+        finalProduct.optionsImgMap[option] = {
+          src: await getDownloadURL(imgStorageRef),
+          id: img[0].name,
+        };
+      } else if ("id" in img) {
+        finalProduct.optionsImgMap[option] = img;
+      }
+    }
+  }
+
   if (!isEdit) {
     // 업로드
     await setDoc(doc(db, "products", product.id), finalProduct).then(() =>
@@ -187,6 +213,25 @@ const deleteOptionThumbFn = async ({
     );
   }
 };
+
+//check if existing of file in storage
+export async function checkIfFileExists(
+  product: ProductType,
+  name: string
+): Promise<ImageType> {
+  const storageRef = ref(storage, `products/${product.id}/${name}`);
+
+  try {
+    const src = await getDownloadURL(storageRef);
+    return { src, id: name };
+  } catch (error: any) {
+    if (error.code === "storage/object-not-found") {
+      return { src: "", id: "" };
+    } else {
+      throw error;
+    }
+  }
+}
 
 /**
  * 정적 페이지 업데이트,

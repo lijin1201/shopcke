@@ -4,10 +4,10 @@
     { "value": "female", "text": "여성" }
   ],
   "size": [
-    { "value": "blue", "text": "BLUE" },
-    { "value": "pink", "text": "PINK" },
-    { "value": "black", "text": "BLACK" },
-    { "value": "white", "text": "WHITE" },
+    { "value": "blue", "text": "BLUE", "displayColor": "blue" },
+    { "value": "pink", "text": "PINK", "displayColor": "pink" },
+    { "value": "black", "text": "BLACK", "displayColor": "black" },
+    { "value": "white", "text": "WHITE", "displayColor": "white" },
     { "value": "other", "text": "OTHER" }
   ],
   "color": [

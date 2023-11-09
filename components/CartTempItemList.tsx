@@ -100,7 +100,7 @@ const CartTempItemList: React.FC<Props> = ({
         >
           <div className="flex gap-10">
             <h5 className="w-10 text-lg font-semibold">
-              {size === "other" ? "기본" : size.toUpperCase()}
+              {size === "all" ? "Count" : size.toUpperCase()}
             </h5>
 
             <div className="flex w-20 justify-between overflow-hidden rounded-md bg-zinc-100 xs:w-16">

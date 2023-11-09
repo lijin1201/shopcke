@@ -30,6 +30,28 @@
         "name": "Earphone",
         "path": "earphone"
       }
+    ],
+    "options": [
+      {
+        "value": "blue",
+        "text": "BLUE"
+      },
+      {
+        "value": "pink",
+        "text": "PINK"
+      },
+      {
+        "value": "black",
+        "text": "BLACK"
+      },
+      {
+        "value": "white",
+        "text": "WHITE"
+      },
+      {
+        "value": "other",
+        "text": "OTHER_N"
+      }
     ]
   },
   "battery": {

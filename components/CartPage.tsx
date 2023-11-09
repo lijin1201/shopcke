@@ -31,7 +31,7 @@ const CartPage: React.FC<Props> = ({ userData }) => {
   useEffect(() => {
     if (!userData?.cart) return;
 
-    setIdList(Object.keys(userData?.cart as StockType));
+    setIdList(Object.keys(userData?.cart));
   }, [userData]);
 
   // 카트 추가/제거 중에도 리스트를 유지하기 위해 상태에 저장

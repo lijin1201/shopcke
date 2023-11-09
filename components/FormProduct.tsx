@@ -11,6 +11,7 @@ import {
   CategoryName,
   ColorType,
   GenderType,
+  ImageType,
   ProductType,
   SizeType,
   StockType,
@@ -19,11 +20,12 @@ import categoryData from "../public/json/categoryData.json";
 import { v4 as uuidv4 } from "uuid";
 import Button from "./Button";
 import useInputImg from "../hooks/useInputImg";
-import useProduct from "../hooks/useProduct";
+import useProduct, { checkIfFileExists } from "../hooks/useProduct";
 import Loading from "./AnimtaionLoading";
 import { useRouter } from "next/router";
 import filterData from "../public/json/filterData.json";
 import axios from "axios";
+import { MouseEvent } from "react";
 
 interface Props {
   prevData?: ProductType;
@@ -32,6 +34,7 @@ interface Props {
 const FormProduct: React.FC<Props> = ({ prevData }) => {
   const { replace } = useRouter();
   const filesInputRefs = useRef<Array<HTMLInputElement>>([]);
+  const optionImgRefs = useRef<Array<HTMLInputElement>>([]);
   const {
     files: thumbnail,
     onFilesChange: onThumbnailChange,
@@ -53,6 +56,7 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     onChange: onCategoryChange,
   } = useInput<CategoryName | "">("");
   const [subCategoryList, setSubCategoryList] = useState<Array<Category>>([]);
+  const [optionList, setOptionList] = useState<Array<any> | undefined>([]);
   const {
     value: subCategory,
     setValue: setSubCategory,
@@ -105,6 +109,14 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     deleteOptionThumb: { mutateAsync: delOptionThumbAsync },
   } = useProduct();
 
+  const {
+    value: optionImgMap,
+    setValue: setOptionImgMap,
+    // onChange: onOptionImgMapChange,
+  } = useInput<{
+    [key: string]: FileList | ImageType;
+  }>({});
+
   // 제품 등록 성공시 초기화
   const reset = () => {
     setCategory("");
@@ -131,7 +143,28 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
 
   // 사이즈 체크박스 생성
   const sizeCheckboxGenerator = () => {
-    return filterData.size.map((cur, i) => {
+    //change filterData to optionList
+    let localFilterS: Array<{
+      value: string;
+      text: string;
+    }>;
+    // if (category === "headphone") {
+    localFilterS = optionList as unknown as Array<{
+      value: string;
+      text: string;
+    }>;
+    // } else {
+    //   localFilterS = filterData.size;
+    // }
+    // if (!localFilterS) // add "value: all; text: ALL" to it's array
+    console.log("localFiterS: " + localFilterS);
+    if (!localFilterS) {
+      return <></>;
+      //localFilterS = Array({ value: "all", text: "ALL" });
+      //setSize((prev: Array<SizeType>) => [...prev, "all" as SizeType]);
+    }
+    // return filterData.size.map((cur, i) => {
+    return localFilterS.map((cur, i) => {
       const onToggleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
         // e.preventDefault();
 
@@ -161,8 +194,149 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
   };
 
   // 사이즈 별 재고량 input 생성
+  const uploadBySizeGenerator = () => {
+    const onOptionImgMapChange = (
+      e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | ImageType,
+      sizei: SizeType
+    ) => {
+      const value =
+        "id" in e
+          ? e
+          : e.target instanceof HTMLSelectElement
+          ? JSON.parse(e.target.value)
+          : e.target.files;
+
+      setOptionImgMap(
+        // @ts-ignored
+        (prev: {
+          [key: string]: FileList | ImageType;
+        }): {
+          [key: string]: FileList | ImageType;
+        } =>
+          ({
+            ...prev,
+            [sizei]: value,
+          } as {
+            [key: string]: FileList | ImageType;
+          })
+      );
+    };
+    return size.map((sizei, i) => {
+      return (
+        <label className="flex items-center gap-2" key={i}>
+          <h4 className="w-14 text-center text-base font-semibold">
+            {sizei.toUpperCase()}
+          </h4>
+
+          <input
+            className="hidden"
+            id={"uploadByOption" + i}
+            ref={(el) => {
+              if (el) filesInputRefs.current[3 + i] = el;
+            }}
+            type="file"
+            onChange={(e) => {
+              e.preventDefault();
+              onOptionImgMapChange(e, sizei);
+            }}
+            required={!prevData}
+            accept="image/*"
+          />
+          <label htmlFor={"uploadByOption" + i}>
+            {" "}
+            <i className="fa fa-cloud-upload"></i>Choose file
+          </label>
+          <h4>{filesInputRefs.current[3 + i]?.value as string}</h4>
+          <h4>{JSON.stringify(optionImgMap[sizei])}</h4>
+          {/* <h4>
+            {optionImgMap[sizei] &&
+              "id" in optionImgMap[sizei] &&
+              (optionImgMap[sizei] as ImageType).src}
+          </h4> */}
+
+          {/* check existing in storage */}
+          <input
+            ref={(el) => {
+              if (el) {
+                optionImgRefs.current[i] = el;
+              }
+            }}
+            type="text"
+            //value=""f
+            // onChange={async (e) => {
+            //   e.preventDefault();
+            //   prevData &&
+            //     onOptionImgMapChange(
+            //       await checkIfFileExists(prevData, e.target.value),
+            //       sizei
+            //     );
+            // }}
+            placeholder={
+              (prevData?.optionsImgMap &&
+                prevData?.optionsImgMap[sizei] &&
+                "id" in prevData.optionsImgMap[sizei] &&
+                (prevData.optionsImgMap[sizei] as ImageType).id) as string
+            }
+            style={{
+              borderBottom: "1px solid #1f2937",
+            }}
+            className="px-2 py-1"
+          />
+
+          <button
+            onClick={async (e) => {
+              e.preventDefault();
+              const img =
+                prevData &&
+                (await checkIfFileExists(
+                  prevData,
+                  optionImgRefs.current[i].value
+                ));
+              if (img?.id) {
+                onOptionImgMapChange(img, sizei);
+                optionImgRefs.current[i].style.backgroundColor = "lightgreen";
+              } else {
+                optionImgRefs.current[i].style.backgroundColor = "red";
+              }
+            }}
+          >
+            Set
+          </button>
+
+          <select
+            onChange={(e) => onOptionImgMapChange(e, sizei)}
+            style={{
+              borderBottom: "1px solid #1f2937",
+            }}
+            className="px-2 py-1"
+            value=""
+            // required
+          >
+            <option value="" disabled>
+              Select existing file
+            </option>
+            {prevData?.optionsThumb &&
+              prevData?.optionsThumb.map((optThumb, i) => (
+                <option key={i} value={JSON.stringify(optThumb)}>
+                  {optThumb.id}
+                </option>
+              ))}
+            {/* {Object.entries(categoryData).map(
+              (category, i) =>
+                category[0] !== "all" && (
+                  <option key={i} value={category[0]}>
+                    {category[1].name}
+                  </option>
+                )
+            )} */}
+          </select>
+        </label>
+      );
+    });
+  };
+
   const stockBySizeGenerator = () => {
-    return size.map((size, i) => {
+    return size.map((sizei, i) => {
       const onStockChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
@@ -171,26 +345,62 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
           (prev: StockType): StockType =>
             ({
               ...prev,
-              [size]: value === "0" ? 0 : value === "" ? "" : parseInt(value),
+              [sizei]: value === "0" ? 0 : value === "" ? "" : parseInt(value),
             } as StockType)
         );
       };
 
+      const removeStock = (e: MouseEvent<HTMLButtonElement>, name: string) => {
+        e.preventDefault();
+        // if (Object.keys(stock).length == 1) {
+        if (size.length == 1) {
+          setSize(["all"]);
+          setStock(
+            // @ts-ignored
+            (prev: StockType): StockType =>
+              Object.assign(
+                {},
+                ...Object.keys(prev).map((key) => ({ ["all"]: prev[key] }))
+              )
+          );
+        } else {
+          setStock(
+            // @ts-ignored
+            (prev: StockType): StockType =>
+              Object.fromEntries(
+                Object.entries(prev).filter(([key]) => key !== name)
+              )
+          );
+          // @ts-ignore
+          setSize((prev: Array<SizeType>) =>
+            prev.filter((size) => size !== (name as SizeType))
+          );
+        }
+      };
+
       return (
         <label className="flex items-center gap-2" key={i}>
-          <h4 className="w-14 text-center text-base font-semibold">
-            {size.toUpperCase()}
-          </h4>
-          <input
-            type="number"
-            value={stock[size]}
-            min={0}
-            onChange={onStockChange}
-            style={{
-              borderBottom: "1px solid #1f2937",
-            }}
-            className="px-2 py-1"
-          />
+          <>
+            <h4 className="w-14 text-center text-base font-semibold">
+              {sizei.toUpperCase()}
+            </h4>
+            {console.log(stock)}
+            {!optionList?.some((option) => option.value === sizei) &&
+              !(sizei === "all") &&
+              size.length === 1 && (
+                <Button onClick={(e) => removeStock(e, sizei)}>Remove</Button>
+              )}
+            <input
+              type="number"
+              value={stock[sizei]}
+              min={0}
+              onChange={onStockChange}
+              style={{
+                borderBottom: "1px solid #1f2937",
+              }}
+              className="px-2 py-1"
+            />
+          </>
         </label>
       );
     });
@@ -253,8 +463,9 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
       detailImgs: prevData ? prevData.detailImgs : [{ src: "", id: "" }],
       gender,
       id: prevData ? prevData.id : uuidv4(),
-      thumbnail: prevData ? prevData.thumbnail : { src: "", id: "" },
-      optionsThumb: [],
+      thumbnail: prevData?.thumbnail ? prevData.thumbnail : { src: "", id: "" },
+      optionsThumb: prevData?.optionsThumb ? prevData.optionsThumb : [],
+      optionsImgMap: prevData?.optionsImgMap ? prevData.optionsImgMap : {},
       name,
       orderCount: prevData ? prevData.orderCount : 0,
       price: price as number,
@@ -270,7 +481,12 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
     if (product)
       mutateAsync({
         product,
-        files: { thumbnail, detailImgs, optionsImage: optionsThumb },
+        files: {
+          thumbnail,
+          detailImgs,
+          optionsImage: optionsThumb,
+          optionImgMap,
+        },
         isEdit: !!prevData,
       })
         .then(() => {
@@ -331,14 +547,19 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
 
     setSubCategoryList(newList);
     setSubCategory(newList[0]?.path);
+    setOptionList((categoryData[category as CategoryName] as Category).options);
+    if (!optionList) {
+    }
   }, [category, prevData, setSubCategory]);
 
   // 총 재고수
   useEffect(() => {
     setTotalStock(
-      Object.values(stock).reduce((acc, cur, i) => {
-        return typeof cur !== "number" || cur < 1 ? acc : acc + cur;
-      }, 0)
+      Object.values(stock)
+        .map((item) => Number(item))
+        .reduce((acc, cur, i) => {
+          return typeof cur !== "number" || cur < 1 ? acc : acc + cur;
+        }, 0)
     );
   }, [stock]);
 
@@ -527,6 +748,16 @@ const FormProduct: React.FC<Props> = ({ prevData }) => {
             >
               Delete
             </Button>
+            <p>
+              {prevData?.optionsThumb && JSON.stringify(prevData.optionsThumb)}
+            </p>
+          </label>
+          <label className="w-fit">
+            <h3 mb-2 text-2xl font-semibold>
+              {" "}
+              Test options
+            </h3>
+            {uploadBySizeGenerator()}
           </label>
           <label className="w-fit">
             <h3 className="mb-2 text-2xl font-semibold">상세 사진</h3>

@@ -6,6 +6,7 @@ import {
   useState,
   Dispatch,
   SetStateAction,
+  useRef,
 } from "react";
 import useToggleBookmark from "../hooks/useToggleBookmark";
 import useToggleCart from "../hooks/useToggleCart";
@@ -25,12 +26,14 @@ interface Props {
   product: ProductType;
   hoveredThumbnail: number;
   setHoveredThumbnail: Dispatch<SetStateAction<number>>;
+  setHoveredMap: Dispatch<SetStateAction<string>>;
 }
 
 const CartTemp: React.FC<Props> = ({
   product,
   hoveredThumbnail,
   setHoveredThumbnail,
+  setHoveredMap,
 }) => {
   const { push } = useRouter();
   const checkTempCartStock = useCheckTempCartStock();
@@ -40,6 +43,16 @@ const CartTemp: React.FC<Props> = ({
   const { addCart, isInCart } = useToggleCart(product.id);
   const { toggleBookmark, isInBookmark } = useToggleBookmark(product.id);
 
+  const selectRef = useRef<HTMLSelectElement>(null);
+
+  const triggerSelectEvent = (val: string) => {
+    if (selectRef.current) {
+      selectRef.current.value = val; // Programmatically set the value to 'option2'
+      const event = new Event("change", { bubbles: true });
+      selectRef.current.dispatchEvent(event);
+    }
+  };
+  //todo: sizeOrder to actual size in product
   // 사이즈 정렬 기준
   const sizeOrder = {
     blue: 0,
@@ -50,6 +63,7 @@ const CartTemp: React.FC<Props> = ({
     // xxl: 5,
     // xxxl: 6,
     other: 7,
+    all: 8,
   };
   // 사이즈 드롭다운 옵션 생성하기
   const sizeOptionGenerator = (product: ProductType) => {
@@ -84,6 +98,7 @@ const CartTemp: React.FC<Props> = ({
 
     const size = e.target.value as SizeType;
     setHoveredThumbnail(sizeOrder[size]);
+    setHoveredMap(size);
 
     if (!tempCart.hasOwnProperty(size))
       setTempCart((prev) => ({ ...prev, [size]: 1 }));
@@ -135,11 +150,24 @@ const CartTemp: React.FC<Props> = ({
     if (cart.hasOwnProperty(product.id)) {
       setTempCart(cart[product.id]);
     }
+    var ev2 = new Event("select");
   }, [product.id, userData]);
+
+  useEffect(() => {
+    if (Object.keys(product.stock).length <= 1)
+      triggerSelectEvent(
+        Object.keys(product.stock).find((x) => x !== undefined) as string
+      );
+  });
 
   return (
     <form className="mt-auto flex flex-col gap-3 pt-5">
+      {/* //check if only one option */}
+      {/* triggerSelectEvent(Object.keys(product.stock).find(x=>x!==undefined);) */}
+
       <select
+        ref={selectRef}
+        hidden={Object.keys(product.stock).length <= 1}
         className="mx-auto h-12 w-[100%] cursor-pointer break-keep rounded-md bg-zinc-200 px-4 py-2 text-center text-lg font-semibold text-zinc-600 transition-all hover:bg-zinc-100"
         onChange={onSelectSize}
         value="size"

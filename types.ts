@@ -115,6 +115,7 @@ export interface ProductType {
   subCategory: string;
   thumbnail: ImageType;
   optionsThumb: Array<ImageType>;
+  optionsImgMap: OptionImgType;
   detailImgs: Array<ImageType>;
   date: number;
   //option: OptionType;
@@ -165,18 +166,19 @@ export interface OrderFilterType {
 export type FilterNameType = "gender" | "size" | "color";
 
 export interface StockType {
-  blue?: number | "";
-  pink?: number | "";
-  black?: number | "";
-  white?: number | "";
-  // xl?: number | "";
-  // xxl?: number | "";
-  // xxxl?: number | "";
-  other?: number | "";
+  // blue?: number | "";
+  // pink?: number | "";
+  // black?: number | "";
+  // white?: number | "";
+  // // xl?: number | "";
+  // // xxl?: number | "";
+  // // xxxl?: number | "";
+  // other?: number | "";
+  [key: string]: number | "";
 }
 
 export type GenderType = "male" | "female" | "all";
-export type SizeType = "blue" | "pink" | "black" | "white" | "other";
+export type SizeType = "blue" | "pink" | "black" | "white" | "other" | "all";
 export type ColorType =
   | "black"
   | "white"
@@ -209,6 +211,7 @@ export interface Category {
   name: CategoryName;
   path: string;
   subCategories?: Array<Category>;
+  options?: Array<any>;
 }
 
 export interface CategoryDataType {
@@ -222,7 +225,11 @@ export type CategoryName =
   | "battery"
   | "health food";
 
-export interface ImageType {
+export type ImageType = {
   src: string;
   id: string;
+};
+
+export interface OptionImgType {
+  [key: string]: FileList | ImageType;
 }

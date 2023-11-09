@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "devhttps": "node server.js",
     "build": "next build",
     "start": "next start",
@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.7",
+    "cross-env": "^7.0.3",
     "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.3"
   },

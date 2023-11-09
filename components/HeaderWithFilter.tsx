@@ -156,14 +156,15 @@ const HeaderWithFilter: React.FC<Props> = ({
                   : checkedFilter[name] === data.value
               }
             />
-            {name === "color" && (
-              <span
-                style={{ backgroundColor: data.displayColor }}
-                className={`h-3 w-3 rounded-full ${
-                  data.value === "white" && "border"
-                }`}
-              />
-            )}
+            {/* {name === "color" && ( */}
+
+            <span
+              style={{ backgroundColor: data.displayColor }}
+              className={`h-3 w-3 rounded-full ${
+                data.value === "white" && "border"
+              }`}
+            />
+
             {data.text}
           </label>
         </li>
@@ -385,12 +386,12 @@ const HeaderWithFilter: React.FC<Props> = ({
       )}
       {(!appliedFilter.keywords || appliedFilter.keywords.length === 0) && (
         <section
-          className={`h-0 w-full overflow-hidden font-semibold text-zinc-500 transition-all duration-500 ${
-            filterOpen ? "h-[460px] border-t p-5" : "mb-0 h-0"
-          }`}
+          className={` ${
+            filterOpen ? "max-h-[999px] border-t p-5" : "mb-0 max-h-0"
+          } w-full overflow-hidden font-semibold text-zinc-500 transition-all duration-500`}
         >
           <section className="flex justify-evenly">
-            <div>
+            {/* <div>
               <h4 className="mb-3 text-lg text-zinc-800">성별</h4>
               <ul className="flex flex-col gap-2">
                 {checkboxGenerator(
@@ -398,7 +399,7 @@ const HeaderWithFilter: React.FC<Props> = ({
                   "gender"
                 )}
               </ul>
-            </div>
+            </div> */}
             <div>
               <h4 className="mb-3 text-lg text-zinc-800">사이즈</h4>
               <ul className="flex flex-col gap-2">
@@ -408,7 +409,7 @@ const HeaderWithFilter: React.FC<Props> = ({
                 )}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h4 className="mb-3 text-lg text-zinc-800">색상</h4>
               <ul className="flex flex-col gap-2">
                 {checkboxGenerator(
@@ -416,7 +417,7 @@ const HeaderWithFilter: React.FC<Props> = ({
                   "color"
                 )}
               </ul>
-            </div>
+            </div> */}
           </section>
           <section className="flex justify-end gap-2 px-5 pt-10">
             <Button onClick={onFilterApply} theme="black">
