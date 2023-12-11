@@ -3,28 +3,29 @@ import categoryData from "../public/json/categoryData.json";
 
 const LayoutFooter = () => {
   return (
-    <footer className="relative mx-auto flex h-fit min-w-[360px] flex-col items-center justify-center gap-y-5 bg-zinc-50 py-12 text-zinc-500">
+    // <footer className="relative mx-auto h-fit min-w-[360px] items-center justify-center gap-y-5 bg-zinc-50 py-12 text-gray-500">
+    <footer className="bg-zinc-50 py-12  ">
       <ul className="flex w-full max-w-[1700px] flex-wrap justify-start gap-12 p-5 pt-0">
         <li>
           <h3 className="mb-5 font-bold">Product Tour</h3>
           <ul className="flex flex-col gap-2">
-            <li className="transition-all hover:font-semibold hover:text-zinc-800">
+            <li className="transition-all hover:font-semibold">
               <Link href="/collections">Featured</Link>
             </li>
-            {Object.values(categoryData).map((category, i) => (
-              <li
-                key={i}
-                className="transition-all hover:font-semibold hover:text-zinc-800"
-              >
-                <Link
-                  href={`/products/categories/${category.path}${
-                    category.path !== "all" && "/all"
-                  }`}
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
+            {Object.values(categoryData).map(
+              (category, i) =>
+                category.path != "test" && (
+                  <li key={i} className="transition-all hover:font-semibold">
+                    <Link
+                      href={`/products/categories/${category.path}${
+                        category.path !== "all" ? "/all" : ""
+                      }`}
+                    >
+                      {category.name}
+                    </Link>
+                  </li>
+                )
+            )}
           </ul>
         </li>
         <li>

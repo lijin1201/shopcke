@@ -113,7 +113,8 @@ const LayoutToolbar = () => {
           <Image src={adminIcon} alt="Admin" />
         </Button>
       )}
-      <Alert show={showAlert} text="링크가 복사되었습니다." />
+      <Alert show={showAlert} text="Link copied." />
+      {/* "링크가 복사되었습니다." */}
     </div>
   );
 };

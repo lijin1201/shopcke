@@ -61,31 +61,31 @@
     "iconClass": "fill-orange-700",
     "subCategories": [
       {
-        "name": "보조배터리",
+        "name": "Auxiliary Battery",
         "path": "auxiliary"
       },
       {
-        "name": "리튬 이온",
+        "name": "Lithium Ion",
         "path": "lithium ion"
       }
     ]
   },
   "health food": {
-    "//name": "건강식품",
+    "//name": "건강식품, 찻잎,음료수,기능식품 ",
     "name": "Health Food",
     "path": "health food",
     "iconClass": "fill-green-700",
     "subCategories": [
       {
-        "name": "찻잎",
+        "name": "Tea Leaves",
         "path": "tea leaves"
       },
       {
-        "name": "음료수",
+        "name": "Drink",
         "path": "drink"
       },
       {
-        "name": "기능식품",
+        "name": "Functional Food",
         "path": "functional food"
       }
     ]
