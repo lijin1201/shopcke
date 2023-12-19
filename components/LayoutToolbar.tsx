@@ -46,7 +46,7 @@ const LayoutToolbar = () => {
 
     const windowScrollHandler = _.throttle(() => {
       const { scrollY, innerHeight } = window;
-      setShowToTop(scrollY >= innerHeight);
+      setShowToTop(scrollY >= innerHeight * 0.9);
     }, 300);
 
     window.addEventListener("scroll", windowScrollHandler);
@@ -57,10 +57,10 @@ const LayoutToolbar = () => {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed right-5 bottom-5 z-50 flex flex-col gap-2">
+    <div className="pointer-events-none fixed right-5  bottom-1/3 z-50 flex flex-col gap-2">
       <Button
         onClick={toTop}
-        tailwindStyles={`aspect-square pointer-events-none w-12 scale-0 px-0 py-0 rounded-full transtition origin-center ${
+        tailwindStyles={`aspect-square pointer-events-none w-12 scale-0 px-0 py-0 rounded-full transition origin-center ${
           showToTop && "scale-100 pointer-events-auto"
         }`}
       >
@@ -84,7 +84,28 @@ const LayoutToolbar = () => {
         onClick={share}
         tailwindStyles="aspect-square w-12 px-0 py-0 rounded-full pointer-events-auto"
       >
+        {/* https://tabler.io/icons */}
         <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-11 mx-auto "
+          // className="icon icon-tabler icon-tabler-share"
+          // width="24"
+          // height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+          <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+          <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+          <path d="M8.7 10.7l6.6 -3.4" />
+          <path d="M8.7 13.3l6.6 3.4" />
+        </svg>
+        {/* <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
           className="my-auto w-[30px] fill-zinc-500 stroke-zinc-500 transition-transform duration-500 group-hover:translate-x-[5px]"
@@ -103,7 +124,7 @@ const LayoutToolbar = () => {
             <line x1="112.5" y1="112.5" x2="399.5" y2="256" />
             <line x1="112.5" y1="399.5" x2="399.5" y2="256" />
           </g>
-        </svg>
+        </svg> */}
       </Button>
       {isAdmin && (
         <Button
