@@ -24,7 +24,7 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
           />
         </div>
         <hgroup
-          className={`z-1 absolute break-keep transition-all duration-500 group-hover:opacity-80 group-hover:blur ${
+          className={`z-1 absolute break-keep transition-all duration-500 group-hover:opacity-40 group-hover:blur ${
             collection.titlePos[0] === "top"
               ? "top-[10%] bottom-auto"
               : collection.titlePos[0] === "bottom"
@@ -37,7 +37,7 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
               ? "left-auto right-[5%] text-right"
               : "left-0 right-0 text-center"
           }`}
-          style={{ textShadow: "1px 1px 0px #52525b" }}
+          style={{ textShadow: "3px 3px 3px #565954" }}
         >
           <h1 className="mb-2 text-6xl font-bold text-zinc-50 lg:text-5xl md:text-4xl sm:text-3xl">
             {collection.enTitle}
@@ -47,14 +47,6 @@ const CollectionSectionThumbnail: React.FC<Props> = ({ collection }) => {
           </h2>
         </hgroup>
       </Link>
-      <Image
-        src={`/images/${collection.title}-0.jpg`}
-        alt=""
-        className="max-w-[1000px] w-full h-auto mx-auto"
-        sizes="100vw"
-        width={990}
-        height={990}
-      />
     </div>
   );
 };

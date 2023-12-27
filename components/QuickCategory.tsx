@@ -34,6 +34,7 @@ const QuickCategory = () => {
     const Svg = images.find((img) => img.name === path)?.svg;
     return Svg ? <Svg {...rest} /> : <span>{path}</span>;
   };
+
   return (
     <section>
       <HeaderHomeSection
@@ -41,7 +42,7 @@ const QuickCategory = () => {
         text=/* "제품 둘러보기" */ "Browse our products"
       />
       {/* <ul className="mx-auto flex flex-wrap justify-evenly gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 md:grid md:grid-cols-2"> */}
-      <ul className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] auto-rows-auto gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 ">
+      <ul className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] align-baseline auto-rows-auto gap-10 px-12 pb-24 text-lg font-semibold text-amber-900 ">
         {Object.values(categoryData).map((category, i) => {
           if (category.path === "all" || category.path === "test") return null;
           return (
@@ -56,18 +57,16 @@ const QuickCategory = () => {
                   query: { orderby: "popularity" },
                 }}
               >
-                <div className="flex flex-col align-text-top">
-                  <div className="icon relative mb-2 flex aspect-square items-center justify-center overflow-hidden  border-4 border-zinc-200">
-                    <RenderImgByCategory
-                      path={category.path}
-                      className={
-                        "trainsiton-transform h-auto w-[70%] duration-500 group-hover:scale-105 " +
-                        ("iconClass" in category ? category.iconClass : "")
-                      }
-                    />
-                  </div>
-                  <h4>{category.name}</h4>
+                <div className="align-baseline mb-2 flex aspect-square items-center justify-center overflow-hidden  border-4 border-zinc-200">
+                  <RenderImgByCategory
+                    path={category.path}
+                    className={
+                      "trainsiton-transform h-auto w-[70%] duration-500 group-hover:scale-105 " +
+                      ("iconClass" in category ? category.iconClass : "")
+                    }
+                  />
                 </div>
+                <h4 className="h-8">{category.name}</h4>
               </Link>
             </li>
           );

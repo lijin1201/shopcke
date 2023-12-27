@@ -15,7 +15,10 @@ const HeaderHomeSection: React.FC<Props> = ({
     <Link href={href}>
       <h3 className="group relative ml-6 inline-flex items-center py-6 text-3xl font-semibold text-amber-800 md:text-2xl">
         <span className="mr-2">{text}</span>
-        <span className="max-w-0 overflow-hidden whitespace-nowrap text-base font-semibold text-amber-500 opacity-0 transition-all duration-700 group-hover:max-w-full group-hover:opacity-100 xs:hidden">
+        <span
+          className="max-w-0  whitespace-nowrap text-base font-semibold text-amber-500 
+        opacity-0 transition-all duration-700 group-hover:max-w-full group-hover:opacity-100 xs:hidden"
+        >
           {hoverText}
         </span>
         <svg

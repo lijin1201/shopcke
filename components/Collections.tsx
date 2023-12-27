@@ -18,12 +18,6 @@ const Collections = () => {
             </div>
             <CollectionSectionSlide productIdList={[]} />
           </div>
-          <div className="relative flex w-full flex-col gap-24">
-            <div className="relative h-[300px] bg-zinc-100 xl:h-[450px]">
-              <Loading />
-            </div>
-            <CollectionSectionSlide productIdList={[]} />
-          </div>
         </div>
       ) : !isError ? (
         (collections as Array<CollectionType>)?.map((collection, i) => {
