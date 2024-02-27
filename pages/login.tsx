@@ -52,7 +52,9 @@ const Login = () => {
       process.env.NEXT_PUBLIC_ABSOLUTE_URL + `/oauth/kakao/callback`;
     const link =
       `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}` +
-      `&response_type=code&state=${encodeURIComponent(fromPath)}`;
+      `&response_type=code&state=${
+        fromPath ? encodeURIComponent(fromPath) : ""
+      }`;
 
     push(link);
   };
