@@ -12,12 +12,6 @@ import Script from "next/script";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 export default function App({ Component, pageProps }: AppProps) {
-  function kakaoInit() {
-    // 페이지가 로드되면 실행
-    window.Kakao.init("623e3a10104babe908c89a1d41533806");
-    console.log(window.Kakao.isInitialized());
-  }
-
   const [queryClient] = useState(() => new QueryClient());
 
   // 인승 상태 감시
@@ -49,12 +43,6 @@ export default function App({ Component, pageProps }: AppProps) {
         > */}
         <Layout>
           <Component {...pageProps} />
-          <Script
-            src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
-            integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh"
-            crossOrigin="anonymous"
-            onLoad={kakaoInit}
-          ></Script>
         </Layout>
         {/* </PayPalScriptProvider> */}
       </Hydrate>

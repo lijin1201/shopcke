@@ -15,6 +15,7 @@ const Auth = () => {
 
   // Initializing useRouter()
   const router = useRouter();
+
   console.log(router.query);
   const { code, state } = router.query;
   console.log("state1: " + state);
@@ -43,13 +44,21 @@ const Auth = () => {
       );
       console.log(res);
 
-      const res2 = await axios.post(
-        process.env.NEXT_PUBLIC_KAKAO_CLOUD_FIREBASE as string,
+      // const res2 = await axios.post(
+      //   process.env.NEXT_PUBLIC_KAKAO_CLOUD_FIREBASE as string,
+      //   {
+      //     accessToken: res.data.access_token,
+      //     provider: "kakao",
+      //   }
+      // );
+
+      const res2 = await axios.get(
+        (process.env.NEXT_PUBLIC_KAKAO_AUTH as string) + "/firebaseCustomToken",
         {
-          accessToken: res.data.access_token,
-          provider: "kakao",
+          headers: { Authorization: `Bearer ${res.data.access_token}` },
         }
       );
+
       console.log(res2);
       const { firebaseToken } = res2.data;
       setUserId(res2.data.fireUid);
@@ -80,6 +89,7 @@ const Auth = () => {
     //   const data = await getTokenA();
     //   setMatched(data);
     // };
+    if (!router.isReady) return;
     const pathWithoutParameters = router.asPath.split("?")[0];
     if (pathWithoutParameters == "/oauth/kakao/callback") {
       //setMatched("kakao callback:  " + getToken());

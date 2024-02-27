@@ -47,28 +47,14 @@ const Login = () => {
   const onKakaoLoginClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // //const REST_API_KEY = "22fa0f6236a6dbe25973367694ce4acc";
-    // const REST_API_KEY = "623e3a10104babe908c89a1d41533806";
-    const REDIRECT_URI =
-      process.env.NEXT_PUBLIC_ABSOLUTE_URL + "/oauth/kakao/callback";
     const fromPath = query.from as string;
+    const REDIRECT_URI =
+      process.env.NEXT_PUBLIC_ABSOLUTE_URL + `/oauth/kakao/callback`;
+    const link =
+      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}` +
+      `&response_type=code&state=${encodeURIComponent(fromPath)}`;
 
-    if (!window.Kakao.isInitialized()) {
-      // JavaScript key를 인자로 주고 SDK 초기화
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
-
-      // SDK 초기화 여부를 확인하자.
-      console.log(window.Kakao.isInitialized());
-    }
-
-    console.log("fromPath: " + fromPath);
-
-    window.Kakao.Auth.authorize({
-      //redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-      //redirectUri: 'http://localhost:8080/login.html',
-      redirectUri: REDIRECT_URI,
-      state: fromPath ? fromPath : "",
-    });
+    push(link);
   };
 
   return (
@@ -101,7 +87,7 @@ const Login = () => {
               </Button>
 
               {/* <Button theme="gray" onClick={onKakaoLoginClick}> */}
-              <button className="relative">
+              <button className="relative" onClick={onKakaoLoginClick}>
                 <Image
                   className="w-80"
                   src="/logos/kakao_login_large_narrow.png"
