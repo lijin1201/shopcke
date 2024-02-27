@@ -47,7 +47,8 @@ const getUsers = async (
   const resUser = await axios.post(
     // process.env.NEXT_PUBLIC_KAKAO_CLOUD_FIREBASE as string,
     // "http://127.0.0.1:5001/hana262/us-central1/userList",
-    "https://userList-" + process.env.NEXT_PUBLIC_FIREBASE_FUNCTION_URI,
+    // "https://userList-" + process.env.NEXT_PUBLIC_FIREBASE_FUNCTION_URI,
+    process.env.NEXT_PUBLIC_FIREBASE_AUTH + "/listUsers",
     {},
     {
       headers: {
