@@ -124,13 +124,16 @@ const deleteAccountFn = async (uid: string | undefined) => {
 
   const docRef = doc(db, "users", uid);
 
-  await auth.currentUser?.delete().catch((error) => {
-    console.error(error);
-  });
-
   await deleteDoc(docRef).catch((error) => {
     console.error(error);
   });
+
+  await auth.currentUser
+    ?.delete()
+    .catch((error) => {
+      console.error(error);
+    })
+    .then(() => logoutFn());
 };
 
 const logoutFn = async () => {
@@ -247,7 +250,18 @@ const editAddrArrFn = async ({
   })
     .then(() => true)
     .catch((error) => {
-      console.error(error);
-      return false;
+      switch (error.code) {
+        // 필드가 없을 경우 새로 추가
+        case "not-found":
+          setDoc(docRef, {
+            addressArr: isRemove
+              ? arrayRemove(addressData)
+              : arrayUnion(addressData),
+          });
+          break;
+        default:
+          console.error(error);
+          return false;
+      }
     });
 };

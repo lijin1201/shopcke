@@ -8,8 +8,12 @@ import { signInWithCustomToken } from "firebase/auth";
 import { auth as firebaseAuth } from "../../fb";
 import useGetUserData from "../../hooks/useGetUserData";
 import { useMutation, useQueryClient } from "react-query";
+import useAccount from "../../hooks/useAccount";
 
 const Auth = () => {
+  const {
+    editProfile: { mutate: editProfile },
+  } = useAccount();
   const REDIRECT_URI =
     process.env.NEXT_PUBLIC_ABSOLUTE_URL + "/oauth/kakao/callback";
 
@@ -67,6 +71,15 @@ const Auth = () => {
       await signInWithCustomToken(firebaseAuth, firebaseToken).then(
         (userCredential) => {
           console.log(userCredential);
+
+          try {
+            editProfile({ name: res2.data.displayName });
+            window.alert("계정 등록이 완료되었습니다.");
+
+            // replace("/");
+          } catch (error) {
+            console.error(error);
+          }
           return userCredential.user;
         }
       );
